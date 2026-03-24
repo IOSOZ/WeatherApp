@@ -1,0 +1,692 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6C509AF72F7052820080FDBE /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509ABE2F7052820080FDBE /* AppCoordinator.swift */; };
+		6C509AF82F7052820080FDBE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509ABF2F7052820080FDBE /* AppDelegate.swift */; };
+		6C509AF92F7052820080FDBE /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509AC02F7052820080FDBE /* AppDIContainer.swift */; };
+		6C509AFA2F7052820080FDBE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509AC12F7052820080FDBE /* SceneDelegate.swift */; };
+		6C509AFB2F7052820080FDBE /* UILabelHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509AC22F7052820080FDBE /* UILabelHelper.swift */; };
+		6C509B042F7052820080FDBE /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509ACD2F7052820080FDBE /* AuthCoordinator.swift */; };
+		6C509B0E2F7052820080FDBE /* RegistationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509ADE2F7052820080FDBE /* RegistationCoordinator.swift */; };
+		6C509B0F2F7052820080FDBE /* LoginViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509AE02F7052820080FDBE /* LoginViewController2.swift */; };
+		6C509B102F7052820080FDBE /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509AE12F7052820080FDBE /* LoginViewModel.swift */; };
+		6C509B112F7052820080FDBE /* AuthFlowDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509AE42F7052820080FDBE /* AuthFlowDIContainer.swift */; };
+		6C509B122F7052820080FDBE /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509AE62F7052820080FDBE /* CoordinatorProtocol.swift */; };
+		6C509B3D2F707BA00080FDBE /* FaceIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B3A2F707BA00080FDBE /* FaceIDViewController.swift */; };
+		6C509B3E2F707BA00080FDBE /* FaceIDViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B3B2F707BA00080FDBE /* FaceIDViewModel.swift */; };
+		6C509B532F707BAA0080FDBE /* PinCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B502F707BAA0080FDBE /* PinCodeViewController.swift */; };
+		6C509B542F707BAA0080FDBE /* PinCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B512F707BAA0080FDBE /* PinCodeViewModel.swift */; };
+		6C509B582F707BAA0080FDBE /* RegisterLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B552F707BAA0080FDBE /* RegisterLoginViewController.swift */; };
+		6C509B592F707BAA0080FDBE /* RegisterLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B562F707BAA0080FDBE /* RegisterLoginViewModel.swift */; };
+		6C509B5D2F707BAB0080FDBE /* RegisterPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B5A2F707BAB0080FDBE /* RegisterPasswordViewController.swift */; };
+		6C509B5E2F707BAB0080FDBE /* RegisterPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B5B2F707BAB0080FDBE /* RegisterPasswordViewModel.swift */; };
+		6C509B792F707BD60080FDBE /* FaceIDAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B702F707BD60080FDBE /* FaceIDAlertController.swift */; };
+		6C509B7A2F707BD60080FDBE /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B712F707BD60080FDBE /* LoginTextField.swift */; };
+		6C509B7B2F707BD60080FDBE /* PasswordChekLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B722F707BD60080FDBE /* PasswordChekLabel.swift */; };
+		6C509B7C2F707BD60080FDBE /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B732F707BD60080FDBE /* PasswordTextField.swift */; };
+		6C509B7D2F707BD60080FDBE /* PinDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B742F707BD60080FDBE /* PinDeleteButton.swift */; };
+		6C509B7E2F707BD60080FDBE /* PinDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B752F707BD60080FDBE /* PinDotsView.swift */; };
+		6C509B7F2F707BD60080FDBE /* PinKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B762F707BD60080FDBE /* PinKeyboardView.swift */; };
+		6C509B802F707BD60080FDBE /* PinNumberButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B772F707BD60080FDBE /* PinNumberButton.swift */; };
+		6C509B862F707BE30080FDBE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B842F707BE30080FDBE /* User.swift */; };
+		6C509B922F707BF10080FDBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C509B8E2F707BF10080FDBE /* Assets.xcassets */; };
+		6C509B942F707BF10080FDBE /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C509B902F707BF10080FDBE /* SF-Pro.ttf */; };
+		6C509BA32F707C050080FDBE /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B9E2F707C050080FDBE /* AuthServiceProtocol.swift */; };
+		6C509BA42F707C050080FDBE /* BiomerticAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B9F2F707C050080FDBE /* BiomerticAuthService.swift */; };
+		6C509BA52F707C050080FDBE /* LocalSessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509BA02F707C050080FDBE /* LocalSessionStore.swift */; };
+		6C509BA62F707C050080FDBE /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509BA12F707C050080FDBE /* SessionService.swift */; };
+		6C509BAE2F707C0F0080FDBE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C509BAC2F707C0F0080FDBE /* LaunchScreen.storyboard */; };
+		6C509BB02F707C6B0080FDBE /* RegistationFlowDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509BAF2F707C6B0080FDBE /* RegistationFlowDIContainer.swift */; };
+		6C509BB22F7083750080FDBE /* AppServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509BB12F7083750080FDBE /* AppServices.swift */; };
+		6C509BB42F709FC50080FDBE /* LoginPINViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509BB32F709FC50080FDBE /* LoginPINViewModel.swift */; };
+		6C509BB62F709FE90080FDBE /* LoginPINViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509BB52F709FE90080FDBE /* LoginPINViewController.swift */; };
+		6CA8C59D2F718C3C00FC2151 /* FaceIDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA8C59C2F718C3C00FC2151 /* FaceIDButton.swift */; };
+		6CEBFDB52F5880980003249D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6CEBFDB42F5880980003249D /* SnapKit */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6C509ABE2F7052820080FDBE /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		6C509ABF2F7052820080FDBE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6C509AC02F7052820080FDBE /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
+		6C509AC12F7052820080FDBE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		6C509AC22F7052820080FDBE /* UILabelHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelHelper.swift; sourceTree = "<group>"; };
+		6C509ACD2F7052820080FDBE /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
+		6C509ADE2F7052820080FDBE /* RegistationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistationCoordinator.swift; sourceTree = "<group>"; };
+		6C509AE02F7052820080FDBE /* LoginViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController2.swift; sourceTree = "<group>"; };
+		6C509AE12F7052820080FDBE /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		6C509AE42F7052820080FDBE /* AuthFlowDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFlowDIContainer.swift; sourceTree = "<group>"; };
+		6C509AE62F7052820080FDBE /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
+		6C509B3A2F707BA00080FDBE /* FaceIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDViewController.swift; sourceTree = "<group>"; };
+		6C509B3B2F707BA00080FDBE /* FaceIDViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDViewModel.swift; sourceTree = "<group>"; };
+		6C509B502F707BAA0080FDBE /* PinCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeViewController.swift; sourceTree = "<group>"; };
+		6C509B512F707BAA0080FDBE /* PinCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeViewModel.swift; sourceTree = "<group>"; };
+		6C509B552F707BAA0080FDBE /* RegisterLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLoginViewController.swift; sourceTree = "<group>"; };
+		6C509B562F707BAA0080FDBE /* RegisterLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLoginViewModel.swift; sourceTree = "<group>"; };
+		6C509B5A2F707BAB0080FDBE /* RegisterPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPasswordViewController.swift; sourceTree = "<group>"; };
+		6C509B5B2F707BAB0080FDBE /* RegisterPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPasswordViewModel.swift; sourceTree = "<group>"; };
+		6C509B702F707BD60080FDBE /* FaceIDAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDAlertController.swift; sourceTree = "<group>"; };
+		6C509B712F707BD60080FDBE /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
+		6C509B722F707BD60080FDBE /* PasswordChekLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChekLabel.swift; sourceTree = "<group>"; };
+		6C509B732F707BD60080FDBE /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
+		6C509B742F707BD60080FDBE /* PinDeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinDeleteButton.swift; sourceTree = "<group>"; };
+		6C509B752F707BD60080FDBE /* PinDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinDotsView.swift; sourceTree = "<group>"; };
+		6C509B762F707BD60080FDBE /* PinKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinKeyboardView.swift; sourceTree = "<group>"; };
+		6C509B772F707BD60080FDBE /* PinNumberButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinNumberButton.swift; sourceTree = "<group>"; };
+		6C509B842F707BE30080FDBE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		6C509B8E2F707BF10080FDBE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6C509B8F2F707BF10080FDBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6C509B902F707BF10080FDBE /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
+		6C509B9E2F707C050080FDBE /* AuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceProtocol.swift; sourceTree = "<group>"; };
+		6C509B9F2F707C050080FDBE /* BiomerticAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiomerticAuthService.swift; sourceTree = "<group>"; };
+		6C509BA02F707C050080FDBE /* LocalSessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSessionStore.swift; sourceTree = "<group>"; };
+		6C509BA12F707C050080FDBE /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
+		6C509BAB2F707C0F0080FDBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6C509BAF2F707C6B0080FDBE /* RegistationFlowDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistationFlowDIContainer.swift; sourceTree = "<group>"; };
+		6C509BB12F7083750080FDBE /* AppServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppServices.swift; sourceTree = "<group>"; };
+		6C509BB32F709FC50080FDBE /* LoginPINViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPINViewModel.swift; sourceTree = "<group>"; };
+		6C509BB52F709FE90080FDBE /* LoginPINViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPINViewController.swift; sourceTree = "<group>"; };
+		6CA8C59C2F718C3C00FC2151 /* FaceIDButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDButton.swift; sourceTree = "<group>"; };
+		6CEBFD702F55AADC0003249D /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6CEBFD6D2F55AADC0003249D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CEBFDB52F5880980003249D /* SnapKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6C509B252F7079EB0080FDBE /* WeatherApp1 */ = {
+			isa = PBXGroup;
+			children = (
+				6C509B2E2F707AE00080FDBE /* Flows */,
+				6C509B2C2F707A570080FDBE /* App */,
+				6C509B782F707BD60080FDBE /* CommonViews */,
+				6C509B2D2F707A880080FDBE /* Protocols */,
+				6C509B912F707BF10080FDBE /* Resourses */,
+				6C509BAD2F707C0F0080FDBE /* StoryBoards */,
+			);
+			path = WeatherApp1;
+			sourceTree = "<group>";
+		};
+		6C509B2C2F707A570080FDBE /* App */ = {
+			isa = PBXGroup;
+			children = (
+				6C509ABE2F7052820080FDBE /* AppCoordinator.swift */,
+				6C509ABF2F7052820080FDBE /* AppDelegate.swift */,
+				6C509AC02F7052820080FDBE /* AppDIContainer.swift */,
+				6C509AC12F7052820080FDBE /* SceneDelegate.swift */,
+				6C509AC22F7052820080FDBE /* UILabelHelper.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		6C509B2D2F707A880080FDBE /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				6C509AE62F7052820080FDBE /* CoordinatorProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		6C509B2E2F707AE00080FDBE /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				6C509B2F2F707AF10080FDBE /* AuthFlow */,
+				6C509B322F707B640080FDBE /* RegistationFlow */,
+				6C509B852F707BE30080FDBE /* Models */,
+				6C509BA22F707C050080FDBE /* Services */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		6C509B2F2F707AF10080FDBE /* AuthFlow */ = {
+			isa = PBXGroup;
+			children = (
+				6C509B332F707B6E0080FDBE /* Screens */,
+				6C509ACD2F7052820080FDBE /* AuthCoordinator.swift */,
+				6C509AE42F7052820080FDBE /* AuthFlowDIContainer.swift */,
+			);
+			path = AuthFlow;
+			sourceTree = "<group>";
+		};
+		6C509B302F707AFE0080FDBE /* LoginPINScreen */ = {
+			isa = PBXGroup;
+			children = (
+				6C509BB32F709FC50080FDBE /* LoginPINViewModel.swift */,
+				6C509BB52F709FE90080FDBE /* LoginPINViewController.swift */,
+			);
+			path = LoginPINScreen;
+			sourceTree = "<group>";
+		};
+		6C509B312F707B020080FDBE /* LoginScreen */ = {
+			isa = PBXGroup;
+			children = (
+				6C509AE02F7052820080FDBE /* LoginViewController2.swift */,
+				6C509AE12F7052820080FDBE /* LoginViewModel.swift */,
+			);
+			path = LoginScreen;
+			sourceTree = "<group>";
+		};
+		6C509B322F707B640080FDBE /* RegistationFlow */ = {
+			isa = PBXGroup;
+			children = (
+				6C509B342F707B8E0080FDBE /* Screens */,
+				6C509ADE2F7052820080FDBE /* RegistationCoordinator.swift */,
+				6C509BAF2F707C6B0080FDBE /* RegistationFlowDIContainer.swift */,
+			);
+			path = RegistationFlow;
+			sourceTree = "<group>";
+		};
+		6C509B332F707B6E0080FDBE /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF546B2F72EF6C007145CB /* NewPINScreen */,
+				6C509B312F707B020080FDBE /* LoginScreen */,
+				6C509B302F707AFE0080FDBE /* LoginPINScreen */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		6C509B342F707B8E0080FDBE /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				6C509B3C2F707BA00080FDBE /* FaceIDScreen */,
+				6C509B572F707BAA0080FDBE /* LoginScreen */,
+				6C509B5C2F707BAB0080FDBE /* PasswordScreen */,
+				6C509B522F707BAA0080FDBE /* PinCodeScreen */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		6C509B3C2F707BA00080FDBE /* FaceIDScreen */ = {
+			isa = PBXGroup;
+			children = (
+				6C509B3A2F707BA00080FDBE /* FaceIDViewController.swift */,
+				6C509B3B2F707BA00080FDBE /* FaceIDViewModel.swift */,
+			);
+			path = FaceIDScreen;
+			sourceTree = "<group>";
+		};
+		6C509B522F707BAA0080FDBE /* PinCodeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				6C509B502F707BAA0080FDBE /* PinCodeViewController.swift */,
+				6C509B512F707BAA0080FDBE /* PinCodeViewModel.swift */,
+			);
+			path = PinCodeScreen;
+			sourceTree = "<group>";
+		};
+		6C509B572F707BAA0080FDBE /* LoginScreen */ = {
+			isa = PBXGroup;
+			children = (
+				6C509B552F707BAA0080FDBE /* RegisterLoginViewController.swift */,
+				6C509B562F707BAA0080FDBE /* RegisterLoginViewModel.swift */,
+			);
+			path = LoginScreen;
+			sourceTree = "<group>";
+		};
+		6C509B5C2F707BAB0080FDBE /* PasswordScreen */ = {
+			isa = PBXGroup;
+			children = (
+				6C509B5A2F707BAB0080FDBE /* RegisterPasswordViewController.swift */,
+				6C509B5B2F707BAB0080FDBE /* RegisterPasswordViewModel.swift */,
+			);
+			path = PasswordScreen;
+			sourceTree = "<group>";
+		};
+		6C509B782F707BD60080FDBE /* CommonViews */ = {
+			isa = PBXGroup;
+			children = (
+				6C509B702F707BD60080FDBE /* FaceIDAlertController.swift */,
+				6C509B712F707BD60080FDBE /* LoginTextField.swift */,
+				6C509B722F707BD60080FDBE /* PasswordChekLabel.swift */,
+				6C509B732F707BD60080FDBE /* PasswordTextField.swift */,
+				6C509B742F707BD60080FDBE /* PinDeleteButton.swift */,
+				6CA8C59C2F718C3C00FC2151 /* FaceIDButton.swift */,
+				6C509B752F707BD60080FDBE /* PinDotsView.swift */,
+				6C509B762F707BD60080FDBE /* PinKeyboardView.swift */,
+				6C509B772F707BD60080FDBE /* PinNumberButton.swift */,
+			);
+			path = CommonViews;
+			sourceTree = "<group>";
+		};
+		6C509B852F707BE30080FDBE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6C509B842F707BE30080FDBE /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6C509B912F707BF10080FDBE /* Resourses */ = {
+			isa = PBXGroup;
+			children = (
+				6C509B8E2F707BF10080FDBE /* Assets.xcassets */,
+				6C509B8F2F707BF10080FDBE /* Info.plist */,
+				6C509B902F707BF10080FDBE /* SF-Pro.ttf */,
+			);
+			path = Resourses;
+			sourceTree = "<group>";
+		};
+		6C509BA22F707C050080FDBE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6C509B9E2F707C050080FDBE /* AuthServiceProtocol.swift */,
+				6C509B9F2F707C050080FDBE /* BiomerticAuthService.swift */,
+				6C509BA02F707C050080FDBE /* LocalSessionStore.swift */,
+				6C509BA12F707C050080FDBE /* SessionService.swift */,
+				6C509BB12F7083750080FDBE /* AppServices.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		6C509BAD2F707C0F0080FDBE /* StoryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				6C509BAC2F707C0F0080FDBE /* LaunchScreen.storyboard */,
+			);
+			path = StoryBoards;
+			sourceTree = "<group>";
+		};
+		6CEBFD672F55AADC0003249D = {
+			isa = PBXGroup;
+			children = (
+				6C509B252F7079EB0080FDBE /* WeatherApp1 */,
+				6CEBFD712F55AADC0003249D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6CEBFD712F55AADC0003249D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6CEBFD702F55AADC0003249D /* WeatherApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6CEF546B2F72EF6C007145CB /* NewPINScreen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NewPINScreen;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6CEBFD6F2F55AADC0003249D /* WeatherApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6CEBFD832F55AADE0003249D /* Build configuration list for PBXNativeTarget "WeatherApp" */;
+			buildPhases = (
+				6CEBFD6C2F55AADC0003249D /* Sources */,
+				6CEBFD6D2F55AADC0003249D /* Frameworks */,
+				6CEBFD6E2F55AADC0003249D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WeatherApp;
+			packageProductDependencies = (
+				6CEBFDB42F5880980003249D /* SnapKit */,
+			);
+			productName = WeatherApp;
+			productReference = 6CEBFD702F55AADC0003249D /* WeatherApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6CEBFD682F55AADC0003249D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2610;
+				LastUpgradeCheck = 2610;
+				TargetAttributes = {
+					6CEBFD6F2F55AADC0003249D = {
+						CreatedOnToolsVersion = 26.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 6CEBFD6B2F55AADC0003249D /* Build configuration list for PBXProject "WeatherApp" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6CEBFD672F55AADC0003249D;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				6CEBFDB32F5880980003249D /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 6CEBFD712F55AADC0003249D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6CEBFD6F2F55AADC0003249D /* WeatherApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6CEBFD6E2F55AADC0003249D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C509BAE2F707C0F0080FDBE /* LaunchScreen.storyboard in Resources */,
+				6C509B922F707BF10080FDBE /* Assets.xcassets in Resources */,
+				6C509B942F707BF10080FDBE /* SF-Pro.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6CEBFD6C2F55AADC0003249D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C509AF72F7052820080FDBE /* AppCoordinator.swift in Sources */,
+				6C509AF82F7052820080FDBE /* AppDelegate.swift in Sources */,
+				6C509AF92F7052820080FDBE /* AppDIContainer.swift in Sources */,
+				6C509AFA2F7052820080FDBE /* SceneDelegate.swift in Sources */,
+				6C509B862F707BE30080FDBE /* User.swift in Sources */,
+				6C509AFB2F7052820080FDBE /* UILabelHelper.swift in Sources */,
+				6C509B5D2F707BAB0080FDBE /* RegisterPasswordViewController.swift in Sources */,
+				6C509B5E2F707BAB0080FDBE /* RegisterPasswordViewModel.swift in Sources */,
+				6C509B3D2F707BA00080FDBE /* FaceIDViewController.swift in Sources */,
+				6C509BA32F707C050080FDBE /* AuthServiceProtocol.swift in Sources */,
+				6C509BA42F707C050080FDBE /* BiomerticAuthService.swift in Sources */,
+				6C509BB22F7083750080FDBE /* AppServices.swift in Sources */,
+				6C509BA52F707C050080FDBE /* LocalSessionStore.swift in Sources */,
+				6C509BA62F707C050080FDBE /* SessionService.swift in Sources */,
+				6C509B3E2F707BA00080FDBE /* FaceIDViewModel.swift in Sources */,
+				6C509B042F7052820080FDBE /* AuthCoordinator.swift in Sources */,
+				6C509BB02F707C6B0080FDBE /* RegistationFlowDIContainer.swift in Sources */,
+				6C509B0E2F7052820080FDBE /* RegistationCoordinator.swift in Sources */,
+				6C509B0F2F7052820080FDBE /* LoginViewController2.swift in Sources */,
+				6CA8C59D2F718C3C00FC2151 /* FaceIDButton.swift in Sources */,
+				6C509B102F7052820080FDBE /* LoginViewModel.swift in Sources */,
+				6C509B112F7052820080FDBE /* AuthFlowDIContainer.swift in Sources */,
+				6C509B122F7052820080FDBE /* CoordinatorProtocol.swift in Sources */,
+				6C509B532F707BAA0080FDBE /* PinCodeViewController.swift in Sources */,
+				6C509B582F707BAA0080FDBE /* RegisterLoginViewController.swift in Sources */,
+				6C509B592F707BAA0080FDBE /* RegisterLoginViewModel.swift in Sources */,
+				6C509B542F707BAA0080FDBE /* PinCodeViewModel.swift in Sources */,
+				6C509B792F707BD60080FDBE /* FaceIDAlertController.swift in Sources */,
+				6C509B7A2F707BD60080FDBE /* LoginTextField.swift in Sources */,
+				6C509B7B2F707BD60080FDBE /* PasswordChekLabel.swift in Sources */,
+				6C509B7C2F707BD60080FDBE /* PasswordTextField.swift in Sources */,
+				6C509B7D2F707BD60080FDBE /* PinDeleteButton.swift in Sources */,
+				6C509B7E2F707BD60080FDBE /* PinDotsView.swift in Sources */,
+				6C509B7F2F707BD60080FDBE /* PinKeyboardView.swift in Sources */,
+				6C509B802F707BD60080FDBE /* PinNumberButton.swift in Sources */,
+				6C509BB62F709FE90080FDBE /* LoginPINViewController.swift in Sources */,
+				6C509BB42F709FC50080FDBE /* LoginPINViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6C509BAC2F707C0F0080FDBE /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6C509BAB2F707C0F0080FDBE /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6CEBFD842F55AADE0003249D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WeatherApp1/Resourses/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = OZ.WeatherApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		6CEBFD852F55AADE0003249D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WeatherApp1/Resourses/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = OZ.WeatherApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		6CEBFD862F55AADE0003249D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6CEBFD872F55AADE0003249D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6CEBFD6B2F55AADC0003249D /* Build configuration list for PBXProject "WeatherApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6CEBFD862F55AADE0003249D /* Debug */,
+				6CEBFD872F55AADE0003249D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6CEBFD832F55AADE0003249D /* Build configuration list for PBXNativeTarget "WeatherApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6CEBFD842F55AADE0003249D /* Debug */,
+				6CEBFD852F55AADE0003249D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6CEBFDB32F5880980003249D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6CEBFDB42F5880980003249D /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CEBFDB32F5880980003249D /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 6CEBFD682F55AADC0003249D /* Project object */;
+}
