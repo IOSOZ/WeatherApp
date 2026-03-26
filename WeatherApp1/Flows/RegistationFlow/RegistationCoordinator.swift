@@ -11,21 +11,24 @@ import UIKit
 
 final class RegistrationCoordinator: Coordinator {
     
+    // MARK: - Outputs
     var onFinish: (() -> Void)?
     var childCoordinators: [Coordinator] = []
     var onAuth: (() -> Void)?
     
+    // MARK: - DI
     private let di: RegistrationFlowDIContainer
     private let navController: UINavigationController
     
     private var draft = RegistrationDraft()
     
+    // MARK: - Init
     init(navController: UINavigationController, di: RegistrationFlowDIContainer) {
         self.navController = navController
         self.di = di
     }
     
-    
+    // MARK: - Start Method
     func start() {
         navController.setNavigationBarHidden(false, animated: false)
         showUsernameStep()
@@ -33,6 +36,7 @@ final class RegistrationCoordinator: Coordinator {
     }
 }
 
+// MARK: - Setup Logic
 private extension RegistrationCoordinator {
     
     func showUsernameStep() {
@@ -108,7 +112,7 @@ private extension RegistrationCoordinator {
                 self.di.services.localSessionStore.setBiometricEnabled(biometricIsEnabled)
                 self.onFinish?()
             case .failure(let error):
-                print("Registration failed")
+                print(error)
             }
         }
     }

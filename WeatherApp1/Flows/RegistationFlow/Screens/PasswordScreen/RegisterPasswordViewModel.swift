@@ -38,17 +38,18 @@ protocol RegisterPasswordOutput {
 
 final class RegisterPasswordViewModel: RegisterPasswordInput, RegisterPasswordOutput {
 
-    // Outputs
+    // MARK: - Outputs
     var onStateChange: ((RegisterPasswordViewState) -> Void)?
     var onNextStep: ((String) -> Void)?
     var onBackToAuth: (() -> Void)?
 
 
-    // State
+    // MARK: - State
     private var state = RegisterPasswordViewState() {
         didSet { onStateChange?(state) }
     }
 
+    // MARK: - Setup Logic
     func didChangeFirstPassword(_ text: String) {
         state.firstPassword = text
         validate()

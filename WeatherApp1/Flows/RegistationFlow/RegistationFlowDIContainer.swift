@@ -19,12 +19,13 @@ final class RegistrationFlowDIContainer {
     }
 }
 
+// MARK: - Creation MVP Module
 extension RegistrationFlowDIContainer {
     func makeRegisterLoginViewController(
         onLoginEntered: @escaping (String) -> Void,
         onBackToAuth: @escaping () -> Void
     ) -> UIViewController {
-        let viewModel = RegisterUsernameViewModel()
+        let viewModel = RegisterUsernameViewModel(authService: services.authService)
         viewModel.onNextStep = onLoginEntered
         viewModel.onBackToAuth = onBackToAuth
         

@@ -8,9 +8,9 @@
 import Foundation
 
 
-struct User: Equatable {
+struct User: Codable {
     let id: String
-    let username: String
+    let login: String
 }
 
 

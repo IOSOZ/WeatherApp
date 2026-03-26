@@ -19,6 +19,7 @@ final class AuthFlowDIContainer {
     }
 }
 
+// MARK: - Creation MVP Module
 extension AuthFlowDIContainer {
     func makeLoginViewController(
         onLoginSuccess: @escaping () -> Void,
@@ -29,7 +30,7 @@ extension AuthFlowDIContainer {
         viewModel.onLoginSuccess = onLoginSuccess
         viewModel.onRegister = onRegister
         
-        let vc = LoginViewController2(viewModel: viewModel)
+        let vc = LoginViewController(viewModel: viewModel)
         
         return vc
     }

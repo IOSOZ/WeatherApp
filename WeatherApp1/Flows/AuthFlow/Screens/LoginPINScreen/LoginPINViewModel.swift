@@ -36,7 +36,7 @@ protocol LoginPINCodeViewOutput {
 final class LoginPINViewModel: LoginPINCodeViewInput, LoginPINCodeViewOutput {
 
    
-    // Outputs
+    // MARK: - Outputs
     var onStateChange: ((LoginPINCodeViewState) -> Void)?
     var onMainFlow: (() -> Void)?
     var onAuthScreen: (() -> Void)?
@@ -44,21 +44,23 @@ final class LoginPINViewModel: LoginPINCodeViewInput, LoginPINCodeViewOutput {
     
     let isFaceIDEnabled: Bool
     
-    //DI
+    // MARK: - DI
     private let localSession: LocalSessionStoreProtocol
     private let biometricService: BiomerticAuthServiceProtocol
     
-    // State
+    // MARK: - State
     private var state = LoginPINCodeViewState() {
         didSet { onStateChange?(state) }
     }
     
+    // MARK: - Init
     init(localSession: LocalSessionStoreProtocol, biometricService: BiomerticAuthServiceProtocol) {
         self.localSession = localSession
         self.biometricService = biometricService
         self.isFaceIDEnabled = localSession.isBiometricEnabled()
     }
     
+    // MARK: - Setup Logic
     func didTapNumberButton(_ text: String) {
         guard state.enteredPin.count < 4 else { return }
         guard text.count == 1 else { return }
@@ -84,7 +86,6 @@ final class LoginPINViewModel: LoginPINCodeViewInput, LoginPINCodeViewOutput {
     }
     
     func didTapAlertButton() {
-        localSession.clearPIN()
         onAuthScreen?()
     }
 }
@@ -119,7 +120,7 @@ private extension LoginPINViewModel {
             case .success():
                 self.onMainFlow?()
             case .failure(_):
-                print("pum")
+                print("FaceId not enrolled is simulator")
             }
         }
     }

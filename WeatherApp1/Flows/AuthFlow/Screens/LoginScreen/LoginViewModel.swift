@@ -32,24 +32,26 @@ protocol LoginViewModelOutput {
 
 final class LoginViewModel: LoginViewModelInput, LoginViewModelOutput {
     
-    // Outputs
+    // MARK: - Outputs
     var onStateChange: ((LoginViewState) -> Void)?
     var onLoginSuccess: (() -> Void)?
     var onRegister: (() -> Void)?
     var onChangePIN: (() -> Void)?
     
-    //DI
+    // MARK: - DI
     private let authService: AuthServiceProtocol
     
-    //State
+    // MARK: - State
     private var state = LoginViewState() {
         didSet { onStateChange?(state) }
     }
     
+    // MARK: - Init
     init(authService: AuthServiceProtocol) {
         self.authService = authService
     }
     
+    // MARK: - Setup Logic
     func didChangeUsername(_ text: String) {
         state.username = text
         validate()

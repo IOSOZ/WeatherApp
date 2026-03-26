@@ -35,25 +35,27 @@ protocol FaceIDViewModelOutput {
 
 final class FaceIDViewModel: FaceIDViewModelInput, FaceIDViewModelOutput {
     
-    // Outputs
+    // MARK: - Outputs
     var onStateChange: ((FaceIDViewState) -> Void)?
     var onNextStep: ((Bool) -> Void)?
     var onBackToAuth: (() -> Void)?
     
-    //DI
+    // MARK: - DI
     private let biomerticAuthService: BiomerticAuthServiceProtocol
     
-    //State
+    // MARK: - State
     private var state = FaceIDViewState() {
         didSet { onStateChange?(state) }
     }
     
     private var isFaceIDEnabled = false
     
+    // MARK: - Init
     init(biomerticAuthService: BiomerticAuthServiceProtocol) {
         self.biomerticAuthService = biomerticAuthService
     }
     
+    // MARK: - Setup Logic
     func didToggleFaceID(_ isOn: Bool) {
         if isOn {
             state.mode = .permissionPrompt
@@ -99,7 +101,7 @@ final class FaceIDViewModel: FaceIDViewModelInput, FaceIDViewModelOutput {
 
 private extension FaceIDViewModel {
     func authenticate() {
-        biomerticAuthService.authenticate(reason: "Turnon FaceId") { [weak self] result in
+        biomerticAuthService.authenticate(reason: "TurnOn FaceId") { [weak self] result in
             guard let self else { return }
             
             switch result {
