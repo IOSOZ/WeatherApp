@@ -15,18 +15,22 @@ enum AuthCoordinatorResult {
 
 final class AuthCoordinator: Coordinator {
     
+    // MARK: - Outputs
     var childCoordinators: [Coordinator] = []
     var onFinish: ((AuthCoordinatorResult) -> Void)?
     var onRegistration:(() -> Void)?
     
+    // MARK: - DI
     private let navController: UINavigationController
     private let di: AuthFlowDIContainer
     
+    // MARK: - Init
     init(navController: UINavigationController, di: AuthFlowDIContainer) {
         self.navController = navController
         self.di = di
     }
     
+    // MARK: - Start Method
     func start() {
         if di.services.sessionService.isAuthorized && di.services.localSessionStore.hasPin {
             showPinCodeScreen()
@@ -36,6 +40,7 @@ final class AuthCoordinator: Coordinator {
     }
 }
 
+// MARK: - Setup Logic
 private extension AuthCoordinator {
     
     func showLoginScreen() {
@@ -56,7 +61,7 @@ private extension AuthCoordinator {
                 self?.onFinish?(.authorized)
                 
             }, onAuthScreen: {
-                self.onFinish?(.backToStart)
+                self.showLoginScreen()
             })
         
         navController.setViewControllers([vc], animated: true)

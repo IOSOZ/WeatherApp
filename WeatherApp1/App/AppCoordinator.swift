@@ -12,28 +12,34 @@ final class AppCoordinator: Coordinator {
     
     var childCoordinators: [Coordinator] = []
     
+    // MARK: - Outputs
     private let window: UIWindow
     private let navController: UINavigationController
     private let di: AppDIContainer
     
+    // MARK: - Init
     init( window: UIWindow, di: AppDIContainer) {
         self.window = window
         self.navController = UINavigationController()
         self.di = di
     }
     
+    // MARK: - Start Method
     func start() {
         window.rootViewController = navController
         window.makeKeyAndVisible()
         
-        #warning("Тут сбрасываю юзердефолтс")
-        di.services.authService.logout()
-        di.services.localSessionStore.clearAll()
+#warning("Тут сбрасываю юзердефолтс")
+        //        di.services.authService.logout()
+        //        di.services.localSessionStore.clearAll()
         showAuthFlow()
         
     }
+}
     
-    private func showAuthFlow() {
+// MARK: - Creation Flows
+private extension AppCoordinator {
+    func showAuthFlow() {
         let authCoordinator = AuthCoordinator(navController: navController, di: AuthFlowDIContainer(services: di.services))
         authCoordinator.onFinish = { [weak self, weak authCoordinator] result in
             guard let self else { return }
@@ -43,7 +49,7 @@ final class AppCoordinator: Coordinator {
             case .authorized:
                 self.showMainFlow()
             case .backToStart:
-                self.showAuthFlow()
+                authCoordinator?.start()
             }
             
         }
@@ -56,7 +62,7 @@ final class AppCoordinator: Coordinator {
         authCoordinator.start()
     }
     
-    private func showRegisterFlow() {
+    func showRegisterFlow() {
         let registerCoordinator = RegistrationCoordinator(navController: navController, di: RegistrationFlowDIContainer(services: di.services))
         registerCoordinator.onFinish = { [weak self, weak registerCoordinator] in
             guard let self else { return }
@@ -73,13 +79,11 @@ final class AppCoordinator: Coordinator {
         registerCoordinator.start()
     }
     
-    private func showMainFlow() {
+    func showMainFlow() {
         let vc = UIViewController()
         vc.view.backgroundColor = .red
         vc.title = "Main"
-
+        
         navController.setViewControllers([vc], animated: false)
     }
-    
-   
 }

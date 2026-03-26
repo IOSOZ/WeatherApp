@@ -48,8 +48,12 @@ class RegisterPasswordViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -60,12 +64,9 @@ class RegisterPasswordViewController: UIViewController {
         bindViewModel()
         setupKeyboardHandling()
     }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
 }
 
+// MARK: - Extension
 private extension RegisterPasswordViewController {
     func setupUI() {
         

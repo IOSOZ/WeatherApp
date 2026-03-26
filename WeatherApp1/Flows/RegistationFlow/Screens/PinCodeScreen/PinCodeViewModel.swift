@@ -35,18 +35,19 @@ protocol PinCodeViewOutput {
 
 final class PinCodeViewModel: PinCodeViewInput, PinCodeViewOutput {
    
-    // Outputs
+    // MARK: - Outputs
     var onNextStep: ((String) -> Void)?
     var onStateChange: ((PinCodeViewState) -> Void)?
     
-    //Stage
+    // MARK: - State
     private var stage: PinCodeStage = .creation
     
-    //State
+    
     private var state = PinCodeViewState(title: "Придумайте PIN-код") {
         didSet { onStateChange?(state) }
     }
     
+    // MARK: - Setup Logic
     func didTapNumberButton(_ text: String) {
         guard state.enteredPin.count < 4 else { return }
         guard text.count == 1 else { return }

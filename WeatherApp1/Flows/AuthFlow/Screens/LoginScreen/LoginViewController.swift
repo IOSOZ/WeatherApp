@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import SwiftUI
 
-class LoginViewController2: UIViewController {
+class LoginViewController: UIViewController {
 
     // MARK: - UI
     private let scrollView = UIScrollView()
@@ -53,6 +53,7 @@ class LoginViewController2: UIViewController {
     }
     
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,7 +65,8 @@ class LoginViewController2: UIViewController {
     }
 }
 
-private extension LoginViewController2 {
+// MARK: - Extension
+private extension LoginViewController {
     func setupUI() {
         
         view.backgroundColor = .white
@@ -198,7 +200,7 @@ private extension LoginViewController2 {
 }
 
 // MARK: - Setup Actions
-private extension LoginViewController2 {
+private extension LoginViewController {
     
     func setupActions() {
         forwardButton.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
@@ -245,7 +247,7 @@ private extension LoginViewController2 {
 
 
 // MARK: - Keyboard setup
-private extension LoginViewController2 {
+private extension LoginViewController {
     
     func setupKeyboardHandling() {
         NotificationCenter.default.addObserver(

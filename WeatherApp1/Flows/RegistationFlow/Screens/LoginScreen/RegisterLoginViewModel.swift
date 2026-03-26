@@ -28,16 +28,25 @@ protocol RegisterUsernameOutput {
 
 final class RegisterUsernameViewModel: RegisterUsernameInput, RegisterUsernameOutput {
     
-    // Outputs
+    // MARK: - Outputs
     var onStateChange: ((RegisterUsernameViewState) -> Void)?
     var onNextStep: ((String) -> Void)?
     var onBackToAuth: (() -> Void)?
     
-    //State
+    // MARK: - DI
+    private let authService: AuthServiceProtocol
+    
+    // MARK: - State
     private var state = RegisterUsernameViewState() {
         didSet { onStateChange?(state)}
     }
     
+    // MARK: - Init
+    init( authService: AuthServiceProtocol) {
+        self.authService = authService
+    }
+    
+    // MARK: - Setup Logic
     func didChangeUserName(_ text: String) {
         state.username = text
         validate()
@@ -56,8 +65,35 @@ final class RegisterUsernameViewModel: RegisterUsernameInput, RegisterUsernameOu
 
 private extension RegisterUsernameViewModel {
     func validate() {
-        let usernameOK = state.username.count >= 4 && state.username.count <= 20
-        state.errorMessage = !usernameOK && !state.username.isEmpty ? "Количество символов от 4 до 20" : nil
-        state.isNextStepEnabled = usernameOK
+        
+        let username = state.username.trimmingCharacters(in: .whitespacesAndNewlines)
+        let usernameOK = username.count >= 4 && username.count <= 20
+        
+        state.isNextStepEnabled = false
+        
+        guard !username.isEmpty else {
+            state.errorMessage = nil
+            return
+        }
+        
+        guard usernameOK else {
+            state.errorMessage = "Количество символов от 4 до 20"
+            return
+        }
+        
+        authService.isLoginExists(username) { [weak self] result in
+            guard let self else { return }
+            
+            switch result {
+            case .success(let isExist):
+                self.state.errorMessage = isExist ? "Такой пользователь уже существует" : nil
+                self.state.isNextStepEnabled = !isExist
+                
+            case .failure(let error):
+                print(error)
+                self.state.errorMessage = "Не удалось проверить логин"
+                self.state.isNextStepEnabled = false
+            }
+        }
     }
 }
