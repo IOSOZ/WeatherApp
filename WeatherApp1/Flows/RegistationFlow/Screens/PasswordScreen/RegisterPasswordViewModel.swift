@@ -97,8 +97,6 @@ private extension RegisterPasswordViewModel {
             state.passwordCheck.specialCharacters = hasSpecial
             state.passwordCheck.allowedCharactersOnly = containsOnlyAllowedCharacters
         }
-        
-      
 
         let allChecksPassed =
             state.passwordCheck.lengthCheck &&
