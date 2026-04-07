@@ -8,31 +8,39 @@
 import Foundation
 import UIKit
 
-enum AuthCoordinatorResult {
-    case authorized
-    case backToStart
+protocol AuthCoordinatorFactory {
+    func makeRegistrationCoordinator()
+    func makeMainCoordinator()
 }
 
 final class AuthCoordinator: Coordinator {
     
-    // MARK: - Outputs
+    // MARK: - Flow Work
     var childCoordinators: [Coordinator] = []
-    var onFinish: ((AuthCoordinatorResult) -> Void)?
-    var onRegistration:(() -> Void)?
+    private let factory: AuthCoordinatorFactory
+    private let moduleFactory = AuthModuleFactory()
     
-    // MARK: - DI
+    // MARK: - NavController
     private let navController: UINavigationController
-    private let di: AuthFlowDIContainer
+    
+    // MARK: - Services
+    private let sessionService: SessionServiceProtocol
+    private let localSessionStore: LocalSessionStoreProtocol
     
     // MARK: - Init
-    init(navController: UINavigationController, di: AuthFlowDIContainer) {
+    init(navController: UINavigationController,
+         sessionService: SessionServiceProtocol = AppServices.shared.sessionService,
+         localSessionStore: LocalSessionStoreProtocol = AppServices.shared.localSessionStore,
+         factory: AuthCoordinatorFactory) {
         self.navController = navController
-        self.di = di
+        self.sessionService = sessionService
+        self.localSessionStore = localSessionStore
+        self.factory = factory
     }
     
     // MARK: - Start Method
     func start() {
-        if di.services.sessionService.isAuthorized && di.services.localSessionStore.hasPin {
+        if sessionService.isAuthorized && localSessionStore.hasPin {
             showPinCodeScreen()
         } else {
             showLoginScreen()
@@ -42,26 +50,25 @@ final class AuthCoordinator: Coordinator {
 
 // MARK: - Setup Logic
 private extension AuthCoordinator {
-    
     func showLoginScreen() {
-        let vc = di.makeLoginViewController(
+        let vc = moduleFactory.makeLoginViewController(
             onLoginSuccess: { [weak self] in
-                self?.onFinish?(.authorized)
+                self?.factory.makeMainCoordinator()
             },
             onRegister: { [weak self] in
-                self?.onRegistration?()
-            })
-        
+                self?.factory.makeRegistrationCoordinator()
+            }
+        )
         navController.setViewControllers([vc], animated: true)
     }
     
     func showPinCodeScreen() {
-        let vc = di.makeLoginPINCodeViewController(
+        let vc = moduleFactory.makeLoginPINCodeViewController(
             onMainFlow: { [weak self] in
-                self?.onFinish?(.authorized)
+                self?.factory.makeMainCoordinator()
                 
-            }, onAuthScreen: {
-                self.showLoginScreen()
+            }, onAuthScreen: { [weak self] in
+                self?.showLoginScreen()
             })
         
         navController.setViewControllers([vc], animated: true)

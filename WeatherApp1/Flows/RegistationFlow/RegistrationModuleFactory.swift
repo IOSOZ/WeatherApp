@@ -8,24 +8,12 @@
 import Foundation
 import UIKit
 
-final class RegistrationFlowDIContainer {
-    
-    // MARK: - Services
-    let services: AppServices
-    
-    // MARK: - Init
-    init(services: AppServices) {
-        self.services = services
-    }
-}
-
-// MARK: - Creation MVP Module
-extension RegistrationFlowDIContainer {
+final class RegistrationModuleFactory {
     func makeRegisterLoginViewController(
         onLoginEntered: @escaping (String) -> Void,
         onBackToAuth: @escaping () -> Void
     ) -> UIViewController {
-        let viewModel = RegisterUsernameViewModel(authService: services.authService)
+        let viewModel = RegisterUsernameViewModel(authService: AppServices.shared.authService)
         viewModel.onNextStep = onLoginEntered
         viewModel.onBackToAuth = onBackToAuth
         
@@ -60,7 +48,7 @@ extension RegistrationFlowDIContainer {
         onNextStep: @escaping (Bool) -> Void,
         onBackToAuth: @escaping () -> Void
     ) -> UIViewController {
-        let viewModel = FaceIDViewModel(biomerticAuthService: services.biometricAuthService)
+        let viewModel = FaceIDViewModel(biomerticAuthService: AppServices.shared.biometricAuthService)
         viewModel.onNextStep = onNextStep
         viewModel.onBackToAuth = onBackToAuth
         

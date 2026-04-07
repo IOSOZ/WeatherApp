@@ -8,44 +8,31 @@
 import Foundation
 import UIKit
 
-final class AuthFlowDIContainer {
-    
-    // MARK: - Services
-    let services: AppServices
-    
-    // MARK: - Init
-    init(services: AppServices) {
-        self.services = services
-    }
-}
 
-// MARK: - Creation MVP Module
-extension AuthFlowDIContainer {
+final class AuthModuleFactory {
     func makeLoginViewController(
         onLoginSuccess: @escaping () -> Void,
         onRegister: @escaping () -> Void
     ) -> UIViewController {
         
-        let viewModel = LoginViewModel(authService: services.authService)
+        let viewModel = LoginViewModel(authService: AppServices.shared.authService)
         viewModel.onLoginSuccess = onLoginSuccess
         viewModel.onRegister = onRegister
         
         let vc = LoginViewController(viewModel: viewModel)
-        
         return vc
     }
     
     func makeLoginPINCodeViewController(
         onMainFlow: @escaping () -> Void,
         onAuthScreen: @escaping () -> Void) -> UIViewController {
-            let viewModel = LoginPINViewModel(localSession: services.localSessionStore, biometricService: services.biometricAuthService)
+            let viewModel = LoginPINViewModel(localSession: AppServices.shared.localSessionStore, biometricService: AppServices.shared.biometricAuthService)
             viewModel.onMainFlow = onMainFlow
             viewModel.onAuthScreen = onAuthScreen
             
             let vc = LoginPINViewController(viewModel: viewModel)
             return vc
         }
-        
 }
 
 

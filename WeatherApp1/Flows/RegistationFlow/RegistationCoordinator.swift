@@ -9,23 +9,29 @@ import Foundation
 import UIKit
 
 
+protocol RegistrationCoordinatorFactory {
+    func makeAuthCoordinator()
+    func makeMainCoordinator()
+}
+
 final class RegistrationCoordinator: Coordinator {
     
-    // MARK: - Outputs
-    var onFinish: (() -> Void)?
+    // MARK: - Flow Work
     var childCoordinators: [Coordinator] = []
-    var onAuth: (() -> Void)?
+    private let factory: RegistrationCoordinatorFactory
+    private let moduleFactory = RegistrationModuleFactory()
     
-    // MARK: - DI
-    private let di: RegistrationFlowDIContainer
+    // MARK: - NavController
     private let navController: UINavigationController
     
+    // MARK: - Registration Draft
     private var draft = RegistrationDraft()
     
     // MARK: - Init
-    init(navController: UINavigationController, di: RegistrationFlowDIContainer) {
+    init(navController: UINavigationController,
+         factory: RegistrationCoordinatorFactory) {
         self.navController = navController
-        self.di = di
+        self.factory = factory
     }
     
     // MARK: - Start Method
@@ -40,27 +46,27 @@ final class RegistrationCoordinator: Coordinator {
 private extension RegistrationCoordinator {
     
     func showUsernameStep() {
-        let loginVC = di.makeRegisterLoginViewController { [weak self] username in
+        let loginVC = moduleFactory.makeRegisterLoginViewController { [weak self] username in
             guard let self else { return }
             self.draft.username = username
             self.showPasswordStep()
             
         } onBackToAuth: { [weak self] in
             guard let self else { return }
-            self.onAuth?()
+            factory.makeAuthCoordinator()
         }
         navController.setNavigationBarHidden(true, animated: false)
         navController.setViewControllers([loginVC], animated: true)
     }
     
     func showPasswordStep() {
-        let passwordVC = di.makeRegisterPasswordViewController { [weak self] password in
+        let passwordVC = moduleFactory.makeRegisterPasswordViewController { [weak self] password in
             guard let self else { return }
             self.draft.password = password
             self.showPinStep()
         } onBackToAuth: { [weak self] in
             guard let self else { return }
-            self.onAuth?()
+            factory.makeAuthCoordinator()
         }
         navController.setNavigationBarHidden(true, animated: false)
         navController.pushViewController(passwordVC, animated: true)
@@ -68,7 +74,7 @@ private extension RegistrationCoordinator {
     }
     
     func showPinStep() {
-        let pinVC = di.makePINCodeViewController { [weak self] pin in
+        let pinVC = moduleFactory.makePINCodeViewController { [weak self] pin in
             guard let self else { return }
             self.draft.pin = pin
             self.showFaceIDStep()
@@ -78,13 +84,13 @@ private extension RegistrationCoordinator {
     }
     
     func showFaceIDStep() {
-        let faceIDVC = di.makeFaceIDViewController { [weak self] faceIDIsOn in
+        let faceIDVC = moduleFactory.makeFaceIDViewController { [weak self] faceIDIsOn in
             guard let self else { return }
             self.draft.isFaceIDEnabled = faceIDIsOn
             self.completeRegistration()
         } onBackToAuth: { [weak self] in
             guard let self else { return }
-            self.onAuth?()
+            factory.makeAuthCoordinator()
         }
 
         navController.pushViewController(faceIDVC, animated: true)
@@ -102,15 +108,15 @@ private extension RegistrationCoordinator {
             let biometricIsEnabled = draft.isFaceIDEnabled
         else { return }
         
-        di.services.authService.register(userName: username, password: password) { [weak self] result in
+        AppServices.shared.authService.register(userName: username, password: password) { [weak self] result in
             guard let self else { return }
             
             switch result {
             case .success(let user):
-                self.di.services.sessionService.saveSession(userId: user.id)
-                self.di.services.localSessionStore.savePin(pin)
-                self.di.services.localSessionStore.setBiometricEnabled(biometricIsEnabled)
-                self.onFinish?()
+                AppServices.shared.sessionService.saveSession(userId: user.id)
+                AppServices.shared.localSessionStore.savePin(pin)
+                AppServices.shared.localSessionStore.setBiometricEnabled(biometricIsEnabled)
+                factory.makeMainCoordinator()
             case .failure(let error):
                 print(error)
             }
@@ -145,3 +151,4 @@ private extension RegistrationCoordinator {
 }
 
    
+

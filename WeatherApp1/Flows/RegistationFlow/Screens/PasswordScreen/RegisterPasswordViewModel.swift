@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 struct PasswordCheck: Equatable {
     var lengthCheck: Bool = false
@@ -30,24 +31,15 @@ protocol RegisterPasswordInput {
     func didTapBackToAuth()
 }
 
-protocol RegisterPasswordOutput {
-    var onStateChange: ((RegisterPasswordViewState) -> Void)? { get set }
-    var onNextStep: ((String) -> Void)? { get set }
-    var onBackToAuth: (() -> Void)? { get set }
-}
-
-final class RegisterPasswordViewModel: RegisterPasswordInput, RegisterPasswordOutput {
+final class RegisterPasswordViewModel: RegisterPasswordInput {
 
     // MARK: - Outputs
-    var onStateChange: ((RegisterPasswordViewState) -> Void)?
     var onNextStep: ((String) -> Void)?
     var onBackToAuth: (() -> Void)?
 
 
     // MARK: - State
-    private var state = RegisterPasswordViewState() {
-        didSet { onStateChange?(state) }
-    }
+    @Published var state = RegisterPasswordViewState()
 
     // MARK: - Setup Logic
     func didChangeFirstPassword(_ text: String) {

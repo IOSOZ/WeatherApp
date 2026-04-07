@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 class PinCodeViewController: UIViewController {
 
@@ -19,6 +20,7 @@ class PinCodeViewController: UIViewController {
     
     // MARK: - VM
     private let viewModel: PinCodeViewModel
+    private var cancellabels = Set<AnyCancellable>()
     
     // MARK: - Init
     init(viewModel: PinCodeViewModel) {
@@ -101,9 +103,10 @@ private extension PinCodeViewController {
     }
     
     func bindViewModel() {
-        viewModel.onStateChange = { [weak self] state in
-            self?.render(state)
-        }
+        viewModel.$state.receive(on: DispatchQueue.main)
+            .sink { [weak self] state in
+                self?.render(state)
+            }.store(in: &cancellabels)
     }
     func render(_ state: PinCodeViewState) {
         pinDotView.configure(filledCount: state.enteredDigits)

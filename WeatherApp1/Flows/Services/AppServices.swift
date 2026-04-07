@@ -8,9 +8,14 @@
 import Foundation
 
 final class AppServices {
+    
+    static let shared = AppServices()
+    
     lazy var authService: AuthServiceProtocol = FireStoreAuthService(
         sessionService: sessionService)
     lazy var biometricAuthService: BiomerticAuthServiceProtocol = BiomerticAuthService()
     lazy var sessionService: SessionServiceProtocol = SessionService()
     lazy var localSessionStore: LocalSessionStoreProtocol = LocalSessionStore()
+    
+    private init() {}
 }

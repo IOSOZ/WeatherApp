@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 class LoginPINViewController: UIViewController {
 
@@ -24,6 +25,7 @@ class LoginPINViewController: UIViewController {
     
     // MARK: - VM
     private let viewModel: LoginPINViewModel
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Init
     init(viewModel: LoginPINViewModel) {
@@ -148,13 +150,18 @@ private extension LoginPINViewController {
     }
     
     func bindViewModel() {
-        viewModel.onStateChange = { [weak self] state in
-            self?.render(state)
+        viewModel.$state.receive(on: DispatchQueue.main)
+            .sink { [weak self] state in
+                self?.render(state)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.showAlert.receive(on: DispatchQueue.main)
+            .sink { [weak self] state in
+                self?.showAlert(state)
+            }
+            .store(in: &cancellables)
         }
-        viewModel.onShowAlert = { [weak self] state in
-            self?.showAlert(state)
-        }
-    }
     
     func render(_ state: LoginPINCodeViewState) {
         pinDotView.configure(filledCount: state.enteredDigits)
@@ -169,9 +176,9 @@ private extension LoginPINViewController {
             message: "Пожалуйства введите логин и пароль",
             preferredStyle: .alert)
         
-        let okButton = UIAlertAction(title: "Понятно", style: .default) { [unowned self] _ in
-            self.blurView.isHidden = true
-            self.viewModel.didTapAlertButton()
+        let okButton = UIAlertAction(title: "Понятно", style: .default) { [weak self] _ in
+            self?.blurView.isHidden = true
+            self?.viewModel.didTapAlertButton()
         }
         alert.addAction(okButton)
         self.blurView.isHidden = false

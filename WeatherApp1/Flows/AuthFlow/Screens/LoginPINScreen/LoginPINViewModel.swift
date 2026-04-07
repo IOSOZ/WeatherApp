@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 struct LoginPINCodeViewState: Equatable {
     var enteredPin: String = ""
@@ -26,21 +27,11 @@ protocol LoginPINCodeViewInput {
     func didTapAlertButton()
 }
 
-protocol LoginPINCodeViewOutput {
-    var onStateChange: ((LoginPINCodeViewState) -> Void)? { get set }
-    var onMainFlow: (() -> Void)? { get set }
-    var onAuthScreen: (() -> Void)? { get set }
-    var onShowAlert: ((LoginPINCodeViewState) -> Void)? { get set }
-}
+final class LoginPINViewModel: LoginPINCodeViewInput {
 
-final class LoginPINViewModel: LoginPINCodeViewInput, LoginPINCodeViewOutput {
-
-   
     // MARK: - Outputs
-    var onStateChange: ((LoginPINCodeViewState) -> Void)?
     var onMainFlow: (() -> Void)?
     var onAuthScreen: (() -> Void)?
-    var onShowAlert: ((LoginPINCodeViewState) -> Void)?
     
     let isFaceIDEnabled: Bool
     
@@ -49,9 +40,8 @@ final class LoginPINViewModel: LoginPINCodeViewInput, LoginPINCodeViewOutput {
     private let biometricService: BiomerticAuthServiceProtocol
     
     // MARK: - State
-    private var state = LoginPINCodeViewState() {
-        didSet { onStateChange?(state) }
-    }
+    @Published var state = LoginPINCodeViewState()
+    let showAlert = PassthroughSubject<LoginPINCodeViewState, Never>()
     
     // MARK: - Init
     init(localSession: LocalSessionStoreProtocol, biometricService: BiomerticAuthServiceProtocol) {
@@ -82,7 +72,7 @@ final class LoginPINViewModel: LoginPINCodeViewInput, LoginPINCodeViewOutput {
     
     func didTapForgotPIN() {
         state.alertTitle = "Вы будете перенаправлены на экран авторизации"
-        onShowAlert?(state)
+        showAlert.send(state)
     }
     
     func didTapAlertButton() {
@@ -104,7 +94,7 @@ private extension LoginPINViewModel {
             if state.attemptsCount <= 0 {
                 state.errorMessage = nil
                 state.alertTitle = "Вы совершили слишком много попыток входа"
-                onShowAlert?(state)
+                showAlert.send(state)
             } else {
                 state.errorMessage = "Неверный PIN. Осталось \(state.attemptsCount) попытки"
             }

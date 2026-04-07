@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 enum PinCodeStage {
     case creation
@@ -20,7 +21,6 @@ struct PinCodeViewState: Equatable {
     var enteredDigits: Int {
         enteredPin.count
     }
-    
 }
 
 protocol PinCodeViewInput {
@@ -28,24 +28,16 @@ protocol PinCodeViewInput {
     func didTapClearLastNumber()
 }
 
-protocol PinCodeViewOutput {
-    var onStateChange: ((PinCodeViewState) -> Void)? { get set }
-    var onNextStep: ((String) -> Void)? { get set }
-}
 
-final class PinCodeViewModel: PinCodeViewInput, PinCodeViewOutput {
+final class PinCodeViewModel: PinCodeViewInput {
    
     // MARK: - Outputs
     var onNextStep: ((String) -> Void)?
-    var onStateChange: ((PinCodeViewState) -> Void)?
     
     // MARK: - State
     private var stage: PinCodeStage = .creation
     
-    
-    private var state = PinCodeViewState(title: "Придумайте PIN-код") {
-        didSet { onStateChange?(state) }
-    }
+    @Published var state = PinCodeViewState(title: "Придумайте PIN-код")
     
     // MARK: - Setup Logic
     func didTapNumberButton(_ text: String) {

@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import SwiftUI
+import Combine
 
 class LoginViewController: UIViewController {
 
@@ -37,6 +38,7 @@ class LoginViewController: UIViewController {
     
     // MARK: - VM
     private let viewModel: LoginViewModel
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Init
     init(viewModel: LoginViewModel) {
@@ -218,9 +220,11 @@ private extension LoginViewController {
     }
     
     func bindViewModel() {
-        viewModel.onStateChange = { [weak self] state in
-            self?.render(state)
-        }
+        viewModel.$state.receive(on: DispatchQueue.main)
+            .sink { [weak self] state in
+                self?.render(state)
+            }
+            .store(in: &cancellables)
     }
     
     @objc func didTapRegister() {

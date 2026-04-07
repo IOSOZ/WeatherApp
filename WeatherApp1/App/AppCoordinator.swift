@@ -12,16 +12,15 @@ final class AppCoordinator: Coordinator {
     
     var childCoordinators: [Coordinator] = []
     
+    
     // MARK: - Outputs
     private let window: UIWindow
     private let navController: UINavigationController
-    private let di: AppDIContainer
     
     // MARK: - Init
-    init( window: UIWindow, di: AppDIContainer) {
+    init( window: UIWindow) {
         self.window = window
         self.navController = UINavigationController()
-        self.di = di
     }
     
     // MARK: - Start Method
@@ -30,60 +29,38 @@ final class AppCoordinator: Coordinator {
         window.makeKeyAndVisible()
         
 #warning("Тут сбрасываю юзердефолтс")
-        //        di.services.authService.logout()
-        //        di.services.localSessionStore.clearAll()
-        showAuthFlow()
-        
+//        AppServices.shared.authService.logout()
+//        AppServices.shared.localSessionStore.clearAll()
+        makeAuthCoordinator()
     }
 }
-    
-// MARK: - Creation Flows
-private extension AppCoordinator {
-    func showAuthFlow() {
-        let authCoordinator = AuthCoordinator(navController: navController, di: AuthFlowDIContainer(services: di.services))
-        authCoordinator.onFinish = { [weak self, weak authCoordinator] result in
-            guard let self else { return }
-            if let authCoordinator { self.removeChild(authCoordinator) }
-            
-            switch result {
-            case .authorized:
-                self.showMainFlow()
-            case .backToStart:
-                authCoordinator?.start()
-            }
-            
-        }
-        authCoordinator.onRegistration = { [weak self, weak authCoordinator] in
-            guard let self else { return }
-            if let authCoordinator { self.removeChild(authCoordinator) }
-            self.showRegisterFlow()
-        }
-        addChild(authCoordinator)
-        authCoordinator.start()
-    }
-    
-    func showRegisterFlow() {
-        let registerCoordinator = RegistrationCoordinator(navController: navController, di: RegistrationFlowDIContainer(services: di.services))
-        registerCoordinator.onFinish = { [weak self, weak registerCoordinator] in
-            guard let self else { return }
-            if let registerCoordinator { self.removeChild(registerCoordinator)}
-            self.showAuthFlow()
-        }
-        registerCoordinator.onAuth = { [weak self, weak registerCoordinator] in
-            guard let self else { return }
-            if let registerCoordinator { self.removeChild(registerCoordinator)}
-            self.showAuthFlow()
-        }
+  
+// MARK: - CoordinatorFactory
+
+extension AppCoordinator: AuthCoordinatorFactory, RegistrationCoordinatorFactory {
+    func makeAuthCoordinator() {
+        childCoordinators.removeAll()
         
-        addChild(registerCoordinator)
-        registerCoordinator.start()
+        let coordinator = AuthCoordinator(navController: navController, factory: self)
+        addChild(coordinator)
+        coordinator.start()
     }
     
-    func showMainFlow() {
+    func makeRegistrationCoordinator()  {
+        childCoordinators.removeAll()
+        
+        let coordinator = RegistrationCoordinator(navController: navController, factory: self)
+        addChild(coordinator)
+        coordinator.start()
+    }
+    
+    func makeMainCoordinator() {
+        // TODO: сделать логику
+        childCoordinators.removeAll()
         let vc = UIViewController()
         vc.view.backgroundColor = .red
         vc.title = "Main"
         
-        navController.setViewControllers([vc], animated: false)
-    }
+        navController.setViewControllers([vc], animated: false)    }
 }
+

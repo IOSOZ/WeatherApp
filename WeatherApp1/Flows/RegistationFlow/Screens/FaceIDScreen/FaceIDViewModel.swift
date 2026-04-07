@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 enum FaceIDScreenMode: Equatable {
     case initial(isEnabled: Bool)
@@ -27,16 +28,8 @@ protocol FaceIDViewModelInput {
     func didTapBackToAuth()
 }
 
-protocol FaceIDViewModelOutput {
-    var onStateChange: ((FaceIDViewState) -> Void)? { get set }
-    var onNextStep: ((Bool) -> Void)? { get set }
-    var onBackToAuth: (() -> Void)? { get set }
-}
-
-final class FaceIDViewModel: FaceIDViewModelInput, FaceIDViewModelOutput {
+final class FaceIDViewModel: FaceIDViewModelInput {
     
-    // MARK: - Outputs
-    var onStateChange: ((FaceIDViewState) -> Void)?
     var onNextStep: ((Bool) -> Void)?
     var onBackToAuth: (() -> Void)?
     
@@ -44,9 +37,7 @@ final class FaceIDViewModel: FaceIDViewModelInput, FaceIDViewModelOutput {
     private let biomerticAuthService: BiomerticAuthServiceProtocol
     
     // MARK: - State
-    private var state = FaceIDViewState() {
-        didSet { onStateChange?(state) }
-    }
+    @Published var state = FaceIDViewState()
     
     private var isFaceIDEnabled = false
     
@@ -68,13 +59,13 @@ final class FaceIDViewModel: FaceIDViewModelInput, FaceIDViewModelOutput {
     
     func didTapNext() {
         state.mode = .loading
-        // Тут балуюсь
+        #warning("Настроить логику загрузки")
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
             guard let self else { return}
             self.onNextStep?(isFaceIDEnabled)
         }
         
-        
+
     }
     
     func didTapPrimaryPromptAction() {

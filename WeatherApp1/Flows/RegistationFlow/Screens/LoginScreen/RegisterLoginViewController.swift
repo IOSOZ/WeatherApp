@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import SwiftUI
+import Combine
 
 class RegisterLoginViewController: UIViewController {
 
@@ -27,6 +28,7 @@ class RegisterLoginViewController: UIViewController {
     
     // MARK: - VM
     private let viewModel: RegisterUsernameViewModel
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Init
     init(viewModel: RegisterUsernameViewModel) {
@@ -151,9 +153,11 @@ private extension RegisterLoginViewController {
     }
     
     func bindViewModel() {
-        viewModel.onStateChange = { [weak self] state in
-            self?.render(state)
-        }
+        viewModel.$state.receive(on: DispatchQueue.main)
+            .sink { [weak self] state in
+                self?.render(state)
+            }
+            .store(in: &cancellables)
     }
     
     func render(_ state: RegisterUsernameViewState) {
