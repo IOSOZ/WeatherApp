@@ -6,3 +6,23 @@
 //
 
 import Foundation
+import UIKit
+
+protocol MainCoordinatorFactory {
+    func makeAuthCoordinator()
+}
+
+
+final class MainCoordinator: Coordinator {
+    
+    // MARK: - Flow Work
+    var childCoordinators: [Coordinator] = []
+    private let factory: MainCoordinatorFactory
+    private let moduleFactory = MainModuleFactory()
+    
+    func start() {
+        <#code#>
+    }
+    
+    
+}
