@@ -80,6 +80,7 @@ final class LoginPINViewModel: LoginPINCodeViewInput {
     }
 }
 
+// MARK: - Validation
 private extension LoginPINViewModel {
     
     func validatePin() {

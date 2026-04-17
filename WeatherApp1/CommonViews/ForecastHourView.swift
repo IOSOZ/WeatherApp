@@ -9,17 +9,21 @@ import UIKit
 import SnapKit
 
 final class ForecastHourView: UIView {
+    
+    // MARK: - UI
     private let timeLabel = UILabel()
     private let iconView = UIImageView()
     private let tempLabel = UILabel()
     private let stackView = UIStackView()
     
+    // MARK: - Private Properties
     private let formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         return formatter
     }()
     
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -30,24 +34,32 @@ final class ForecastHourView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Configure (Public)
     func configure(hourlyForecast: HourForecast) {
         timeLabel.text = formatter.string(from: hourlyForecast.date)
         tempLabel.text = "\(Int(hourlyForecast.temperature.rounded()))°"
-        loadIcon(from: hourlyForecast.icon)
+        AppServices.shared.imageCacheService.loadImage(from: hourlyForecast.icon) { [weak self] image in
+            self?.iconView.image = image
+        }
     }
 }
 
 private extension ForecastHourView {
+    // MARK: - Setup UI
+
     func setupUI() {
         stackView.axis = .vertical
-        stackView.spacing = 8
+        stackView.spacing = 6
         stackView.alignment = .center
         stackView.distribution = .fill
         
         iconView.contentMode = .scaleAspectFit
         
-        timeLabel.font = UIFont(name: "SFPro-Regular", size: 12)
-        tempLabel.font = UIFont(name: "SFPro-Regular", size: 12)
+        timeLabel.font = UIFont(name: "SFPro-Regular", size: 14)
+        tempLabel.font = UIFont(name: "SFPro-Regular", size: 14)
+        
+        timeLabel.textColor = .white
+        tempLabel.textColor = .white
         
         stackView.addArrangedSubview(timeLabel)
         stackView.addArrangedSubview(iconView)
@@ -56,32 +68,15 @@ private extension ForecastHourView {
         addSubview(stackView)
     }
     
+    // MARK: - Setup Layout
     func setupLayout() {
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
         iconView.snp.makeConstraints { make in
-            make.size.equalTo(30)
+            make.size.equalTo(40)
         }
-    }
-    
-    func loadIcon(from path: String) {
-        let fullPath = path.hasPrefix("http") ? path : "https:\(path)"
-        
-        guard let url = URL(string: fullPath) else { return }
-        
-        URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
-            guard
-                let self,
-                let data,
-                let image = UIImage(data: data)
-            else { return }
-            
-            DispatchQueue.main.async {
-                self.iconView.image = image
-            }
-        }.resume()
     }
 }
 

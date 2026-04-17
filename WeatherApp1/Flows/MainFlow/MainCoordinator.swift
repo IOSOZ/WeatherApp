@@ -20,9 +20,29 @@ final class MainCoordinator: Coordinator {
     private let factory: MainCoordinatorFactory
     private let moduleFactory = MainModuleFactory()
     
-    func start() {
-        <#code#>
+    // MARK: - NavController
+    private let navController: UINavigationController
+    
+    // MARK: - Init
+    init(navController: UINavigationController, factory: MainCoordinatorFactory) {
+        self.factory = factory
+        self.navController = navController
     }
     
-    
+    // MARK: - Start Method
+    func start() {
+        navController.setNavigationBarHidden(true, animated: false)
+        showWeatherScreen()
+    }
+}
+
+// MARK: - Setup Logic
+private extension MainCoordinator {
+    func showWeatherScreen() {
+        let vc = moduleFactory.makeWeatherViewController { [weak self] in
+            guard let self else { return }
+            self.factory.makeAuthCoordinator()
+        }
+        navController.setViewControllers([vc], animated: true)
+    }
 }

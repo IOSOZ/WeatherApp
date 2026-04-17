@@ -57,6 +57,7 @@ final class PinCodeViewModel: PinCodeViewInput {
 }
 
 private extension PinCodeViewModel {
+    // MARK: - Validation
     func validate() {
         guard state.enteredPin.count == 4 else { return }
         

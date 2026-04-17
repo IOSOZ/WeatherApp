@@ -67,20 +67,22 @@ class LoginViewController: UIViewController {
     }
 }
 
-// MARK: - Extension
+// MARK: - Setup UI
 private extension LoginViewController {
     func setupUI() {
         
+        // MARK: - Views Setup
+
         view.backgroundColor = .white
         
         scrollView.isScrollEnabled = true
         scrollView.keyboardDismissMode = .interactive
         
-        // Logo
+        // MARK: - Logo Setup
         logoImageView.contentMode = .scaleAspectFit
         logoImageView.image = UIImage(resource: .logo)
         
-        // Staccks
+        // MARK: - Views Setup
         contentStack.axis = .vertical
         contentStack.spacing = 16
         titleStack.axis = .vertical
@@ -90,7 +92,7 @@ private extension LoginViewController {
         registerStack.alignment = .center
         registerStack.isUserInteractionEnabled = true
         
-        // Labels
+        // MARK: - Labels Setup
         helloLabel.text = "Привет !"
         helloLabel.font = UIFont(name: "SFPro-Bold", size: 32)
         helloLabel.textColor = UIColor(red: 0/255, green: 26/255, blue: 52/255, alpha: 1)
@@ -103,16 +105,11 @@ private extension LoginViewController {
         subtitleLabel.minimumScaleFactor = 0.85
         subtitleLabel.lineBreakMode = .byClipping
         
-        // Error
         errorLabel.font = .systemFont(ofSize: 12)
         errorLabel.textColor = .systemRed
         errorLabel.numberOfLines = 0
         errorLabel.isHidden = true
         errorLabel.text = "Неверный логин или пароль"
-        
-        // Bottom
-        bottomStack.axis = .vertical
-        bottomStack.spacing = 16
         
         forwardButton.isEnabled = false
         forwardButton.setTitle("Вперед", for: .normal)
@@ -132,8 +129,11 @@ private extension LoginViewController {
         registerTapLabel.isUserInteractionEnabled = true
         registerTapLabel.underline()
         
+        // MARK: - Stacks Setup
+        bottomStack.axis = .vertical
+        bottomStack.spacing = 16
         
-        // Add Views
+        // MARK: - Add Views
         view.addSubview(scrollView)
         
         scrollView.addSubview(contentView)
@@ -201,9 +201,10 @@ private extension LoginViewController {
     
 }
 
-// MARK: - Setup Actions
+
 private extension LoginViewController {
     
+    // MARK: - Setup Actions
     func setupActions() {
         forwardButton.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
         
@@ -219,6 +220,7 @@ private extension LoginViewController {
         }
     }
     
+    // MARK: - Bind ViewModel
     func bindViewModel() {
         viewModel.$state.receive(on: DispatchQueue.main)
             .sink { [weak self] state in
@@ -227,14 +229,7 @@ private extension LoginViewController {
             .store(in: &cancellables)
     }
     
-    @objc func didTapRegister() {
-        viewModel.didTapRegister()
-    }
-    
-    @objc func didTapLogin() {
-        viewModel.didTapLogin()
-    }
-    
+    // MARK: - Render
     func render(_ state: LoginViewState) {
         forwardButton.isEnabled = state.isLoginEnabled && !state.isLoading
         forwardButton.backgroundColor = forwardButton.isEnabled ? UIColor(.appBlue) : UIColor(.inactiveButton)
@@ -247,19 +242,18 @@ private extension LoginViewController {
             errorLabel.text = nil
         }
     }
-}
-
-
-// MARK: - Keyboard setup
-private extension LoginViewController {
     
-    func setupKeyboardHandling() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillChangeFrame(_:)),
-            name: UIResponder.keyboardWillChangeFrameNotification,
-            object: nil
-        )
+    // MARK: - OBJC Methods
+    @objc func didTapRegister() {
+        viewModel.didTapRegister()
+    }
+    
+    @objc func didTapLogin() {
+        viewModel.didTapLogin()
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     @objc func keyboardWillChangeFrame(_ note: Notification) {
@@ -278,6 +272,26 @@ private extension LoginViewController {
         scrollView.contentInset.bottom = overlap
         scrollView.verticalScrollIndicatorInsets.bottom = overlap
     }
+}
+
+
+// MARK: - Keyboard setup
+private extension LoginViewController {
+    
+    func setupKeyboardHandling() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillChangeFrame(_:)),
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil
+        )
+    }
+    
+    
 }
 
 

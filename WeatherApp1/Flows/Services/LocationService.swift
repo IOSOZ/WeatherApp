@@ -13,6 +13,7 @@ protocol LocationServiceProtocol {
     
     func requestAuthorization()
     func requestCurrentLocation()
+    func reverseGeocode(coordinates: Coordinates, completion: @escaping (String?) -> Void)
     
     var onLocationReceived: ((Coordinates) -> Void)? { get set }
     var onLocationError: ((Error) -> Void)? { get set }
@@ -45,7 +46,7 @@ final class LocationService: NSObject, LocationServiceProtocol {
     private let manager = CLLocationManager()
     
     func requestAuthorization() {
-        switch manager.authorizationStatus {
+        switch authorizationStatus {
         case .notDetermined:
             manager.requestWhenInUseAuthorization()
         
@@ -64,7 +65,7 @@ final class LocationService: NSObject, LocationServiceProtocol {
     }
     
     func requestCurrentLocation() {
-        switch manager.authorizationStatus {
+        switch authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
             manager.requestLocation()
 
@@ -80,6 +81,26 @@ final class LocationService: NSObject, LocationServiceProtocol {
         @unknown default:
             break
         }
+    }
+    
+    func reverseGeocode(coordinates: Coordinates, completion: @escaping (String?) -> Void) {
+        let location = CLLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
+        
+        let geocoder = CLGeocoder()
+        let locale = Locale(identifier: "ru_RU")
+        
+        geocoder.reverseGeocodeLocation(location, preferredLocale: locale) { placemarks, error in
+            guard let placemark = placemarks?.first else {
+                completion(nil)
+                return
+            }
+            
+            let city = placemark.locality ?? placemark.administrativeArea ?? "Неизвестно"
+            let country = placemark.country ?? ""
+            completion("\(city), \(country)")
+
+        }
+            
     }
 }
 

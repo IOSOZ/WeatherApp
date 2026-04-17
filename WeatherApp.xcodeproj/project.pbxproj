@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C07F6CA2F8FB4EE0056E0C8 /* searchResultsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C07F6C92F8FB4EE0056E0C8 /* searchResultsTableVC.swift */; };
 		6C509AF72F7052820080FDBE /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509ABE2F7052820080FDBE /* AppCoordinator.swift */; };
 		6C509AF82F7052820080FDBE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509ABF2F7052820080FDBE /* AppDelegate.swift */; };
 		6C509AFA2F7052820080FDBE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509AC12F7052820080FDBE /* SceneDelegate.swift */; };
@@ -24,6 +25,7 @@
 		6C509B942F707BF10080FDBE /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C509B902F707BF10080FDBE /* SF-Pro.ttf */; };
 		6C509BAE2F707C0F0080FDBE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C509BAC2F707C0F0080FDBE /* LaunchScreen.storyboard */; };
 		6CA8C59D2F718C3C00FC2151 /* FaceIDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA8C59C2F718C3C00FC2151 /* FaceIDButton.swift */; };
+		6CE8FFD52F8936310064F84E /* mocWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE8FFD42F8936300064F84E /* mocWeather.swift */; };
 		6CEBFDB52F5880980003249D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6CEBFDB42F5880980003249D /* SnapKit */; };
 		6CEF546D2F732B57007145CB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF546C2F732B57007145CB /* GoogleService-Info.plist */; };
 		6CEF54702F7331DE007145CB /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6CEF546F2F7331DE007145CB /* FirebaseCore */; };
@@ -64,9 +66,11 @@
 		6CEF55462F855332007145CB /* ForecastHourView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55432F855332007145CB /* ForecastHourView.swift */; };
 		6CEF55472F855332007145CB /* Forecast24HoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55412F855332007145CB /* Forecast24HoursView.swift */; };
 		6CEF55482F855332007145CB /* WeeklyForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55442F855332007145CB /* WeeklyForecastView.swift */; };
+		6CEF554A2F8812B1007145CB /* ImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55492F8812B1007145CB /* ImageCacheService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C07F6C92F8FB4EE0056E0C8 /* searchResultsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchResultsTableVC.swift; sourceTree = "<group>"; };
 		6C509ABE2F7052820080FDBE /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		6C509ABF2F7052820080FDBE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6C509AC12F7052820080FDBE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +89,7 @@
 		6C509B902F707BF10080FDBE /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
 		6C509BAB2F707C0F0080FDBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6CA8C59C2F718C3C00FC2151 /* FaceIDButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDButton.swift; sourceTree = "<group>"; };
+		6CE8FFD42F8936300064F84E /* mocWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mocWeather.swift; sourceTree = "<group>"; };
 		6CEBFD702F55AADC0003249D /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CEF546C2F732B57007145CB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6CEF54942F844836007145CB /* CoordinatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorFactory.swift; sourceTree = "<group>"; };
@@ -123,6 +128,7 @@
 		6CEF55422F855332007145CB /* ForecastDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastDayView.swift; sourceTree = "<group>"; };
 		6CEF55432F855332007145CB /* ForecastHourView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastHourView.swift; sourceTree = "<group>"; };
 		6CEF55442F855332007145CB /* WeeklyForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyForecastView.swift; sourceTree = "<group>"; };
+		6CEF55492F8812B1007145CB /* ImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +183,7 @@
 			children = (
 				6CEF55412F855332007145CB /* Forecast24HoursView.swift */,
 				6CEF55422F855332007145CB /* ForecastDayView.swift */,
+				6C07F6C92F8FB4EE0056E0C8 /* searchResultsTableVC.swift */,
 				6CEF55432F855332007145CB /* ForecastHourView.swift */,
 				6CEF55442F855332007145CB /* WeeklyForecastView.swift */,
 				6C509B702F707BD60080FDBE /* FaceIDAlertController.swift */,
@@ -368,7 +375,9 @@
 				6CEF551C2F8552EC007145CB /* LocalSessionStore.swift */,
 				6CEF551D2F8552EC007145CB /* LocationService.swift */,
 				6CEF551E2F8552EC007145CB /* SessionService.swift */,
+				6CEF55492F8812B1007145CB /* ImageCacheService.swift */,
 				6CEF551F2F8552EC007145CB /* WeatherService.swift */,
+				6CE8FFD42F8936300064F84E /* mocWeather.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -477,6 +486,7 @@
 				6CEF55252F8552EC007145CB /* LocationService.swift in Sources */,
 				6CEF55262F8552EC007145CB /* MainModuleFactory.swift in Sources */,
 				6CEF55272F8552EC007145CB /* LoginPINViewModel.swift in Sources */,
+				6CE8FFD52F8936310064F84E /* mocWeather.swift in Sources */,
 				6CEF55282F8552EC007145CB /* RegistrationModuleFactory.swift in Sources */,
 				6CEF55292F8552EC007145CB /* FaceIDViewModel.swift in Sources */,
 				6CEF552A2F8552EC007145CB /* WeatherViewModel.swift in Sources */,
@@ -499,6 +509,7 @@
 				6CEF55372F8552EC007145CB /* WeatherService.swift in Sources */,
 				6CEF55382F8552EC007145CB /* RegisterPasswordViewController.swift in Sources */,
 				6CEF55392F8552EC007145CB /* WeatherViewController.swift in Sources */,
+				6CEF554A2F8812B1007145CB /* ImageCacheService.swift in Sources */,
 				6CEF553A2F8552EC007145CB /* CitySearchService.swift in Sources */,
 				6CEF553B2F8552EC007145CB /* User.swift in Sources */,
 				6CEF553C2F8552EC007145CB /* RegisterLoginViewController.swift in Sources */,
@@ -511,6 +522,7 @@
 				6C509B122F7052820080FDBE /* CoordinatorProtocol.swift in Sources */,
 				6C509B792F707BD60080FDBE /* FaceIDAlertController.swift in Sources */,
 				6C509B7A2F707BD60080FDBE /* LoginTextField.swift in Sources */,
+				6C07F6CA2F8FB4EE0056E0C8 /* searchResultsTableVC.swift in Sources */,
 				6C509B7B2F707BD60080FDBE /* PasswordChekLabel.swift in Sources */,
 				6C509B7C2F707BD60080FDBE /* PasswordTextField.swift in Sources */,
 				6C509B7D2F707BD60080FDBE /* PinDeleteButton.swift in Sources */,

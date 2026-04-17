@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum WeatherForecastError: Error {
     case invalidURL
@@ -23,6 +24,7 @@ protocol WeatherServiceProtocol {
     )
 }
 
+// обязательно возвращать на мейн поток, я это делаю чрез Combain
 final class WeatherForecastService: WeatherServiceProtocol {
     
     private let apiKey = "72da43dcecda4de0bc3144840263003"
@@ -36,7 +38,8 @@ final class WeatherForecastService: WeatherServiceProtocol {
             URLQueryItem(name: "q", value: coordinates.strCoordinates),
             URLQueryItem(name: "days", value: String(days)),
             URLQueryItem(name: "aqi", value: "no"),
-            URLQueryItem(name: "alerts", value: "no")
+            URLQueryItem(name: "alerts", value: "no"),
+            URLQueryItem(name: "lang", value: "ru")
         ]
         
         guard let url = components?.url else {
@@ -60,16 +63,12 @@ final class WeatherForecastService: WeatherServiceProtocol {
             }
             
             guard (200...299).contains(httpResponse.statusCode) else {
-                DispatchQueue.main.async {
-                    completion(.failure(WeatherForecastError.httpError(httpResponse.statusCode)))
-                }
+                completion(.failure(WeatherForecastError.httpError(httpResponse.statusCode)))
                 return
             }
             
             guard let data else {
-                DispatchQueue.main.async {
-                    completion(.failure(WeatherForecastError.emptyData))
-                }
+                completion(.failure(WeatherForecastError.emptyData))
                 return
             }
             
@@ -78,13 +77,10 @@ final class WeatherForecastService: WeatherServiceProtocol {
                 
                 let forecast = Forecast(dto: decodeResponse)
                 
-                DispatchQueue.main.async {
-                    completion(.success(forecast))
-                }
+                completion(.success(forecast))
+        
             } catch {
-                DispatchQueue.main.async {
-                    completion(.failure(error))
-                }
+                completion(.failure(error))
             }
             
             
@@ -92,3 +88,4 @@ final class WeatherForecastService: WeatherServiceProtocol {
         task.resume()
     }
 }
+

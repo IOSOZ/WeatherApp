@@ -16,13 +16,13 @@ struct Forecast {
 
 struct CurrentWeather {
     let date: Date
-    let temperature: Double
+    let temperature: Int
     let icon: String
     let description: String
-    let feelLikeTemp: Double
-    let windSpeed: Double
+    let feelLikeTemp:Int
+    let windSpeed: Int
     let humidity: Int
-    let pressure: Double
+    let pressure: Int
     let isDay: Bool
 }
 
@@ -64,7 +64,7 @@ struct CurrentWeatherDTO: Decodable {
     let windKpH: Double
     let humidity: Int
     let pressureMB: Double
-    let isDay: Bool
+    let isDay: Int
     
     enum CodingKeys: String, CodingKey {
         case date = "last_updated"
@@ -123,14 +123,14 @@ extension Forecast {
         
         self.current = CurrentWeather(
             date: hourFormatter.date(from: dto.current.date) ?? Date(timeIntervalSinceNow: 0),
-            temperature: dto.current.temp,
+            temperature: Int(dto.current.temp.rounded()),
             icon: dto.current.condition.icon,
             description: dto.current.condition.text,
-            feelLikeTemp: dto.current.feelsLikeTemp,
-            windSpeed: (dto.current.windKpH / 3.6).rounded(),
+            feelLikeTemp: Int(dto.current.feelsLikeTemp.rounded()),
+            windSpeed: Int((dto.current.windKpH / 3.6).rounded()),
             humidity: dto.current.humidity,
-            pressure: (dto.current.pressureMB / 1.333).rounded(),
-            isDay: dto.current.isDay
+            pressure: Int((dto.current.pressureMB / 1.333).rounded()),
+            isDay: (dto.current.isDay != 0)
         )
         
         self.hourForecast = dto.forecast.forecastday.flatMap { dayDTO in

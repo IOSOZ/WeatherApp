@@ -12,6 +12,7 @@ import SwiftUI
 
 final class PinDeleteButton: UIButton {
     
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -24,12 +25,14 @@ final class PinDeleteButton: UIButton {
 }
 
 private extension PinDeleteButton {
+    // MARK: - Setup UI
     func setupUI() {
         setImage(UIImage(resource: .pinDeleteButton), for: .normal)
         tintColor = UIColor(.inactiveButton)
         configuration = nil
     }
     
+    // MARK: - Setup Layout
     func setupLayout() {
         snp.makeConstraints { make in
             make.size.equalTo(CGSize(width: 64, height: 36))

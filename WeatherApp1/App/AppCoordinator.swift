@@ -12,7 +12,6 @@ final class AppCoordinator: Coordinator {
     
     var childCoordinators: [Coordinator] = []
     
-    
     // MARK: - Outputs
     private let window: UIWindow
     private let navController: UINavigationController
@@ -31,13 +30,12 @@ final class AppCoordinator: Coordinator {
 #warning("Тут сбрасываю юзердефолтс")
 //        AppServices.shared.authService.logout()
 //        AppServices.shared.localSessionStore.clearAll()
-        makeAuthCoordinator()
+       makeAuthCoordinator()
     }
 }
   
 // MARK: - CoordinatorFactory
-
-extension AppCoordinator: AuthCoordinatorFactory, RegistrationCoordinatorFactory {
+extension AppCoordinator: AuthCoordinatorFactory, RegistrationCoordinatorFactory, MainCoordinatorFactory {
     func makeAuthCoordinator() {
         childCoordinators.removeAll()
         
@@ -55,12 +53,11 @@ extension AppCoordinator: AuthCoordinatorFactory, RegistrationCoordinatorFactory
     }
     
     func makeMainCoordinator() {
-        // TODO: сделать логику
         childCoordinators.removeAll()
-        let vc = UIViewController()
-        vc.view.backgroundColor = .red
-        vc.title = "Main"
         
-        navController.setViewControllers([vc], animated: false)    }
+        let coordinator = MainCoordinator(navController: navController, factory: self)
+        addChild(coordinator)
+        coordinator.start()
+    }
 }
 

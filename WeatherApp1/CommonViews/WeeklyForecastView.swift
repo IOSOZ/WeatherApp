@@ -8,12 +8,15 @@
 import UIKit
 import SnapKit
 
-class WeeklyForecastView: UIView {
-    private let scrollView = UIScrollView()
+final class WeeklyForecastView: UIView {
+    // MARK: - UI
     private let stackView = UIStackView()
+    private let scrollView = UIScrollView()
     
-    private let countOfDayForecast = 7
+    // MARK: - Private properties
+    private let countOfDayForecast = 10
     
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -25,6 +28,13 @@ class WeeklyForecastView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Life Cycle
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        addFadeGradient()
+    }
+    
+    // MARK: - Configure (Public)
     func configure(
         daysForecast: [DayForecast],
         currentDate: Date) {
@@ -47,16 +57,24 @@ class WeeklyForecastView: UIView {
 }
 
 private extension WeeklyForecastView {
+    // MARK: - UI
     func setupUI() {
         stackView.axis = .vertical
         stackView.spacing = 16
         stackView.alignment = .fill
         stackView.distribution = .fill
+
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
+        scrollView.decelerationRate = .fast
+        scrollView.showsVerticalScrollIndicator = false
         
         addSubview(scrollView)
         scrollView.addSubview(stackView)
     }
     
+    // MARK: - Setup Layout
+
     func setupLayout() {
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -66,6 +84,21 @@ private extension WeeklyForecastView {
             make.edges.equalTo(scrollView.contentLayoutGuide)
             make.width.equalTo(scrollView.frameLayoutGuide)
         }
+
+    }
+    
+    // MARK: - Gradient
+    func addFadeGradient() {
+        let gradient = CAGradientLayer()
+        gradient.frame = scrollView.frame
+        gradient.colors = [
+            UIColor(white: 0, alpha: 0).cgColor,
+            UIColor(white: 0, alpha: 1).cgColor,
+            UIColor(white: 0, alpha: 1).cgColor,
+            UIColor(white: 0, alpha: 0).cgColor
+        ]
+        gradient.locations = [0, 0.1, 0.9, 1.0]
+        layer.mask = gradient
     }
     
 }

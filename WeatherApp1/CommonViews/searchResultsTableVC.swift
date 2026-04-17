@@ -4,86 +4,76 @@
 //
 //  Created by Олег Зуев on 15.04.2026.
 //
-
+import Foundation
 import UIKit
+import SnapKit
 
-class searchResultsTableVC: UITableViewController {
-
+final class SearchResultsViewController: UITableViewController {
+    
+    // MARK: - Public API
+    var onCitySelected: ((CitySuggestion) -> Void)?
+    
+    // MARK: - Private Properties
+    private var suggestions: [CitySuggestion] = []
+    
+    private let rowHeight: CGFloat = 52
+    private let maxRows = 3
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        setupUI()
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    // MARK: - Configure(Public)
+    
+    func configure(with suggestions: [CitySuggestion]) {
+        self.suggestions = Array(suggestions.prefix(maxRows))
+        tableView.reloadData()
+        print("🔵 Таблица обновлена, строк: \(self.suggestions.count)")
     }
+}
+    
+private extension SearchResultsViewController {
+    func setupUI() {
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.rowHeight = rowHeight
+        tableView.isScrollEnabled = false
+        tableView.layer.cornerRadius = 16
+        tableView.layer.maskedCorners = [
+            .layerMinXMinYCorner,
+            .layerMaxXMinYCorner,
+            .layerMinXMaxYCorner,
+            .layerMaxXMaxYCorner
+        ]
+        tableView.clipsToBounds = true
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        
+        view.backgroundColor = .white
+        tableView.backgroundColor = .white
+        tableView.translatesAutoresizingMaskIntoConstraints = true
+        tableView.snp.makeConstraints { make in
+            make.height.equalTo(rowHeight * CGFloat(maxRows))
+        }
+    }
+}
 
+// MARK: - TableView Protocol Methods 
+extension SearchResultsViewController {
+        
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        suggestions.count
     }
-
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = suggestions[indexPath.row].title
+        cell.textLabel?.font = UIFont(name: "SFPro-Regular", size: 16)
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        onCitySelected?(suggestions[indexPath.row])
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+

@@ -59,7 +59,6 @@ final class FaceIDViewModel: FaceIDViewModelInput {
     
     func didTapNext() {
         state.mode = .loading
-        #warning("Настроить логику загрузки")
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
             guard let self else { return}
             self.onNextStep?(isFaceIDEnabled)
@@ -91,6 +90,8 @@ final class FaceIDViewModel: FaceIDViewModelInput {
 }
 
 private extension FaceIDViewModel {
+    
+    // MARK: - Authenticate
     func authenticate() {
         biomerticAuthService.authenticate(reason: "TurnOn FaceId") { [weak self] result in
             guard let self else { return }

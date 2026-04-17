@@ -57,6 +57,8 @@ final class RegisterUsernameViewModel: RegisterUsernameInput {
 }
 
 private extension RegisterUsernameViewModel {
+    
+    // MARK: - Validation
     func validate() {
         
         let username = state.username.trimmingCharacters(in: .whitespacesAndNewlines)

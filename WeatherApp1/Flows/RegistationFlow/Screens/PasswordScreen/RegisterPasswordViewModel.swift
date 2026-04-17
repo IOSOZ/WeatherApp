@@ -63,7 +63,7 @@ final class RegisterPasswordViewModel: RegisterPasswordInput {
 }
 
 private extension RegisterPasswordViewModel {
-
+    // MARK: - Validation
     func validate() {
         let password = state.firstPassword
 

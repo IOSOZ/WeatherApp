@@ -12,7 +12,6 @@ import SnapKit
 final class LoginFieldView: UIView {
     
     // MARK: - UI Properties
-    
     private let textField = PaddedTextField(padding: .init(top: 0, left: 24, bottom: 0, right: 24))
     private let cancelButton = UIButton(type: .custom)
     
@@ -25,7 +24,6 @@ final class LoginFieldView: UIView {
     
     
     // MARK: - Init
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -40,9 +38,9 @@ final class LoginFieldView: UIView {
 
 
 private extension LoginFieldView {
-    
+    // MARK: - Setup UI
+
     func setupUI() {
-        
         backgroundColor = UIColor(cgColor: .init(red: 243/255, green: 244/255, blue: 248/255, alpha: 1))
         layer.cornerRadius = 8
         clipsToBounds = true
@@ -63,6 +61,7 @@ private extension LoginFieldView {
         addSubview(cancelButton)
     }
     
+    // MARK: - Setup Layout
     func setupLayout() {
         textField.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview()
@@ -76,12 +75,14 @@ private extension LoginFieldView {
         }
     }
     
+    // MARK: - Setup Actions
     func setupActions() {
         cancelButton.addTarget(self, action: #selector(clearTextField), for: .touchUpInside)
         textField.addTarget(self, action: #selector(textChanged), for: .editingChanged)
     }
 }
 
+// MARK: - OBJC Methods
 private extension LoginFieldView {
     @objc func clearTextField() {
         textField.text = ""

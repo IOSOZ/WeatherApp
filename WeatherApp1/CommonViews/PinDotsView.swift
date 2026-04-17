@@ -12,13 +12,16 @@ import SnapKit
 
 
 final class PinDotsView: UIView {
+    // MARK: - UI
     private let stackView = UIStackView()
     private var dotViews: [UIView] = []
     
+    // MARK: - Private Properties
     private let count: Int
     private let dotSize: CGFloat
     private let spacing: CGFloat
     
+    // MARK: - Init
     init(count: Int = 4, dotSize: CGFloat = 24, spacing: CGFloat = 16) {
         self.count = count
         self.dotSize = dotSize
@@ -34,8 +37,7 @@ final class PinDotsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    // MARK: - Тут косяк, вся вью аниммируется 
+    // MARK: - Configure(Publick)
     func configure(filledCount: Int) {
         for (index, dot) in dotViews.enumerated() {
             UIView.animate(withDuration: 0.2, delay: 0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 3) {
@@ -48,13 +50,14 @@ final class PinDotsView: UIView {
         }
     }
     
-    
     func reset() {
         configure(filledCount: 0)
     }
 }
 
 private extension PinDotsView {
+    // MARK: - Setup UI
+    
     func setupUI() {
         stackView.axis = .horizontal
         stackView.spacing = spacing
@@ -64,6 +67,7 @@ private extension PinDotsView {
         addSubview(stackView)
     }
     
+    // MARK: - Setup UI
     func setupDots() {
         for _ in 0..<count {
             let dotView = UIView()

@@ -42,7 +42,7 @@ final class CitySearchService: CitySearchServiceProtocol {
         components?.queryItems = [
             URLQueryItem(name: "text", value: trimmedText),
             URLQueryItem(name: "type", value: "city"),
-            URLQueryItem(name: "limit", value: "10"),
+            URLQueryItem(name: "limit", value: "5"),
             URLQueryItem(name: "format", value: "json"),
             URLQueryItem(name: "lang", value: "ru"),
             URLQueryItem(name: "apiKey", value: apiKey)

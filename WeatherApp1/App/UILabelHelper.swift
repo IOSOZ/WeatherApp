@@ -11,8 +11,8 @@ import UIKit
 
 struct TextStyle {
     let font: UIFont
-    let lineHeight: CGFloat?      // nil = не трогаем
-    let kern: CGFloat?            // nil = не трогаем
+    let lineHeight: CGFloat?
+    let kern: CGFloat?
     let alignment: NSTextAlignment
 
     init(

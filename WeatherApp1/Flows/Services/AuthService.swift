@@ -30,6 +30,7 @@ protocol AuthServiceProtocol {
 
 final class FireStoreAuthService: AuthServiceProtocol {
     
+    // MARK: - Constants
     private enum Constants {
             static let usersCollection = "users"
             static let idField = "id"
@@ -37,9 +38,11 @@ final class FireStoreAuthService: AuthServiceProtocol {
             static let passwordField = "password"
         }
     
+    // MARK: - DI
     private let db: Firestore
     private let sessionService: SessionServiceProtocol
     
+    // MARK: - Init
     init(
         db: Firestore = Firestore.firestore(),
         sessionService: SessionServiceProtocol
@@ -52,6 +55,7 @@ final class FireStoreAuthService: AuthServiceProtocol {
         sessionService.isAuthorized
     }
     
+    // MARK: - Public Methods
     func isLoginExists(
         _ userName: String,
         completion: @escaping (Result<Bool, any Error>) -> Void) {
@@ -67,7 +71,6 @@ final class FireStoreAuthService: AuthServiceProtocol {
                 completion(.success(exists))
             }
     }
-    
     
     func register(
         userName: String,
@@ -139,7 +142,6 @@ final class FireStoreAuthService: AuthServiceProtocol {
     func logout() {
         sessionService.clearSession()
     }
-    
     
 }
 

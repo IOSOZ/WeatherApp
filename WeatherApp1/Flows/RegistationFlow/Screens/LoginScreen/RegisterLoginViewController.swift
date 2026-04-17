@@ -40,11 +40,13 @@ class RegisterLoginViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        navigationItem.title = "Регистрация"
         
         setupUI()
         setupLayout()
@@ -55,12 +57,14 @@ class RegisterLoginViewController: UIViewController {
     
 }
 
-// MARK: - Extension
 private extension RegisterLoginViewController {
+    // MARK: - Setup UI
     func setupUI() {
+        
+        // MARK: - Views Setup
         view.backgroundColor = .white
         
-        // MARK: - Stacks
+        // MARK: - Stacks Setup
         upperStack.axis = .vertical
         upperStack.spacing = 24
         
@@ -114,6 +118,9 @@ private extension RegisterLoginViewController {
         
         bottomStack.addArrangedSubview(forwardButton)
         bottomStack.addArrangedSubview(authorizeStack)
+        
+        // MARK: - Navigation
+        navigationItem.title = "Регистрация"
     }
     
     // MARK: -  Setup Layout
@@ -140,7 +147,7 @@ private extension RegisterLoginViewController {
 }
 
 private extension RegisterLoginViewController {
-    
+    // MARK: - Setup Actions
     func setupActions() {
         forwardButton.addTarget(self, action: #selector(didTapForward), for: .touchUpInside)
         
@@ -152,6 +159,7 @@ private extension RegisterLoginViewController {
         }
     }
     
+    // MARK: - Bind ViewModel
     func bindViewModel() {
         viewModel.$state.receive(on: DispatchQueue.main)
             .sink { [weak self] state in
@@ -160,6 +168,7 @@ private extension RegisterLoginViewController {
             .store(in: &cancellables)
     }
     
+    // MARK: - Render
     func render(_ state: RegisterUsernameViewState) {
         forwardButton.isEnabled = state.isNextStepEnabled
         forwardButton.backgroundColor = forwardButton.isEnabled ? UIColor(.appBlue) : UIColor(.inactiveButton)
@@ -173,8 +182,7 @@ private extension RegisterLoginViewController {
         }
     }
 
-    
-    
+    // MARK: - OBJC Methods
     @objc func didTapForward() {
         viewModel.didTapNextStep()
     }
@@ -183,12 +191,20 @@ private extension RegisterLoginViewController {
         viewModel.didTapBackToAuth()
     }
     
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
 }
 
 // MARK: - Keyboard setup
 
 private extension RegisterLoginViewController {
     func setupKeyboardHandling() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillChangeFrame(_:)),

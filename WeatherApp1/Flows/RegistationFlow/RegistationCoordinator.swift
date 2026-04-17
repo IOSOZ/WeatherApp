@@ -100,6 +100,7 @@ private extension RegistrationCoordinator {
 
 private extension RegistrationCoordinator {
     
+    // MARK: - Helpers
     func completeRegistration() {
         guard
             let username = draft.username,
@@ -123,6 +124,7 @@ private extension RegistrationCoordinator {
         }
     }
     
+    // MARK: - Navigation
      func setupNavigationBarAppearance() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()

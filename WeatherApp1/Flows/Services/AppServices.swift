@@ -16,6 +16,10 @@ final class AppServices {
     lazy var biometricAuthService: BiomerticAuthServiceProtocol = BiomerticAuthService()
     lazy var sessionService: SessionServiceProtocol = SessionService()
     lazy var localSessionStore: LocalSessionStoreProtocol = LocalSessionStore()
+    lazy var citySearchService: CitySearchService = CitySearchService()
+    lazy var locationService: LocationService = LocationService()
+    lazy var weatherService: WeatherForecastService = WeatherForecastService()
+    lazy var imageCacheService: ImageCacheService = ImageCacheService()
     
     private init() {}
 }
