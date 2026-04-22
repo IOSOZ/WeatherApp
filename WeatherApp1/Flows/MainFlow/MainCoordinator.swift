@@ -17,8 +17,17 @@ final class MainCoordinator: Coordinator {
     
     // MARK: - Flow Work
     var childCoordinators: [Coordinator] = []
+    
+    var onFinish: (() -> Void)?
+    
     private let factory: MainCoordinatorFactory
-    private let moduleFactory = MainModuleFactory()
+    
+    private let moduleFactory = MainModuleFactory(
+        weatherService: AppServices.shared.weatherService,
+        locationService: AppServices.shared.locationService,
+        citySearchService: AppServices.shared.citySearchService,
+        localSessionStore: AppServices.shared.localSessionStore
+    )
     
     // MARK: - NavController
     private let navController: UINavigationController
@@ -40,8 +49,8 @@ final class MainCoordinator: Coordinator {
 private extension MainCoordinator {
     func showWeatherScreen() {
         let vc = moduleFactory.makeWeatherViewController { [weak self] in
-            guard let self else { return }
-            self.factory.makeAuthCoordinator()
+            self?.factory.makeAuthCoordinator()
+            self?.onFinish?()
         }
         navController.setViewControllers([vc], animated: true)
     }

@@ -18,6 +18,8 @@ enum FaceIDScreenMode: Equatable {
 struct FaceIDViewState: Equatable {
     var mode: FaceIDScreenMode = .initial(isEnabled: false)
     var screenTitle: String = "Подключить Face ID"
+    var nextButtonTitle: String = "Зарегестрироваться"
+    var backToAuthLabelIsHidden: Bool = false
 }
 
 protocol FaceIDViewModelInput {
@@ -35,6 +37,7 @@ final class FaceIDViewModel: FaceIDViewModelInput {
     
     // MARK: - DI
     private let biomerticAuthService: BiomerticAuthServiceProtocol
+    private let sessionService: LocalSessionStoreProtocol
     
     // MARK: - State
     @Published var state = FaceIDViewState()
@@ -42,11 +45,21 @@ final class FaceIDViewModel: FaceIDViewModelInput {
     private var isFaceIDEnabled = false
     
     // MARK: - Init
-    init(biomerticAuthService: BiomerticAuthServiceProtocol) {
+    init(biomerticAuthService: BiomerticAuthServiceProtocol, sessionService: LocalSessionStoreProtocol) {
         self.biomerticAuthService = biomerticAuthService
+        self.sessionService = sessionService
     }
     
     // MARK: - Setup Logic
+    
+    func viewDidLoad() {
+        if sessionService.isAuthorized {
+            state.backToAuthLabelIsHidden = true
+            state.nextButtonTitle = "Подтвердить"
+        }
+        
+    }
+    
     func didToggleFaceID(_ isOn: Bool) {
         if isOn {
             state.mode = .permissionPrompt

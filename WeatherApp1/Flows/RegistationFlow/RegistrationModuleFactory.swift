@@ -9,11 +9,25 @@ import Foundation
 import UIKit
 
 final class RegistrationModuleFactory {
+    
+    var authService: AuthServiceProtocol
+    var biomerticAuthService: BiomerticAuthServiceProtocol
+    var sessionService: LocalSessionStoreProtocol
+    
+    init(authService: AuthServiceProtocol,
+         biomerticAuthService: BiomerticAuthServiceProtocol,
+         sessionService: LocalSessionStoreProtocol)
+    {
+        self.authService = authService
+        self.biomerticAuthService = biomerticAuthService
+        self.sessionService = sessionService
+    }
+    
     func makeRegisterLoginViewController(
         onLoginEntered: @escaping (String) -> Void,
         onBackToAuth: @escaping () -> Void
     ) -> UIViewController {
-        let viewModel = RegisterUsernameViewModel(authService: AppServices.shared.authService)
+        let viewModel = RegisterUsernameViewModel(authService: authService)
         viewModel.onNextStep = onLoginEntered
         viewModel.onBackToAuth = onBackToAuth
         
@@ -48,7 +62,8 @@ final class RegistrationModuleFactory {
         onNextStep: @escaping (Bool) -> Void,
         onBackToAuth: @escaping () -> Void
     ) -> UIViewController {
-        let viewModel = FaceIDViewModel(biomerticAuthService: AppServices.shared.biometricAuthService)
+        let viewModel = FaceIDViewModel(biomerticAuthService: biomerticAuthService,
+                                        sessionService: sessionService)
         viewModel.onNextStep = onNextStep
         viewModel.onBackToAuth = onBackToAuth
         

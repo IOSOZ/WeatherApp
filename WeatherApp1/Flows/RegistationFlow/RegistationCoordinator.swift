@@ -8,6 +8,14 @@
 import Foundation
 import UIKit
 
+enum RegistrationError: Error {
+    case missingUsername
+    case missingPassword
+    case missingPin
+    case missingFaceIDChoice
+    case networkTimeout
+    case invalidResponse
+}
 
 protocol RegistrationCoordinatorFactory {
     func makeAuthCoordinator()
@@ -16,10 +24,21 @@ protocol RegistrationCoordinatorFactory {
 
 final class RegistrationCoordinator: Coordinator {
     
+    // MARK: - DI
+    private let localSessionStore: LocalSessionStoreProtocol
+    private let authService: AuthServiceProtocol
+    
     // MARK: - Flow Work
     var childCoordinators: [Coordinator] = []
+    
+    var onFinish: (() -> Void)?
+    
     private let factory: RegistrationCoordinatorFactory
-    private let moduleFactory = RegistrationModuleFactory()
+    private let moduleFactory = RegistrationModuleFactory(
+        authService: AppServices.shared.authService,
+        biomerticAuthService: AppServices.shared.biometricAuthService,
+        sessionService: AppServices.shared.localSessionStore
+    )
     
     // MARK: - NavController
     private let navController: UINavigationController
@@ -29,16 +48,24 @@ final class RegistrationCoordinator: Coordinator {
     
     // MARK: - Init
     init(navController: UINavigationController,
-         factory: RegistrationCoordinatorFactory) {
+         factory: RegistrationCoordinatorFactory,
+         localSessionStore: LocalSessionStoreProtocol,
+         authService: AuthServiceProtocol) {
         self.navController = navController
         self.factory = factory
+        self.localSessionStore = localSessionStore
+        self.authService = authService
     }
     
     // MARK: - Start Method
     func start() {
         navController.setNavigationBarHidden(false, animated: false)
-        showUsernameStep()
         setupNavigationBarAppearance()
+        if localSessionStore.isAuthorized {
+            showPinStep()
+        } else {
+            showUsernameStep()
+        }
     }
 }
 
@@ -52,10 +79,9 @@ private extension RegistrationCoordinator {
             self.showPasswordStep()
             
         } onBackToAuth: { [weak self] in
-            guard let self else { return }
-            factory.makeAuthCoordinator()
+            self?.factory.makeAuthCoordinator()
+            self?.onFinish?()
         }
-        navController.setNavigationBarHidden(true, animated: false)
         navController.setViewControllers([loginVC], animated: true)
     }
     
@@ -65,10 +91,9 @@ private extension RegistrationCoordinator {
             self.draft.password = password
             self.showPinStep()
         } onBackToAuth: { [weak self] in
-            guard let self else { return }
-            factory.makeAuthCoordinator()
+            self?.factory.makeAuthCoordinator()
+            self?.onFinish?()
         }
-        navController.setNavigationBarHidden(true, animated: false)
         navController.pushViewController(passwordVC, animated: true)
 
     }
@@ -79,7 +104,7 @@ private extension RegistrationCoordinator {
             self.draft.pin = pin
             self.showFaceIDStep()
         }
-        
+        navController.setNavigationBarHidden(true, animated: true)
         navController.pushViewController(pinVC, animated: true)
     }
     
@@ -87,10 +112,20 @@ private extension RegistrationCoordinator {
         let faceIDVC = moduleFactory.makeFaceIDViewController { [weak self] faceIDIsOn in
             guard let self else { return }
             self.draft.isFaceIDEnabled = faceIDIsOn
-            self.completeRegistration()
+            
+            do {
+                if localSessionStore.isAuthorized {
+                    try completePinSetup()
+                } else {
+                    try completeRegistration()
+                }
+            } catch {
+                print("Error ", error)
+            }
+            
         } onBackToAuth: { [weak self] in
-            guard let self else { return }
-            factory.makeAuthCoordinator()
+            self?.factory.makeAuthCoordinator()
+            self?.onFinish?()
         }
 
         navController.pushViewController(faceIDVC, animated: true)
@@ -101,54 +136,76 @@ private extension RegistrationCoordinator {
 private extension RegistrationCoordinator {
     
     // MARK: - Helpers
-    func completeRegistration() {
-        guard
-            let username = draft.username,
-            let password = draft.password,
-            let pin = draft.pin,
-            let biometricIsEnabled = draft.isFaceIDEnabled
-        else { return }
+    func completeRegistration() throws {
+        guard let username = draft.username else {
+            throw RegistrationError.missingUsername
+        }
+        guard let password = draft.password else {
+            throw RegistrationError.missingPassword
+        }
+        guard let pin = draft.pin else {
+            throw RegistrationError.missingPin
+        }
+        guard let biometricIsEnabled = draft.isFaceIDEnabled else {
+            throw RegistrationError.missingFaceIDChoice
+        }
         
-        AppServices.shared.authService.register(userName: username, password: password) { [weak self] result in
+        authService.register(userName: username, password: password) { [weak self] result in
             guard let self else { return }
             
             switch result {
             case .success(let user):
-                AppServices.shared.sessionService.saveSession(userId: user.id)
-                AppServices.shared.localSessionStore.savePin(pin)
-                AppServices.shared.localSessionStore.setBiometricEnabled(biometricIsEnabled)
+                localSessionStore.saveSession(userId: user.id)
+                localSessionStore.savePin(pin)
+                localSessionStore.setBiometricEnabled(biometricIsEnabled)
+                onFinish?()
                 factory.makeMainCoordinator()
             case .failure(let error):
-                print(error)
+                print("Registration error:", error)
             }
         }
     }
     
+    func completePinSetup() throws {
+        guard let pin = draft.pin else {
+            throw RegistrationError.missingPin
+        }
+        
+        guard let biometricIsEnabled = draft.isFaceIDEnabled else {
+            throw RegistrationError.missingFaceIDChoice
+        }
+        
+        localSessionStore.savePin(pin)
+        localSessionStore.setBiometricEnabled(biometricIsEnabled)
+        onFinish?()
+        factory.makeMainCoordinator()
+    }
+    
     // MARK: - Navigation
      func setupNavigationBarAppearance() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-
-        appearance.backgroundColor = .white
-        
-        appearance.shadowColor = UIColor.separator
-
-        appearance.titleTextAttributes = [
+         let appearance = UINavigationBarAppearance()
+         appearance.configureWithOpaqueBackground()
+         
+         appearance.backgroundColor = .white
+         
+         appearance.shadowColor = UIColor.separator
+         
+         appearance.titleTextAttributes = [
             .foregroundColor: UIColor.black,
             .font: UIFont.systemFont(ofSize: 16, weight: .medium)
-        ]
-
-        let backItemAppearance = UIBarButtonItemAppearance()
-        backItemAppearance.normal.titleTextAttributes = [
-            .foregroundColor: UIColor.clear
-        ]
-
-        appearance.backButtonAppearance = backItemAppearance
-
-        navController.navigationBar.standardAppearance = appearance
-        navController.navigationBar.scrollEdgeAppearance = appearance
-        navController.navigationBar.compactAppearance = appearance
-        navController.navigationBar.tintColor = .black
+         ]
+         
+         let backItemAppearance = UIBarButtonItemAppearance()
+         backItemAppearance.normal.titleTextAttributes = [
+            .foregroundColor: UIColor.appBlue
+         ]
+         
+         appearance.backButtonAppearance = backItemAppearance
+         
+         navController.navigationBar.standardAppearance = appearance
+         navController.navigationBar.scrollEdgeAppearance = appearance
+         navController.navigationBar.compactAppearance = appearance
+         navController.navigationBar.tintColor = .black
     }
 }
 

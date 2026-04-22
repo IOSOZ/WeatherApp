@@ -114,9 +114,14 @@ private extension PinCodeViewController {
     }
     // MARK: - Render
     func render(_ state: PinCodeViewState) {
-        pinDotView.configure(filledCount: state.enteredDigits)
+        if state.errorMessage != nil {
+            pinDotView.showIncorrectAnimation()
+            errorLabel.text = state.errorMessage
+        } else {
+            pinDotView.configure(filledCount: state.enteredDigits)
+        }
+        
         titleLabel.text = state.title
-        errorLabel.text = state.errorMessage
         errorLabel.isHidden = state.errorMessage == nil
     }
 }

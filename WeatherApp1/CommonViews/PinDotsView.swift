@@ -37,7 +37,7 @@ final class PinDotsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Configure(Publick)
+    // MARK: - Configure(Public)
     func configure(filledCount: Int) {
         for (index, dot) in dotViews.enumerated() {
             UIView.animate(withDuration: 0.2, delay: 0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 3) {
@@ -52,6 +52,16 @@ final class PinDotsView: UIView {
     
     func reset() {
         configure(filledCount: 0)
+    }
+    
+    func showIncorrectAnimation() {
+        dotViews.forEach { dot in
+            UIView.animate(withDuration: 0.5, delay: 0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 3) {
+                dot.backgroundColor = .red
+                dot.backgroundColor = .inactiveButton
+                dot.transform = CGAffineTransform(scaleX: 1.08, y: 1.08)
+            }
+        }
     }
 }
 

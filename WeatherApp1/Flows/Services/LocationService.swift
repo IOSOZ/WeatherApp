@@ -10,6 +10,7 @@ import CoreLocation
 
 protocol LocationServiceProtocol {
     var authorizationStatus: CLAuthorizationStatus { get }
+    var isLocationAvilable: Bool { get }
     
     func requestAuthorization()
     func requestCurrentLocation()
@@ -35,6 +36,10 @@ final class LocationService: NSObject, LocationServiceProtocol {
     
     var authorizationStatus: CLAuthorizationStatus {
         manager.authorizationStatus
+    }
+    
+    var isLocationAvilable: Bool {
+        [.authorizedAlways, .authorizedWhenInUse].contains(authorizationStatus)
     }
     
     override init() {

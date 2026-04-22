@@ -40,12 +40,12 @@ final class FireStoreAuthService: AuthServiceProtocol {
     
     // MARK: - DI
     private let db: Firestore
-    private let sessionService: SessionServiceProtocol
+    private let sessionService: LocalSessionStoreProtocol
     
     // MARK: - Init
     init(
         db: Firestore = Firestore.firestore(),
-        sessionService: SessionServiceProtocol
+        sessionService: LocalSessionStoreProtocol
     ) {
         self.db = db
         self.sessionService = sessionService
@@ -137,7 +137,6 @@ final class FireStoreAuthService: AuthServiceProtocol {
                 }
             
     }
-    
     
     func logout() {
         sessionService.clearSession()

@@ -121,6 +121,13 @@ private extension RegisterLoginViewController {
         
         // MARK: - Navigation
         navigationItem.title = "Регистрация"
+        let backButton = UIBarButtonItem(
+            image: UIImage(systemName: "chevron.left"),
+            style: .plain,
+            target: self,
+            action: #selector(didTapBack)
+        )
+        navigationItem.leftBarButtonItem = backButton
     }
     
     // MARK: -  Setup Layout
@@ -193,6 +200,10 @@ private extension RegisterLoginViewController {
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc func didTapBack() {
+        viewModel.onBackToAuth?()
     }
     
 }

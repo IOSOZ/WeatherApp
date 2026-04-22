@@ -17,30 +17,34 @@ final class AuthCoordinator: Coordinator {
     
     // MARK: - Flow Work
     var childCoordinators: [Coordinator] = []
+    
+    var onFinish: (() -> Void)?
+    
     private let factory: AuthCoordinatorFactory
-    private let moduleFactory = AuthModuleFactory()
+    private let moduleFactory = AuthModuleFactory(
+        authService: AppServices.shared.authService,
+        localSessionService: AppServices.shared.localSessionStore,
+        biometricService: AppServices.shared.biometricAuthService
+    )
     
     // MARK: - NavController
     private let navController: UINavigationController
     
     // MARK: - Services
-    private let sessionService: SessionServiceProtocol
     private let localSessionStore: LocalSessionStoreProtocol
     
     // MARK: - Init
     init(navController: UINavigationController,
-         sessionService: SessionServiceProtocol = AppServices.shared.sessionService,
          localSessionStore: LocalSessionStoreProtocol = AppServices.shared.localSessionStore,
          factory: AuthCoordinatorFactory) {
         self.navController = navController
-        self.sessionService = sessionService
         self.localSessionStore = localSessionStore
         self.factory = factory
     }
     
     // MARK: - Start Method
     func start() {
-        if sessionService.isAuthorized && localSessionStore.hasPin {
+        if localSessionStore.isAuthorized && localSessionStore.hasPin {
             showPinCodeScreen()
         } else {
             showLoginScreen()
@@ -53,10 +57,12 @@ private extension AuthCoordinator {
     func showLoginScreen() {
         let vc = moduleFactory.makeLoginViewController(
             onLoginSuccess: { [weak self] in
-                self?.factory.makeMainCoordinator()
+                self?.factory.makeRegistrationCoordinator()
+                self?.onFinish?()
             },
             onRegister: { [weak self] in
                 self?.factory.makeRegistrationCoordinator()
+                self?.onFinish?()
             }
         )
         navController.setViewControllers([vc], animated: true)

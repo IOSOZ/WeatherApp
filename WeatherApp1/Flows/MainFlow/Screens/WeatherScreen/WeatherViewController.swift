@@ -12,9 +12,14 @@ import Combine
 class WeatherViewController: UIViewController {
     
     // MARK: - UI
+    private let loadingView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
+    
     private let currentWeatherView = UIView()
     private let searchBar = UISearchBar()
     private let resultsTableView = UITableView()
+    
+    private let logOutButton = UIButton()
     
     private let cityLabel = UILabel()
     private let weatherIcon = UIImageView()
@@ -33,6 +38,7 @@ class WeatherViewController: UIViewController {
     private let dayLabel = UILabel()
     private let weeklyForecastView = WeeklyForecastView()
     
+    private let searchViewStack = UIStackView()
     private let currentWeatherUpperStack = UIStackView()
     private let currentWetherDescriptionStack = UIStackView()
     private let currentsWeatherDetailsStack = UIStackView()
@@ -42,6 +48,9 @@ class WeatherViewController: UIViewController {
     // MARK: - VM
     private let viewModel: WeatherViewModel
     private var cancellables = Set<AnyCancellable>()
+    
+    // MARK: - Private Properties
+    private var snapshot: [CitySuggestion] = []
     
     // MARK: - Init
     init(viewModel: WeatherViewModel) {
@@ -69,7 +78,6 @@ class WeatherViewController: UIViewController {
     }
 }
 
-
 private extension WeatherViewController {
     // MARK: - Setup UI
     func setupUI() {
@@ -93,6 +101,11 @@ private extension WeatherViewController {
         searchBar.searchTextField.layer.cornerRadius = 12
         searchBar.searchTextField.layer.masksToBounds = true
         
+        logOutButton.backgroundColor = UIColor(white: 1, alpha: 0.2)
+        logOutButton.tintColor = .white
+        logOutButton.setImage(UIImage(systemName: "rectangle.portrait.and.arrow.right"), for: .normal)
+        logOutButton.layer.cornerRadius = 12
+        
         // MARK: - ResultsTableView Setup
         resultsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         resultsTableView.rowHeight = 52
@@ -107,6 +120,11 @@ private extension WeatherViewController {
         resultsTableView.layer.masksToBounds = true
         resultsTableView.separatorColor = UIColor(white: 0, alpha: 0.1)
         resultsTableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        
+        // MARK: - ActivityIndicator
+        loadingView.isHidden = true
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = .appBlue
         
         // MARK: - Labels Setup
         cityLabel.font = UIFont(name: "SFPro-Semibold", size: 40)
@@ -146,6 +164,9 @@ private extension WeatherViewController {
         dayLabel.text = "Ночь"
         
         // MARK: - Stacks Setup
+        searchViewStack.axis = .horizontal
+        searchViewStack.spacing = 0
+        
         currentWetherDescriptionStack.axis = .vertical
         currentWetherDescriptionStack.alignment = .center
         currentWetherDescriptionStack.spacing = 8
@@ -167,6 +188,9 @@ private extension WeatherViewController {
         currentWeatherMainStack.spacing = 12
         
         // MARK: - Add Views
+        searchViewStack.addArrangedSubview(searchBar)
+        searchViewStack.addArrangedSubview(logOutButton)
+        
         currentWeatherUpperStack.addArrangedSubview(currentTemperatureLabel)
         currentWeatherUpperStack.addArrangedSubview(weatherIcon)
         
@@ -181,7 +205,7 @@ private extension WeatherViewController {
         currentWeatherMainStack.addArrangedSubview(currentWeatherUpperStack)
         currentWeatherMainStack.addArrangedSubview(currentWetherDescriptionStack)
         
-        currentWeatherView.addSubview(searchBar)
+        currentWeatherView.addSubview(searchViewStack)
         currentWeatherView.addSubview(currentWeatherMainStack)
         currentWeatherView.addSubview(currentsWeatherDetailsStack)
         currentWeatherView.addSubview(hoursForecastView)
@@ -189,11 +213,14 @@ private extension WeatherViewController {
         dayAndNightLabel.addArrangedSubview(nightLabel)
         dayAndNightLabel.addArrangedSubview(dayLabel)
         
+        loadingView.contentView.addSubview(activityIndicator)
+        
         view.addSubview(currentWeatherView)
         view.addSubview(sevenDaysForecastLabel)
         view.addSubview(dayAndNightLabel)
         view.addSubview(weeklyForecastView)
         view.addSubview(resultsTableView)
+        view.addSubview(loadingView)
     }
     
     // MARK: - Setup Layout
@@ -204,10 +231,14 @@ private extension WeatherViewController {
             make.bottom.equalTo(hoursForecastView).offset(16)
         }
         
-        searchBar.snp.makeConstraints { make in
+        searchViewStack.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalToSuperview().inset(8)
             make.height.equalTo(44)
+        }
+        
+        logOutButton.snp.makeConstraints { make in
+            make.size.equalTo(44)
         }
         
         currentWeatherMainStack.snp.makeConstraints { make in
@@ -256,6 +287,15 @@ private extension WeatherViewController {
             make.top.equalTo(dayAndNightLabel.snp.bottom).offset(8)
             make.bottom.equalToSuperview()
         }
+        
+        loadingView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
+        activityIndicator.snp.makeConstraints { make in
+            make.center.equalTo(loadingView.contentView)
+        }
+
     }
     
     // MARK: - Setup KeyBoard
@@ -270,9 +310,12 @@ private extension WeatherViewController {
         view.endEditing(true)
     }
     
-    // На будущее 
+    @objc func logOut() {
+        viewModel.didTapLogout()
+    }
+    
     func setupActions() {
-        
+        logOutButton.addTarget(self, action: #selector(logOut), for: .touchUpInside)
     }
 }
 
@@ -280,7 +323,6 @@ private extension WeatherViewController {
     // MARK: - Bind ViewModel
     func bindViewModel() {
         viewModel.$state
-            .receive(on: DispatchQueue.main)
             .sink { [weak self] state in
                 self?.render(state)
             }
@@ -288,16 +330,30 @@ private extension WeatherViewController {
         
         viewModel.$state
             .map(\.citySuggestions)
-            .receive(on: DispatchQueue.main)
             .sink { [weak self] suggestions in
+                self?.snapshot = suggestions
                 self?.resultsTableView.reloadData()
                 self?.updateSearchResultsVisibility(isVisible: !suggestions.isEmpty)
-                
             }
             .store(in: &cancellables)
     }
     // MARK: - Render
     func render(_ state: WeatherViewState) {
+        if state.errorMessage != nil {
+            loadingView.isHidden = true
+            activityIndicator.stopAnimating()
+            print("Ошибка получения погоды")
+            return
+        }
+        
+        if state.isLoading {
+                loadingView.isHidden = false
+                activityIndicator.startAnimating()
+            } else {
+                loadingView.isHidden = true
+                activityIndicator.stopAnimating()
+            }
+        
         guard let forecast = state.forecast else { return }
         
         AppServices.shared.imageCacheService.loadImage(from: forecast.current.icon) { [weak self] image in
@@ -334,14 +390,32 @@ extension WeatherViewController: UISearchBarDelegate {
     }
     
     func updateSearchResultsVisibility(isVisible: Bool) {
+        if isVisible {
+            UIView.animate(withDuration: 0.2) {
+                self.logOutButton.transform = CGAffineTransform(translationX: 52, y: 0)
+                self.logOutButton.alpha = 0
+            } completion: { _ in
+                self.logOutButton.isHidden = true
+                self.logOutButton.transform = .identity
+            }
+        } else {
+            logOutButton.isHidden = false
+            logOutButton.transform = CGAffineTransform(translationX: 52, y: 0)
+            logOutButton.alpha = 0
+            
+            UIView.animate(withDuration: 0.2) {
+                self.logOutButton.transform = .identity
+                self.logOutButton.alpha = 1
+            }
+        }
         
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.2) {
+            self.resultsTableView.alpha = isVisible ? 1 : 0
+            self.searchBar.searchTextField.layer.maskedCorners = isVisible ?
+            [.layerMinXMinYCorner, .layerMaxXMinYCorner] :
+            [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        } completion: { _ in
             self.resultsTableView.isHidden = !isVisible
-            self.searchBar.searchTextField.layer.cornerRadius = 12
-                       self.searchBar.searchTextField.layer.maskedCorners = isVisible ?
-                           [.layerMinXMinYCorner, .layerMaxXMinYCorner] :
-                           [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            self.searchBar.layoutIfNeeded()
         }
     }
 }
@@ -349,21 +423,22 @@ extension WeatherViewController: UISearchBarDelegate {
 // MARK: - UITableViewDataSource, UITableViewDelegate
 extension WeatherViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.state.citySuggestions.count
+        snapshot.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            cell.textLabel?.text = viewModel.state.citySuggestions[indexPath.row].title
-            cell.textLabel?.font = UIFont(name: "SFPro-Regular", size: 16)
-            cell.backgroundColor = .clear
-            cell.textLabel?.textColor = UIColor(red: 0/255, green: 26/255, blue: 52/255, alpha: 1)
-            return cell
+        
+        cell.textLabel?.text = snapshot[indexPath.row].title
+        cell.textLabel?.font = UIFont(name: "SFPro-Regular", size: 16)
+        cell.backgroundColor = .clear
+        cell.textLabel?.textColor = UIColor(red: 0/255, green: 26/255, blue: 52/255, alpha: 1)
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let suggestion = viewModel.state.citySuggestions[indexPath.row]
+        let suggestion = snapshot[indexPath.row]
         viewModel.didSelectCity(suggestion)
         searchBar.text = ""
         resultsTableView.isHidden = true

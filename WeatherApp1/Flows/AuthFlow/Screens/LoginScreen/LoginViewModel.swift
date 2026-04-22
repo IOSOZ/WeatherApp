@@ -75,6 +75,7 @@ final class LoginViewModel: LoginViewModelInput {
     }
     
     func didTapRegister() {
+        authService.logout()
         onRegister?()
     }
     

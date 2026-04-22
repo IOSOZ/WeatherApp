@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 final class AppCoordinator: Coordinator {
-    
+
+    var onFinish: (() -> Void)?
     var childCoordinators: [Coordinator] = []
     
     // MARK: - Outputs
@@ -37,26 +38,43 @@ final class AppCoordinator: Coordinator {
 // MARK: - CoordinatorFactory
 extension AppCoordinator: AuthCoordinatorFactory, RegistrationCoordinatorFactory, MainCoordinatorFactory {
     func makeAuthCoordinator() {
-        childCoordinators.removeAll()
-        
         let coordinator = AuthCoordinator(navController: navController, factory: self)
+        
+        coordinator.onFinish = {[weak self, weak coordinator] in
+            guard let self, let coordinator else { return }
+            self.removeChild(coordinator)
+        }
+        
         addChild(coordinator)
         coordinator.start()
     }
     
-    func makeRegistrationCoordinator()  {
-        childCoordinators.removeAll()
+    func makeRegistrationCoordinator() {
+        let coordinator = RegistrationCoordinator(
+            navController: navController,
+            factory: self,
+            localSessionStore: AppServices.shared.localSessionStore,
+            authService: AppServices.shared.authService
+        )
         
-        let coordinator = RegistrationCoordinator(navController: navController, factory: self)
+        coordinator.onFinish = {[weak self, weak coordinator] in
+            guard let self, let coordinator else { return }
+            self.removeChild(coordinator)
+        }
+        
         addChild(coordinator)
         coordinator.start()
     }
     
     func makeMainCoordinator() {
-        childCoordinators.removeAll()
-        
         let coordinator = MainCoordinator(navController: navController, factory: self)
+        coordinator.onFinish = { [weak self, weak coordinator] in
+            guard let self, let coordinator else { return }
+            self.removeChild(coordinator)
+        }
+        
         addChild(coordinator)
+        
         coordinator.start()
     }
 }

@@ -10,12 +10,26 @@ import UIKit
 
 
 final class AuthModuleFactory {
+
+    var authService: AuthServiceProtocol
+    var localSessionService: LocalSessionStoreProtocol
+    var biometricService: BiomerticAuthServiceProtocol
+    
+    init(authService: AuthServiceProtocol,
+         localSessionService: LocalSessionStoreProtocol,
+         biometricService: BiomerticAuthServiceProtocol)
+    {
+        self.authService = authService
+        self.localSessionService = localSessionService
+        self.biometricService = biometricService
+    }
+    
     func makeLoginViewController(
         onLoginSuccess: @escaping () -> Void,
         onRegister: @escaping () -> Void
     ) -> UIViewController {
         
-        let viewModel = LoginViewModel(authService: AppServices.shared.authService)
+        let viewModel = LoginViewModel(authService: authService)
         viewModel.onLoginSuccess = onLoginSuccess
         viewModel.onRegister = onRegister
         
@@ -26,7 +40,7 @@ final class AuthModuleFactory {
     func makeLoginPINCodeViewController(
         onMainFlow: @escaping () -> Void,
         onAuthScreen: @escaping () -> Void) -> UIViewController {
-            let viewModel = LoginPINViewModel(localSession: AppServices.shared.localSessionStore, biometricService: AppServices.shared.biometricAuthService)
+            let viewModel = LoginPINViewModel(localSession: localSessionService, biometricService: biometricService)
             viewModel.onMainFlow = onMainFlow
             viewModel.onAuthScreen = onAuthScreen
             

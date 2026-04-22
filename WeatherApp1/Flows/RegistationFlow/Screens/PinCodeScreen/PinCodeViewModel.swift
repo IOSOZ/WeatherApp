@@ -65,7 +65,6 @@ private extension PinCodeViewModel {
             
         case .creation:
             let firstPin = state.enteredPin
-            
             stage = .confirmation(firstPinCode: firstPin)
             state.title = "Подтвердите PIN-код"
             state.enteredPin = ""
@@ -78,6 +77,8 @@ private extension PinCodeViewModel {
                 state.title = "Придумайте PIN-код"
             } else {
                 state.enteredPin = ""
+                stage = .creation
+                state.title = "Придумайте PIN-код"
                 state.errorMessage = "PIN-код не совпадает"
             }
         }

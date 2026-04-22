@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import Security
 
 protocol LocalSessionStoreProtocol {
     var hasPin: Bool { get }
+    var isAuthorized: Bool { get }
     
     func savePin(_ pin: String)
     func getPin() -> String?
@@ -17,8 +19,10 @@ protocol LocalSessionStoreProtocol {
     func setBiometricEnabled(_ isEnabled: Bool)
     func isBiometricEnabled() -> Bool
     
-    func clearPIN()
-    func clearAll()
+    func saveSession(userId: String)
+    func getUserId() -> String?
+    func clearSession()
+    
 }
 
 final class LocalSessionStore: LocalSessionStoreProtocol {
@@ -26,12 +30,27 @@ final class LocalSessionStore: LocalSessionStoreProtocol {
     private enum Keys {
         static let pin = "local_session.pin"
         static let biometricEnabled = "local_session.biometric_enabled"
+        static let userIdKey = "session.userId"
     }
 
-    private let defaults: UserDefaults
+    // MARK: - Protocol Implementatin
     
-    init(defaults: UserDefaults = .standard) {
-        self.defaults = defaults
+    var isAuthorized: Bool {
+        getUserId() != nil
+    }
+    
+    func saveSession(userId: String) {
+        save(userId, forKey: Keys.userIdKey)
+    }
+    
+    func getUserId() -> String? {
+        get(forKey: Keys.userIdKey)
+    }
+    
+    func clearSession() {
+        delete(forKey: Keys.biometricEnabled)
+        delete(forKey: Keys.pin)
+        delete(forKey: Keys.userIdKey)
     }
     
     var hasPin: Bool {
@@ -39,11 +58,11 @@ final class LocalSessionStore: LocalSessionStoreProtocol {
     }
     
     func savePin(_ pin: String) {
-        defaults.set(pin, forKey: Keys.pin)
+        save(pin, forKey: Keys.pin)
     }
     
     func getPin() -> String? {
-        defaults.string(forKey: Keys.pin)
+        get(forKey: Keys.pin)
     }
     
     func verifyPin(_ pin: String) -> Bool {
@@ -51,20 +70,55 @@ final class LocalSessionStore: LocalSessionStoreProtocol {
     }
     
     func setBiometricEnabled(_ isEnabled: Bool) {
-        defaults.set(isEnabled, forKey: Keys.biometricEnabled)
+        saveBool(isEnabled, forKey: Keys.biometricEnabled)
     }
     
     func isBiometricEnabled() -> Bool {
-        defaults.bool(forKey: Keys.biometricEnabled)
+        getBool(forKey: Keys.biometricEnabled)
+    }
+}
+// MARK: - Keychain Helpers
+private extension LocalSessionStore {
+    
+    func save(_ value: String, forKey key: String) {
+        let data = Data(value.utf8)
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: key,
+            kSecValueData as String: data
+        ]
+        SecItemDelete(query as CFDictionary)
+        SecItemAdd(query as CFDictionary, nil)
     }
     
-    func clearPIN() {
-        defaults.removeObject(forKey: Keys.pin)
+    func get(forKey key: String) -> String? {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: key,
+            kSecReturnData as String: true,
+            kSecMatchLimit as String: kSecMatchLimitOne
+        ]
+        
+        var result: AnyObject?
+        SecItemCopyMatching(query as CFDictionary, &result)
+        guard let data = result as? Data else { return nil }
+        return String(data: data, encoding: .utf8)
     }
     
-    func clearAll() {
-        defaults.removeObject(forKey: Keys.pin)
-        defaults.removeObject(forKey: Keys.biometricEnabled)
+    func delete(forKey key: String) {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: key
+        ]
+        SecItemDelete(query as CFDictionary)
+    }
+    
+    func saveBool(_ value: Bool, forKey key: String) {
+        save(value ? "1" : "0", forKey: key)
+    }
+    
+    func getBool(forKey key: String) -> Bool {
+        get(forKey: key) == "1"
     }
     
 }

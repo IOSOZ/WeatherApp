@@ -7,35 +7,21 @@
 
 import Foundation
 
-enum CitySearchError: Error {
-    case invalidURL
-    case invalidResponse
-    case httpError(Int)
-    case emptyData
-}
-
 protocol CitySearchServiceProtocol {
-    func searchCities(
-        text: String,
-        completion: @escaping (Result<[CitySuggestion], Error>) -> Void
-    )
+    func searchCities(text: String) async throws -> [CitySuggestion]
 }
 
 final class CitySearchService: CitySearchServiceProtocol {
     
     private let apiKey = "0df7b4b85cc04863b811996d565ce427"
-    private let session = URLSession.shared
+    private let network = NetworkService.shared
     
-    func searchCities(
-        text: String,
-        completion: @escaping (Result<[CitySuggestion], Error>) -> Void
-    ) {
-       
+    func searchCities(text: String) async throws -> [CitySuggestion] {
+        
         let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
         
         guard !trimmedText.isEmpty else {
-            completion(.success([]))
-            return
+            return []
         }
         
         var components = URLComponents(string: "https://api.geoapify.com/v1/geocode/autocomplete")
@@ -49,55 +35,15 @@ final class CitySearchService: CitySearchServiceProtocol {
         ]
         
         guard let url = components?.url else {
-            completion(.failure(CitySearchError.invalidURL))
-            return
+            throw NetworkError.invalidURL
         }
         
-        let task = session.dataTask(with: url) { data, response, error in
-            
-            if let error {
-                DispatchQueue.main.async {
-                    completion(.failure(error))
-                }
-                return
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse else {
-                DispatchQueue.main.async {
-                    completion(.failure(CitySearchError.invalidResponse))
-                }
-                return
-            }
-            
-            guard (200...299).contains(httpResponse.statusCode) else {
-                DispatchQueue.main.async {
-                    completion(.failure(CitySearchError.httpError(httpResponse.statusCode)))
-                }
-                return
-            }
-            
-            guard let data else {
-                DispatchQueue.main.async {
-                    completion(.failure(CitySearchError.emptyData))
-                }
-                return
-            }
-            
-            do {
-                let decodeResponse = try JSONDecoder().decode(GeoapifyAutocompleteResponse.self, from: data)
-                let suggestions = decodeResponse.results.map {
-                    CitySuggestion(dto: $0)
-                }
-                
-                DispatchQueue.main.async {
-                    completion(.success(suggestions))
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    completion(.failure(error))
-                }
-            }
+        let response: GeoapifyAutocompleteResponse = try await network.request(url: url)
+        
+        let suggestions = response.results.map {
+            CitySuggestion(dto: $0)
         }
-        task.resume()
+        
+        return suggestions
     }
 }

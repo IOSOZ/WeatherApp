@@ -75,7 +75,7 @@ private extension LoginPINViewController {
         titleLabel.font = UIFont(name: "SFPro-Regular", size: 24)
         titleLabel.textColor = .black
         titleLabel.textAlignment = .center
-        titleLabel.text = "Face ID или PIN-код"
+        titleLabel.text = viewModel.isFaceIDEnabled ? "Face ID или PIN-код" : "Введите PIN-код"
         
         errorLabel.font = UIFont(name: "SFPro-Regular", size: 12)
         errorLabel.textColor = .red
@@ -169,10 +169,18 @@ private extension LoginPINViewController {
     
     // MARK: - Render
     func render(_ state: LoginPINCodeViewState) {
-        pinDotView.configure(filledCount: state.enteredDigits)
+        
+        if state.errorMessage != nil {
+            pinDotView.showIncorrectAnimation()
+            errorLabel.text = state.errorMessage
+        } else {
+            pinDotView.configure(filledCount: state.enteredDigits)
+            
+        }
+        
         errorLabel.isHidden = state.errorMessage == nil
-        errorLabel.text = state.errorMessage
         keyboardView.apply(enteredSymbols: state.enteredDigits)
+        
     }
     
     // MARK: - Show Alert

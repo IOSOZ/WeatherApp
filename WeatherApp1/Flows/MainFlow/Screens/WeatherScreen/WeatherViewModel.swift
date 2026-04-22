@@ -22,6 +22,7 @@ protocol WeatherViewModelInput {
     func didSelectCity(_ suggestion: CitySuggestion)
 }
 
+@MainActor
 final class WeatherViewModel: WeatherViewModelInput {
     
     // MARK: - Outputs
@@ -30,7 +31,8 @@ final class WeatherViewModel: WeatherViewModelInput {
     // MARK: - DI
     private let weatherService: WeatherServiceProtocol
     private var locationService: LocationServiceProtocol
-    private let citySearchService: CitySearchService
+    private let citySearchService: CitySearchServiceProtocol
+    private let localSessionStore: LocalSessionStoreProtocol
     
     // MARK: - State
     @Published var state = WeatherViewState()
@@ -46,19 +48,27 @@ final class WeatherViewModel: WeatherViewModelInput {
     init(
         weatherService: WeatherServiceProtocol,
         locationService: LocationServiceProtocol,
-        citySearchService: CitySearchService
+        citySearchService: CitySearchServiceProtocol,
+        localSessionStore: LocalSessionStoreProtocol
     ) {
         self.weatherService = weatherService
         self.locationService = locationService
         self.citySearchService = citySearchService
+        self.localSessionStore = localSessionStore
     }
     
     // MARK: - Setup Logic
     func viewDidLoad() {
         bindSearch()
         bindLocationService()
-        loadForecast(for: defaultCoordinates, cityTitle: "Санкт-Петербург, Россия")
-        locationService.requestAuthorization()
+        
+        if locationService.isLocationAvilable {
+            state.isLoading = true
+            locationService.requestCurrentLocation()
+        } else {
+            loadForecast(for: defaultCoordinates, cityTitle: "Санкт-Петербург, Россия")
+            locationService.requestAuthorization()
+        }
     }
     
     func didSelectCity(_ suggestion: CitySuggestion) {
@@ -69,6 +79,11 @@ final class WeatherViewModel: WeatherViewModelInput {
     func  didEnter(letters: String) {
         if letters.isEmpty { state.citySuggestions = [] }
         searchTextSubject.send(letters)
+    }
+    
+    func didTapLogout() {
+        localSessionStore.clearSession()
+        onBackToAuth?()
     }
 }
 
@@ -110,30 +125,25 @@ private extension WeatherViewModel {
         state.isLoading = true
         state.errorMessage = nil
         
-        weatherService.getForecast(coordinates: coordinates, days: 10) { [weak self] result in
-            guard let self else { return }
-            
-            self.state.isLoading = false
-            
-            switch result {
-            case .success(let forecast):
-                self.state.forecast = forecast
-                self.state.cityTitle = cityTitle
-            case .failure(let error):
-                self.state.errorMessage = error.localizedDescription
+        Task {
+            do {
+                let forecast = try await weatherService.getForecast(coordinates: coordinates, days: 10)
+                state.isLoading = false
+                state.forecast = forecast
+                state.cityTitle = cityTitle
+            } catch {
+                print("Get Weather Error: ", error )
             }
         }
     }
     
     func searchCity(text: String) {
-        citySearchService.searchCities(text: text) { [weak self] result in
-            guard let self else { return }
-            
-            switch result {
-            case .success(let suggestions):
-                self.state.citySuggestions = suggestions
-            case .failure(let error):
-                print("Search error:", error)
+        Task {
+            do {
+                let suggestions = try await citySearchService.searchCities(text: text)
+                state.citySuggestions = suggestions
+            } catch {
+                print("Search Error: ", error )
             }
         }
     }

@@ -72,6 +72,7 @@ final class LoginPINViewModel: LoginPINCodeViewInput {
     
     func didTapForgotPIN() {
         state.alertTitle = "Вы будете перенаправлены на экран авторизации"
+        localSession.clearSession()
         showAlert.send(state)
     }
     

@@ -10,14 +10,30 @@ import UIKit
 
 
 final class MainModuleFactory {
+    var weatherService: WeatherServiceProtocol
+    var locationService: LocationServiceProtocol
+    var citySearchService: CitySearchServiceProtocol
+    var localSessionStore: LocalSessionStoreProtocol
+    
+    init(weatherService: WeatherServiceProtocol,
+         locationService: LocationServiceProtocol,
+         citySearchService: CitySearchServiceProtocol,
+         localSessionStore: LocalSessionStoreProtocol)
+    {
+        self.weatherService = weatherService
+        self.locationService = locationService
+        self.citySearchService = citySearchService
+        self.localSessionStore = localSessionStore
+    }
+    
     func makeWeatherViewController(
         onBackToAuth: @escaping () -> Void
     )  -> UIViewController {
         let viewModel = WeatherViewModel(
-            weatherService: AppServices.shared.weatherService,
-//            weatherService: MockWeatherService(),
-            locationService: AppServices.shared.locationService,
-            citySearchService: AppServices.shared.citySearchService
+            weatherService: weatherService,
+            locationService: locationService,
+            citySearchService: citySearchService,
+            localSessionStore: localSessionStore
         )
         viewModel.onBackToAuth = onBackToAuth
         

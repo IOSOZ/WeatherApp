@@ -8,29 +8,19 @@
 import Foundation
 import UIKit
 
-enum WeatherForecastError: Error {
-    case invalidURL
-    case invalidResponse
-    case httpError(Int)
-    case emptyData
-}
-
-
 protocol WeatherServiceProtocol {
     func getForecast(
         coordinates: Coordinates,
-        days: Int,
-        completion: @escaping (Result<Forecast, Error>) -> Void
-    )
+        days: Int) async throws -> Forecast
 }
 
 // обязательно возвращать на мейн поток, я это делаю чрез Combain
 final class WeatherForecastService: WeatherServiceProtocol {
     
     private let apiKey = "72da43dcecda4de0bc3144840263003"
-    private let session = URLSession.shared
+    private let network = NetworkService.shared
     
-    func getForecast(coordinates: Coordinates, days: Int, completion: @escaping (Result<Forecast, any Error>) -> Void) {
+    func getForecast(coordinates: Coordinates, days: Int) async throws -> Forecast {
         
         var components = URLComponents(string: "https://api.weatherapi.com/v1/forecast.json")
         components?.queryItems = [
@@ -43,49 +33,13 @@ final class WeatherForecastService: WeatherServiceProtocol {
         ]
         
         guard let url = components?.url else {
-            completion(.failure(WeatherForecastError.invalidURL))
-            return
+            throw NetworkError.invalidURL
         }
         
-        let task = session.dataTask(with: url) { data, response, error in
-            if let error {
-                DispatchQueue.main.async {
-                    completion(.failure(error))
-                }
-                return
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse else {
-                DispatchQueue.main.async {
-                    completion(.failure(WeatherForecastError.invalidResponse))
-                }
-                return
-            }
-            
-            guard (200...299).contains(httpResponse.statusCode) else {
-                completion(.failure(WeatherForecastError.httpError(httpResponse.statusCode)))
-                return
-            }
-            
-            guard let data else {
-                completion(.failure(WeatherForecastError.emptyData))
-                return
-            }
-            
-            do {
-                let decodeResponse = try JSONDecoder().decode(WeatherResponse.self, from: data)
-                
-                let forecast = Forecast(dto: decodeResponse)
-                
-                completion(.success(forecast))
-        
-            } catch {
-                completion(.failure(error))
-            }
-            
-            
-        }
-        task.resume()
+        let response: WeatherResponse = try await network.request(url: url)
+        return Forecast(dto: response)
     }
 }
+
+
 

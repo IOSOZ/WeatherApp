@@ -49,6 +49,7 @@ class FaceIDViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.viewDidLoad()
         setupUI()
         setupLayout()
         setupActions()
@@ -95,7 +96,6 @@ private extension FaceIDViewController {
         
         // MARK: - Action Views
         forwardButton.isEnabled = true
-        forwardButton.setTitle("Зарегистрироваться", for: .normal)
         forwardButton.titleLabel?.font = UIFont(name: "SFPro-Bold", size: 16)
         forwardButton.layer.cornerRadius = 8
         forwardButton.backgroundColor = UIColor(.appBlue)
@@ -182,6 +182,9 @@ private extension FaceIDViewController {
     
     // MARK: - Render
     func render(_ state: FaceIDViewState) {
+        forwardButton.setTitle(state.nextButtonTitle, for: .normal)
+        authorizeStack.isHidden = state.backToAuthLabelIsHidden
+        
         switch state.mode {
         case .initial(let isEnabled):
             switchControl.setOn(isEnabled, animated: true)
@@ -189,7 +192,6 @@ private extension FaceIDViewController {
             titleLabel.isHidden = false
             switchStack.isHidden = false
             forwardButton.isHidden = false
-            authorizeStack.isHidden = false
 
             blurView.isHidden = true
             overlayView.isHidden = true
@@ -201,7 +203,6 @@ private extension FaceIDViewController {
             titleLabel.isHidden = false
             switchStack.isHidden = false
             forwardButton.isHidden = false
-            authorizeStack.isHidden = false
 
             blurView.isHidden = false
 
@@ -212,7 +213,6 @@ private extension FaceIDViewController {
             titleLabel.isHidden = false
             switchStack.isHidden = false
             forwardButton.isHidden = false
-            authorizeStack.isHidden = false
 
             blurView.isHidden = false
             overlayView.isHidden = false

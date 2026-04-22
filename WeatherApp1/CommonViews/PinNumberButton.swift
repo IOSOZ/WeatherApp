@@ -77,7 +77,7 @@ private extension PinNumberButton {
     }
     
     @objc func touchUp() {
-        UIView.animate(withDuration: 0.2, delay: 0.1,
+        UIView.animate(withDuration: 0.1, delay: 0,
                        usingSpringWithDamping: 0.5,
                        initialSpringVelocity: 3) {
             self.circleView.backgroundColor = .clear

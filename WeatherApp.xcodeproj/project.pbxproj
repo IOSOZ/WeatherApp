@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6C07F6CA2F8FB4EE0056E0C8 /* searchResultsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C07F6C92F8FB4EE0056E0C8 /* searchResultsTableVC.swift */; };
+		6C42CDC52F982A87002BB0C7 /* JSONDecoderEX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C42CDC42F982A87002BB0C7 /* JSONDecoderEX.swift */; };
+		6C42CDC72F982CB7002BB0C7 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C42CDC62F982CB7002BB0C7 /* NetworkService.swift */; };
 		6C509AF72F7052820080FDBE /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509ABE2F7052820080FDBE /* AppCoordinator.swift */; };
 		6C509AF82F7052820080FDBE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509ABF2F7052820080FDBE /* AppDelegate.swift */; };
 		6C509AFA2F7052820080FDBE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509AC12F7052820080FDBE /* SceneDelegate.swift */; };
@@ -71,6 +73,8 @@
 
 /* Begin PBXFileReference section */
 		6C07F6C92F8FB4EE0056E0C8 /* searchResultsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchResultsTableVC.swift; sourceTree = "<group>"; };
+		6C42CDC42F982A87002BB0C7 /* JSONDecoderEX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoderEX.swift; sourceTree = "<group>"; };
+		6C42CDC62F982CB7002BB0C7 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		6C509ABE2F7052820080FDBE /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		6C509ABF2F7052820080FDBE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6C509AC12F7052820080FDBE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,9 +149,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C42CDC32F982A48002BB0C7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6C509AC22F7052820080FDBE /* UILabelHelper.swift */,
+				6C42CDC42F982A87002BB0C7 /* JSONDecoderEX.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		6C509B252F7079EB0080FDBE /* WeatherApp1 */ = {
 			isa = PBXGroup;
 			children = (
+				6C42CDC32F982A48002BB0C7 /* Helpers */,
 				6CEF55212F8552EC007145CB /* Flows */,
 				6C509B2C2F707A570080FDBE /* App */,
 				6C509B782F707BD60080FDBE /* CommonViews */,
@@ -165,7 +179,6 @@
 				6CEF54942F844836007145CB /* CoordinatorFactory.swift */,
 				6C509ABF2F7052820080FDBE /* AppDelegate.swift */,
 				6C509AC12F7052820080FDBE /* SceneDelegate.swift */,
-				6C509AC22F7052820080FDBE /* UILabelHelper.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -377,6 +390,7 @@
 				6CEF551E2F8552EC007145CB /* SessionService.swift */,
 				6CEF55492F8812B1007145CB /* ImageCacheService.swift */,
 				6CEF551F2F8552EC007145CB /* WeatherService.swift */,
+				6C42CDC62F982CB7002BB0C7 /* NetworkService.swift */,
 				6CE8FFD42F8936300064F84E /* mocWeather.swift */,
 			);
 			path = Services;
@@ -476,6 +490,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C42CDC72F982CB7002BB0C7 /* NetworkService.swift in Sources */,
 				6C509AF72F7052820080FDBE /* AppCoordinator.swift in Sources */,
 				6C509AF82F7052820080FDBE /* AppDelegate.swift in Sources */,
 				6C509AFA2F7052820080FDBE /* SceneDelegate.swift in Sources */,
@@ -517,6 +532,7 @@
 				6CEF553E2F8552EC007145CB /* PinCodeViewController.swift in Sources */,
 				6CEF553F2F8552EC007145CB /* CitySuggestion.swift in Sources */,
 				6CEF55402F8552EC007145CB /* RegistationCoordinator.swift in Sources */,
+				6C42CDC52F982A87002BB0C7 /* JSONDecoderEX.swift in Sources */,
 				6CA8C59D2F718C3C00FC2151 /* FaceIDButton.swift in Sources */,
 				6CEF54952F844836007145CB /* CoordinatorFactory.swift in Sources */,
 				6C509B122F7052820080FDBE /* CoordinatorProtocol.swift in Sources */,
