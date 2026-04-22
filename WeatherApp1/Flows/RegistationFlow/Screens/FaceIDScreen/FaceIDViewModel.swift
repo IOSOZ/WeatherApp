@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 enum FaceIDScreenMode: Equatable {
     case initial(isEnabled: Bool)
@@ -17,6 +18,8 @@ enum FaceIDScreenMode: Equatable {
 struct FaceIDViewState: Equatable {
     var mode: FaceIDScreenMode = .initial(isEnabled: false)
     var screenTitle: String = "Подключить Face ID"
+    var nextButtonTitle: String = "Зарегестрироваться"
+    var backToAuthLabelIsHidden: Bool = false
 }
 
 protocol FaceIDViewModelInput {
@@ -27,35 +30,36 @@ protocol FaceIDViewModelInput {
     func didTapBackToAuth()
 }
 
-protocol FaceIDViewModelOutput {
-    var onStateChange: ((FaceIDViewState) -> Void)? { get set }
-    var onNextStep: ((Bool) -> Void)? { get set }
-    var onBackToAuth: (() -> Void)? { get set }
-}
-
-final class FaceIDViewModel: FaceIDViewModelInput, FaceIDViewModelOutput {
+final class FaceIDViewModel: FaceIDViewModelInput {
     
-    // MARK: - Outputs
-    var onStateChange: ((FaceIDViewState) -> Void)?
     var onNextStep: ((Bool) -> Void)?
     var onBackToAuth: (() -> Void)?
     
     // MARK: - DI
     private let biomerticAuthService: BiomerticAuthServiceProtocol
+    private let sessionService: LocalSessionStoreProtocol
     
     // MARK: - State
-    private var state = FaceIDViewState() {
-        didSet { onStateChange?(state) }
-    }
+    @Published var state = FaceIDViewState()
     
     private var isFaceIDEnabled = false
     
     // MARK: - Init
-    init(biomerticAuthService: BiomerticAuthServiceProtocol) {
+    init(biomerticAuthService: BiomerticAuthServiceProtocol, sessionService: LocalSessionStoreProtocol) {
         self.biomerticAuthService = biomerticAuthService
+        self.sessionService = sessionService
     }
     
     // MARK: - Setup Logic
+    
+    func viewDidLoad() {
+        if sessionService.isAuthorized {
+            state.backToAuthLabelIsHidden = true
+            state.nextButtonTitle = "Подтвердить"
+        }
+        
+    }
+    
     func didToggleFaceID(_ isOn: Bool) {
         if isOn {
             state.mode = .permissionPrompt
@@ -68,13 +72,12 @@ final class FaceIDViewModel: FaceIDViewModelInput, FaceIDViewModelOutput {
     
     func didTapNext() {
         state.mode = .loading
-        // Тут балуюсь
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
             guard let self else { return}
             self.onNextStep?(isFaceIDEnabled)
         }
         
-        
+
     }
     
     func didTapPrimaryPromptAction() {
@@ -100,6 +103,8 @@ final class FaceIDViewModel: FaceIDViewModelInput, FaceIDViewModelOutput {
 }
 
 private extension FaceIDViewModel {
+    
+    // MARK: - Authenticate
     func authenticate() {
         biomerticAuthService.authenticate(reason: "TurnOn FaceId") { [weak self] result in
             guard let self else { return }

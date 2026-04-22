@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 struct LoginViewState: Equatable {
     var username: String = ""
@@ -22,18 +23,9 @@ protocol LoginViewModelInput {
     func didTapRegister()
 }
 
-protocol LoginViewModelOutput {
-    var onStateChange: ((LoginViewState) -> Void)? { get set }
-    var onLoginSuccess: (() -> Void)? { get set }
-    var onRegister: (() -> Void)? { get set }
-    var onChangePIN: (() -> Void)? { get set}
-}
-
-
-final class LoginViewModel: LoginViewModelInput, LoginViewModelOutput {
+final class LoginViewModel: LoginViewModelInput {
     
     // MARK: - Outputs
-    var onStateChange: ((LoginViewState) -> Void)?
     var onLoginSuccess: (() -> Void)?
     var onRegister: (() -> Void)?
     var onChangePIN: (() -> Void)?
@@ -42,9 +34,7 @@ final class LoginViewModel: LoginViewModelInput, LoginViewModelOutput {
     private let authService: AuthServiceProtocol
     
     // MARK: - State
-    private var state = LoginViewState() {
-        didSet { onStateChange?(state) }
-    }
+    @Published var state = LoginViewState()
     
     // MARK: - Init
     init(authService: AuthServiceProtocol) {
@@ -85,6 +75,7 @@ final class LoginViewModel: LoginViewModelInput, LoginViewModelOutput {
     }
     
     func didTapRegister() {
+        authService.logout()
         onRegister?()
     }
     

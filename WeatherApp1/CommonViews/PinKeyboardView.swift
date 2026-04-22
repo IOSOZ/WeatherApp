@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
+
 enum KeyBoardState {
     case faceID
     case delete
@@ -20,6 +21,7 @@ final class PinKeyboardView: UIView {
     var onDeleteTap: (() -> Void)?
     var onFaceIDTap: (() -> Void)?
     
+    // MARK: - UI
     private let mainStack = UIStackView()
     private let row1 = UIStackView()
     private let row2 = UIStackView()
@@ -37,12 +39,14 @@ final class PinKeyboardView: UIView {
     private let nineButton = PinNumberButton()
     private let zeroButton = PinNumberButton()
     
-    private let emptyView = UIView()
-    private let needFaceId: Bool
-    
-    private var state: KeyBoardState = .delete
     private var activeButton: UIView?
+    private let emptyView = UIView()
     
+    // MARK: - Private Properties
+    private let needFaceId: Bool
+    private var state: KeyBoardState = .delete
+    
+    // MARK: - Init
     init(needFaceId: Bool) {
         self.needFaceId = needFaceId
         super.init(frame: .zero)
@@ -53,7 +57,6 @@ final class PinKeyboardView: UIView {
         setupLayout()
         setupActions()
         
-        // Начальное состояние кнопки
         if needFaceId {
             updateActiveButton(for: .faceID)
         } else {
@@ -65,6 +68,7 @@ final class PinKeyboardView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Public Method
     func apply(enteredSymbols: Int) {
         guard needFaceId else { return }
         
@@ -90,6 +94,8 @@ private extension PinKeyboardView {
         zeroButton.number = 0
     }
     
+    // MARK: - Setup UI
+
     func setupUI() {
         mainStack.axis = .vertical
         mainStack.spacing = 20
@@ -130,15 +136,16 @@ private extension PinKeyboardView {
         
         row4.addArrangedSubview(emptyView)
         row4.addArrangedSubview(zeroButton)
-        // activeButton добавим позже через updateActiveButton(...)
     }
     
+    // MARK: - Setup Layout
     func setupLayout() {
         mainStack.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
     
+    // MARK: - Setup Actions
     func setupActions() {
         let buttons = [oneButton, twoButton, threeButton, fourButton, fiveButton,
                        sixButton, sevenButton, eightButton, nineButton, zeroButton]
@@ -148,6 +155,7 @@ private extension PinKeyboardView {
         }
     }
     
+    // MARK: - Update Active Button State
     func updateActiveButton(for newState: KeyBoardState) {
         state = newState
         
@@ -174,6 +182,7 @@ private extension PinKeyboardView {
         row4.addArrangedSubview(newButton)
     }
     
+    // MARK: - OBJC Methods
     @objc func didTapDigit(_ sender: PinNumberButton) {
         onDigitTap?("\(sender.number)")
     }

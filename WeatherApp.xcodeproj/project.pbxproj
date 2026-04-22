@@ -7,25 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C07F6CA2F8FB4EE0056E0C8 /* searchResultsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C07F6C92F8FB4EE0056E0C8 /* searchResultsTableVC.swift */; };
+		6C42CDC52F982A87002BB0C7 /* JSONDecoderEX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C42CDC42F982A87002BB0C7 /* JSONDecoderEX.swift */; };
+		6C42CDC72F982CB7002BB0C7 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C42CDC62F982CB7002BB0C7 /* NetworkService.swift */; };
 		6C509AF72F7052820080FDBE /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509ABE2F7052820080FDBE /* AppCoordinator.swift */; };
 		6C509AF82F7052820080FDBE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509ABF2F7052820080FDBE /* AppDelegate.swift */; };
-		6C509AF92F7052820080FDBE /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509AC02F7052820080FDBE /* AppDIContainer.swift */; };
 		6C509AFA2F7052820080FDBE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509AC12F7052820080FDBE /* SceneDelegate.swift */; };
 		6C509AFB2F7052820080FDBE /* UILabelHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509AC22F7052820080FDBE /* UILabelHelper.swift */; };
-		6C509B042F7052820080FDBE /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509ACD2F7052820080FDBE /* AuthCoordinator.swift */; };
-		6C509B0E2F7052820080FDBE /* RegistationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509ADE2F7052820080FDBE /* RegistationCoordinator.swift */; };
-		6C509B0F2F7052820080FDBE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509AE02F7052820080FDBE /* LoginViewController.swift */; };
-		6C509B102F7052820080FDBE /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509AE12F7052820080FDBE /* LoginViewModel.swift */; };
-		6C509B112F7052820080FDBE /* AuthFlowDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509AE42F7052820080FDBE /* AuthFlowDIContainer.swift */; };
 		6C509B122F7052820080FDBE /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509AE62F7052820080FDBE /* CoordinatorProtocol.swift */; };
-		6C509B3D2F707BA00080FDBE /* FaceIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B3A2F707BA00080FDBE /* FaceIDViewController.swift */; };
-		6C509B3E2F707BA00080FDBE /* FaceIDViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B3B2F707BA00080FDBE /* FaceIDViewModel.swift */; };
-		6C509B532F707BAA0080FDBE /* PinCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B502F707BAA0080FDBE /* PinCodeViewController.swift */; };
-		6C509B542F707BAA0080FDBE /* PinCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B512F707BAA0080FDBE /* PinCodeViewModel.swift */; };
-		6C509B582F707BAA0080FDBE /* RegisterLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B552F707BAA0080FDBE /* RegisterLoginViewController.swift */; };
-		6C509B592F707BAA0080FDBE /* RegisterLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B562F707BAA0080FDBE /* RegisterLoginViewModel.swift */; };
-		6C509B5D2F707BAB0080FDBE /* RegisterPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B5A2F707BAB0080FDBE /* RegisterPasswordViewController.swift */; };
-		6C509B5E2F707BAB0080FDBE /* RegisterPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B5B2F707BAB0080FDBE /* RegisterPasswordViewModel.swift */; };
 		6C509B792F707BD60080FDBE /* FaceIDAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B702F707BD60080FDBE /* FaceIDAlertController.swift */; };
 		6C509B7A2F707BD60080FDBE /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B712F707BD60080FDBE /* LoginTextField.swift */; };
 		6C509B7B2F707BD60080FDBE /* PasswordChekLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B722F707BD60080FDBE /* PasswordChekLabel.swift */; };
@@ -34,45 +23,63 @@
 		6C509B7E2F707BD60080FDBE /* PinDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B752F707BD60080FDBE /* PinDotsView.swift */; };
 		6C509B7F2F707BD60080FDBE /* PinKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B762F707BD60080FDBE /* PinKeyboardView.swift */; };
 		6C509B802F707BD60080FDBE /* PinNumberButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B772F707BD60080FDBE /* PinNumberButton.swift */; };
-		6C509B862F707BE30080FDBE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B842F707BE30080FDBE /* User.swift */; };
 		6C509B922F707BF10080FDBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C509B8E2F707BF10080FDBE /* Assets.xcassets */; };
 		6C509B942F707BF10080FDBE /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C509B902F707BF10080FDBE /* SF-Pro.ttf */; };
-		6C509BA32F707C050080FDBE /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B9E2F707C050080FDBE /* AuthService.swift */; };
-		6C509BA42F707C050080FDBE /* BiomerticAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509B9F2F707C050080FDBE /* BiomerticAuthService.swift */; };
-		6C509BA52F707C050080FDBE /* LocalSessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509BA02F707C050080FDBE /* LocalSessionStore.swift */; };
-		6C509BA62F707C050080FDBE /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509BA12F707C050080FDBE /* SessionService.swift */; };
 		6C509BAE2F707C0F0080FDBE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C509BAC2F707C0F0080FDBE /* LaunchScreen.storyboard */; };
-		6C509BB02F707C6B0080FDBE /* RegistationFlowDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509BAF2F707C6B0080FDBE /* RegistationFlowDIContainer.swift */; };
-		6C509BB22F7083750080FDBE /* AppServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509BB12F7083750080FDBE /* AppServices.swift */; };
-		6C509BB42F709FC50080FDBE /* LoginPINViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509BB32F709FC50080FDBE /* LoginPINViewModel.swift */; };
-		6C509BB62F709FE90080FDBE /* LoginPINViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C509BB52F709FE90080FDBE /* LoginPINViewController.swift */; };
 		6CA8C59D2F718C3C00FC2151 /* FaceIDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA8C59C2F718C3C00FC2151 /* FaceIDButton.swift */; };
+		6CE8FFD52F8936310064F84E /* mocWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE8FFD42F8936300064F84E /* mocWeather.swift */; };
 		6CEBFDB52F5880980003249D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6CEBFDB42F5880980003249D /* SnapKit */; };
 		6CEF546D2F732B57007145CB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF546C2F732B57007145CB /* GoogleService-Info.plist */; };
 		6CEF54702F7331DE007145CB /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6CEF546F2F7331DE007145CB /* FirebaseCore */; };
 		6CEF54722F7331DE007145CB /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 6CEF54712F7331DE007145CB /* FirebaseFirestore */; };
+		6CEF54952F844836007145CB /* CoordinatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF54942F844836007145CB /* CoordinatorFactory.swift */; };
+		6CEF55222F8552EC007145CB /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55012F8552EC007145CB /* MainCoordinator.swift */; };
+		6CEF55232F8552EC007145CB /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF54FA2F8552EC007145CB /* AuthCoordinator.swift */; };
+		6CEF55242F8552EC007145CB /* FaceIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55082F8552EC007145CB /* FaceIDViewController.swift */; };
+		6CEF55252F8552EC007145CB /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF551D2F8552EC007145CB /* LocationService.swift */; };
+		6CEF55262F8552EC007145CB /* MainModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55022F8552EC007145CB /* MainModuleFactory.swift */; };
+		6CEF55272F8552EC007145CB /* LoginPINViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF54F42F8552EC007145CB /* LoginPINViewModel.swift */; };
+		6CEF55282F8552EC007145CB /* RegistrationModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55162F8552EC007145CB /* RegistrationModuleFactory.swift */; };
+		6CEF55292F8552EC007145CB /* FaceIDViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55092F8552EC007145CB /* FaceIDViewModel.swift */; };
+		6CEF552A2F8552EC007145CB /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF54FE2F8552EC007145CB /* WeatherViewModel.swift */; };
+		6CEF552B2F8552EC007145CB /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55052F8552EC007145CB /* Forecast.swift */; };
+		6CEF552C2F8552EC007145CB /* AppServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55182F8552EC007145CB /* AppServices.swift */; };
+		6CEF552D2F8552EC007145CB /* RegisterPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF550F2F8552EC007145CB /* RegisterPasswordViewModel.swift */; };
+		6CEF552E2F8552EC007145CB /* LocalSessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF551C2F8552EC007145CB /* LocalSessionStore.swift */; };
+		6CEF552F2F8552EC007145CB /* PinCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55122F8552EC007145CB /* PinCodeViewModel.swift */; };
+		6CEF55302F8552EC007145CB /* AuthModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF54FB2F8552EC007145CB /* AuthModuleFactory.swift */; };
+		6CEF55312F8552EC007145CB /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF54F72F8552EC007145CB /* LoginViewModel.swift */; };
+		6CEF55322F8552EC007145CB /* RegisterLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF550C2F8552EC007145CB /* RegisterLoginViewModel.swift */; };
+		6CEF55332F8552EC007145CB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF54F62F8552EC007145CB /* LoginViewController.swift */; };
+		6CEF55342F8552EC007145CB /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55192F8552EC007145CB /* AuthService.swift */; };
+		6CEF55352F8552EC007145CB /* BiomerticAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF551A2F8552EC007145CB /* BiomerticAuthService.swift */; };
+		6CEF55362F8552EC007145CB /* LoginPINViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF54F32F8552EC007145CB /* LoginPINViewController.swift */; };
+		6CEF55372F8552EC007145CB /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF551F2F8552EC007145CB /* WeatherService.swift */; };
+		6CEF55382F8552EC007145CB /* RegisterPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF550E2F8552EC007145CB /* RegisterPasswordViewController.swift */; };
+		6CEF55392F8552EC007145CB /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF54FD2F8552EC007145CB /* WeatherViewController.swift */; };
+		6CEF553A2F8552EC007145CB /* CitySearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF551B2F8552EC007145CB /* CitySearchService.swift */; };
+		6CEF553B2F8552EC007145CB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55062F8552EC007145CB /* User.swift */; };
+		6CEF553C2F8552EC007145CB /* RegisterLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF550B2F8552EC007145CB /* RegisterLoginViewController.swift */; };
+		6CEF553D2F8552EC007145CB /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF551E2F8552EC007145CB /* SessionService.swift */; };
+		6CEF553E2F8552EC007145CB /* PinCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55112F8552EC007145CB /* PinCodeViewController.swift */; };
+		6CEF553F2F8552EC007145CB /* CitySuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55042F8552EC007145CB /* CitySuggestion.swift */; };
+		6CEF55402F8552EC007145CB /* RegistationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55152F8552EC007145CB /* RegistationCoordinator.swift */; };
+		6CEF55452F855332007145CB /* ForecastDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55422F855332007145CB /* ForecastDayView.swift */; };
+		6CEF55462F855332007145CB /* ForecastHourView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55432F855332007145CB /* ForecastHourView.swift */; };
+		6CEF55472F855332007145CB /* Forecast24HoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55412F855332007145CB /* Forecast24HoursView.swift */; };
+		6CEF55482F855332007145CB /* WeeklyForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55442F855332007145CB /* WeeklyForecastView.swift */; };
+		6CEF554A2F8812B1007145CB /* ImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55492F8812B1007145CB /* ImageCacheService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C07F6C92F8FB4EE0056E0C8 /* searchResultsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchResultsTableVC.swift; sourceTree = "<group>"; };
+		6C42CDC42F982A87002BB0C7 /* JSONDecoderEX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoderEX.swift; sourceTree = "<group>"; };
+		6C42CDC62F982CB7002BB0C7 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		6C509ABE2F7052820080FDBE /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		6C509ABF2F7052820080FDBE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6C509AC02F7052820080FDBE /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
 		6C509AC12F7052820080FDBE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		6C509AC22F7052820080FDBE /* UILabelHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelHelper.swift; sourceTree = "<group>"; };
-		6C509ACD2F7052820080FDBE /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
-		6C509ADE2F7052820080FDBE /* RegistationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistationCoordinator.swift; sourceTree = "<group>"; };
-		6C509AE02F7052820080FDBE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		6C509AE12F7052820080FDBE /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		6C509AE42F7052820080FDBE /* AuthFlowDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFlowDIContainer.swift; sourceTree = "<group>"; };
 		6C509AE62F7052820080FDBE /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
-		6C509B3A2F707BA00080FDBE /* FaceIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDViewController.swift; sourceTree = "<group>"; };
-		6C509B3B2F707BA00080FDBE /* FaceIDViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDViewModel.swift; sourceTree = "<group>"; };
-		6C509B502F707BAA0080FDBE /* PinCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeViewController.swift; sourceTree = "<group>"; };
-		6C509B512F707BAA0080FDBE /* PinCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeViewModel.swift; sourceTree = "<group>"; };
-		6C509B552F707BAA0080FDBE /* RegisterLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLoginViewController.swift; sourceTree = "<group>"; };
-		6C509B562F707BAA0080FDBE /* RegisterLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLoginViewModel.swift; sourceTree = "<group>"; };
-		6C509B5A2F707BAB0080FDBE /* RegisterPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPasswordViewController.swift; sourceTree = "<group>"; };
-		6C509B5B2F707BAB0080FDBE /* RegisterPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPasswordViewModel.swift; sourceTree = "<group>"; };
 		6C509B702F707BD60080FDBE /* FaceIDAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDAlertController.swift; sourceTree = "<group>"; };
 		6C509B712F707BD60080FDBE /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
 		6C509B722F707BD60080FDBE /* PasswordChekLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChekLabel.swift; sourceTree = "<group>"; };
@@ -81,22 +88,51 @@
 		6C509B752F707BD60080FDBE /* PinDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinDotsView.swift; sourceTree = "<group>"; };
 		6C509B762F707BD60080FDBE /* PinKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinKeyboardView.swift; sourceTree = "<group>"; };
 		6C509B772F707BD60080FDBE /* PinNumberButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinNumberButton.swift; sourceTree = "<group>"; };
-		6C509B842F707BE30080FDBE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6C509B8E2F707BF10080FDBE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6C509B8F2F707BF10080FDBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C509B902F707BF10080FDBE /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
-		6C509B9E2F707C050080FDBE /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
-		6C509B9F2F707C050080FDBE /* BiomerticAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiomerticAuthService.swift; sourceTree = "<group>"; };
-		6C509BA02F707C050080FDBE /* LocalSessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSessionStore.swift; sourceTree = "<group>"; };
-		6C509BA12F707C050080FDBE /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		6C509BAB2F707C0F0080FDBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		6C509BAF2F707C6B0080FDBE /* RegistationFlowDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistationFlowDIContainer.swift; sourceTree = "<group>"; };
-		6C509BB12F7083750080FDBE /* AppServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppServices.swift; sourceTree = "<group>"; };
-		6C509BB32F709FC50080FDBE /* LoginPINViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPINViewModel.swift; sourceTree = "<group>"; };
-		6C509BB52F709FE90080FDBE /* LoginPINViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPINViewController.swift; sourceTree = "<group>"; };
 		6CA8C59C2F718C3C00FC2151 /* FaceIDButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDButton.swift; sourceTree = "<group>"; };
+		6CE8FFD42F8936300064F84E /* mocWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mocWeather.swift; sourceTree = "<group>"; };
 		6CEBFD702F55AADC0003249D /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CEF546C2F732B57007145CB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6CEF54942F844836007145CB /* CoordinatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorFactory.swift; sourceTree = "<group>"; };
+		6CEF54F32F8552EC007145CB /* LoginPINViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPINViewController.swift; sourceTree = "<group>"; };
+		6CEF54F42F8552EC007145CB /* LoginPINViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPINViewModel.swift; sourceTree = "<group>"; };
+		6CEF54F62F8552EC007145CB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		6CEF54F72F8552EC007145CB /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		6CEF54FA2F8552EC007145CB /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
+		6CEF54FB2F8552EC007145CB /* AuthModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModuleFactory.swift; sourceTree = "<group>"; };
+		6CEF54FD2F8552EC007145CB /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
+		6CEF54FE2F8552EC007145CB /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
+		6CEF55012F8552EC007145CB /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		6CEF55022F8552EC007145CB /* MainModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModuleFactory.swift; sourceTree = "<group>"; };
+		6CEF55042F8552EC007145CB /* CitySuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySuggestion.swift; sourceTree = "<group>"; };
+		6CEF55052F8552EC007145CB /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
+		6CEF55062F8552EC007145CB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		6CEF55082F8552EC007145CB /* FaceIDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDViewController.swift; sourceTree = "<group>"; };
+		6CEF55092F8552EC007145CB /* FaceIDViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDViewModel.swift; sourceTree = "<group>"; };
+		6CEF550B2F8552EC007145CB /* RegisterLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLoginViewController.swift; sourceTree = "<group>"; };
+		6CEF550C2F8552EC007145CB /* RegisterLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLoginViewModel.swift; sourceTree = "<group>"; };
+		6CEF550E2F8552EC007145CB /* RegisterPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPasswordViewController.swift; sourceTree = "<group>"; };
+		6CEF550F2F8552EC007145CB /* RegisterPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPasswordViewModel.swift; sourceTree = "<group>"; };
+		6CEF55112F8552EC007145CB /* PinCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeViewController.swift; sourceTree = "<group>"; };
+		6CEF55122F8552EC007145CB /* PinCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeViewModel.swift; sourceTree = "<group>"; };
+		6CEF55152F8552EC007145CB /* RegistationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistationCoordinator.swift; sourceTree = "<group>"; };
+		6CEF55162F8552EC007145CB /* RegistrationModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationModuleFactory.swift; sourceTree = "<group>"; };
+		6CEF55182F8552EC007145CB /* AppServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppServices.swift; sourceTree = "<group>"; };
+		6CEF55192F8552EC007145CB /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		6CEF551A2F8552EC007145CB /* BiomerticAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiomerticAuthService.swift; sourceTree = "<group>"; };
+		6CEF551B2F8552EC007145CB /* CitySearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchService.swift; sourceTree = "<group>"; };
+		6CEF551C2F8552EC007145CB /* LocalSessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSessionStore.swift; sourceTree = "<group>"; };
+		6CEF551D2F8552EC007145CB /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		6CEF551E2F8552EC007145CB /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
+		6CEF551F2F8552EC007145CB /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		6CEF55412F855332007145CB /* Forecast24HoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast24HoursView.swift; sourceTree = "<group>"; };
+		6CEF55422F855332007145CB /* ForecastDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastDayView.swift; sourceTree = "<group>"; };
+		6CEF55432F855332007145CB /* ForecastHourView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastHourView.swift; sourceTree = "<group>"; };
+		6CEF55442F855332007145CB /* WeeklyForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyForecastView.swift; sourceTree = "<group>"; };
+		6CEF55492F8812B1007145CB /* ImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,10 +149,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C42CDC32F982A48002BB0C7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6C509AC22F7052820080FDBE /* UILabelHelper.swift */,
+				6C42CDC42F982A87002BB0C7 /* JSONDecoderEX.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		6C509B252F7079EB0080FDBE /* WeatherApp1 */ = {
 			isa = PBXGroup;
 			children = (
-				6C509B2E2F707AE00080FDBE /* Flows */,
+				6C42CDC32F982A48002BB0C7 /* Helpers */,
+				6CEF55212F8552EC007145CB /* Flows */,
 				6C509B2C2F707A570080FDBE /* App */,
 				6C509B782F707BD60080FDBE /* CommonViews */,
 				6C509B2D2F707A880080FDBE /* Protocols */,
@@ -130,10 +176,9 @@
 			isa = PBXGroup;
 			children = (
 				6C509ABE2F7052820080FDBE /* AppCoordinator.swift */,
+				6CEF54942F844836007145CB /* CoordinatorFactory.swift */,
 				6C509ABF2F7052820080FDBE /* AppDelegate.swift */,
-				6C509AC02F7052820080FDBE /* AppDIContainer.swift */,
 				6C509AC12F7052820080FDBE /* SceneDelegate.swift */,
-				6C509AC22F7052820080FDBE /* UILabelHelper.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -146,114 +191,14 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		6C509B2E2F707AE00080FDBE /* Flows */ = {
-			isa = PBXGroup;
-			children = (
-				6C509B2F2F707AF10080FDBE /* AuthFlow */,
-				6C509B322F707B640080FDBE /* RegistationFlow */,
-				6C509B852F707BE30080FDBE /* Models */,
-				6C509BA22F707C050080FDBE /* Services */,
-			);
-			path = Flows;
-			sourceTree = "<group>";
-		};
-		6C509B2F2F707AF10080FDBE /* AuthFlow */ = {
-			isa = PBXGroup;
-			children = (
-				6C509B332F707B6E0080FDBE /* Screens */,
-				6C509ACD2F7052820080FDBE /* AuthCoordinator.swift */,
-				6C509AE42F7052820080FDBE /* AuthFlowDIContainer.swift */,
-			);
-			path = AuthFlow;
-			sourceTree = "<group>";
-		};
-		6C509B302F707AFE0080FDBE /* LoginPINScreen */ = {
-			isa = PBXGroup;
-			children = (
-				6C509BB32F709FC50080FDBE /* LoginPINViewModel.swift */,
-				6C509BB52F709FE90080FDBE /* LoginPINViewController.swift */,
-			);
-			path = LoginPINScreen;
-			sourceTree = "<group>";
-		};
-		6C509B312F707B020080FDBE /* LoginScreen */ = {
-			isa = PBXGroup;
-			children = (
-				6C509AE02F7052820080FDBE /* LoginViewController.swift */,
-				6C509AE12F7052820080FDBE /* LoginViewModel.swift */,
-			);
-			path = LoginScreen;
-			sourceTree = "<group>";
-		};
-		6C509B322F707B640080FDBE /* RegistationFlow */ = {
-			isa = PBXGroup;
-			children = (
-				6C509B342F707B8E0080FDBE /* Screens */,
-				6C509ADE2F7052820080FDBE /* RegistationCoordinator.swift */,
-				6C509BAF2F707C6B0080FDBE /* RegistationFlowDIContainer.swift */,
-			);
-			path = RegistationFlow;
-			sourceTree = "<group>";
-		};
-		6C509B332F707B6E0080FDBE /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				6C509B312F707B020080FDBE /* LoginScreen */,
-				6C509B302F707AFE0080FDBE /* LoginPINScreen */,
-			);
-			path = Screens;
-			sourceTree = "<group>";
-		};
-		6C509B342F707B8E0080FDBE /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				6C509B3C2F707BA00080FDBE /* FaceIDScreen */,
-				6C509B572F707BAA0080FDBE /* LoginScreen */,
-				6C509B5C2F707BAB0080FDBE /* PasswordScreen */,
-				6C509B522F707BAA0080FDBE /* PinCodeScreen */,
-			);
-			path = Screens;
-			sourceTree = "<group>";
-		};
-		6C509B3C2F707BA00080FDBE /* FaceIDScreen */ = {
-			isa = PBXGroup;
-			children = (
-				6C509B3A2F707BA00080FDBE /* FaceIDViewController.swift */,
-				6C509B3B2F707BA00080FDBE /* FaceIDViewModel.swift */,
-			);
-			path = FaceIDScreen;
-			sourceTree = "<group>";
-		};
-		6C509B522F707BAA0080FDBE /* PinCodeScreen */ = {
-			isa = PBXGroup;
-			children = (
-				6C509B502F707BAA0080FDBE /* PinCodeViewController.swift */,
-				6C509B512F707BAA0080FDBE /* PinCodeViewModel.swift */,
-			);
-			path = PinCodeScreen;
-			sourceTree = "<group>";
-		};
-		6C509B572F707BAA0080FDBE /* LoginScreen */ = {
-			isa = PBXGroup;
-			children = (
-				6C509B552F707BAA0080FDBE /* RegisterLoginViewController.swift */,
-				6C509B562F707BAA0080FDBE /* RegisterLoginViewModel.swift */,
-			);
-			path = LoginScreen;
-			sourceTree = "<group>";
-		};
-		6C509B5C2F707BAB0080FDBE /* PasswordScreen */ = {
-			isa = PBXGroup;
-			children = (
-				6C509B5A2F707BAB0080FDBE /* RegisterPasswordViewController.swift */,
-				6C509B5B2F707BAB0080FDBE /* RegisterPasswordViewModel.swift */,
-			);
-			path = PasswordScreen;
-			sourceTree = "<group>";
-		};
 		6C509B782F707BD60080FDBE /* CommonViews */ = {
 			isa = PBXGroup;
 			children = (
+				6CEF55412F855332007145CB /* Forecast24HoursView.swift */,
+				6CEF55422F855332007145CB /* ForecastDayView.swift */,
+				6C07F6C92F8FB4EE0056E0C8 /* searchResultsTableVC.swift */,
+				6CEF55432F855332007145CB /* ForecastHourView.swift */,
+				6CEF55442F855332007145CB /* WeeklyForecastView.swift */,
 				6C509B702F707BD60080FDBE /* FaceIDAlertController.swift */,
 				6C509B712F707BD60080FDBE /* LoginTextField.swift */,
 				6C509B722F707BD60080FDBE /* PasswordChekLabel.swift */,
@@ -267,14 +212,6 @@
 			path = CommonViews;
 			sourceTree = "<group>";
 		};
-		6C509B852F707BE30080FDBE /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				6C509B842F707BE30080FDBE /* User.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		6C509B912F707BF10080FDBE /* Resourses */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,18 +221,6 @@
 				6CEF546C2F732B57007145CB /* GoogleService-Info.plist */,
 			);
 			path = Resourses;
-			sourceTree = "<group>";
-		};
-		6C509BA22F707C050080FDBE /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				6C509B9E2F707C050080FDBE /* AuthService.swift */,
-				6C509B9F2F707C050080FDBE /* BiomerticAuthService.swift */,
-				6C509BA02F707C050080FDBE /* LocalSessionStore.swift */,
-				6C509BA12F707C050080FDBE /* SessionService.swift */,
-				6C509BB12F7083750080FDBE /* AppServices.swift */,
-			);
-			path = Services;
 			sourceTree = "<group>";
 		};
 		6C509BAD2F707C0F0080FDBE /* StoryBoards */ = {
@@ -320,6 +245,167 @@
 				6CEBFD702F55AADC0003249D /* WeatherApp.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		6CEF54F52F8552EC007145CB /* LoginPINScreen */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF54F32F8552EC007145CB /* LoginPINViewController.swift */,
+				6CEF54F42F8552EC007145CB /* LoginPINViewModel.swift */,
+			);
+			path = LoginPINScreen;
+			sourceTree = "<group>";
+		};
+		6CEF54F82F8552EC007145CB /* LoginScreen */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF54F62F8552EC007145CB /* LoginViewController.swift */,
+				6CEF54F72F8552EC007145CB /* LoginViewModel.swift */,
+			);
+			path = LoginScreen;
+			sourceTree = "<group>";
+		};
+		6CEF54F92F8552EC007145CB /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF54F52F8552EC007145CB /* LoginPINScreen */,
+				6CEF54F82F8552EC007145CB /* LoginScreen */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		6CEF54FC2F8552EC007145CB /* AuthFlow */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF54F92F8552EC007145CB /* Screens */,
+				6CEF54FA2F8552EC007145CB /* AuthCoordinator.swift */,
+				6CEF54FB2F8552EC007145CB /* AuthModuleFactory.swift */,
+			);
+			path = AuthFlow;
+			sourceTree = "<group>";
+		};
+		6CEF54FF2F8552EC007145CB /* WeatherScreen */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF54FD2F8552EC007145CB /* WeatherViewController.swift */,
+				6CEF54FE2F8552EC007145CB /* WeatherViewModel.swift */,
+			);
+			path = WeatherScreen;
+			sourceTree = "<group>";
+		};
+		6CEF55002F8552EC007145CB /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF54FF2F8552EC007145CB /* WeatherScreen */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		6CEF55032F8552EC007145CB /* MainFlow */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF55002F8552EC007145CB /* Screens */,
+				6CEF55012F8552EC007145CB /* MainCoordinator.swift */,
+				6CEF55022F8552EC007145CB /* MainModuleFactory.swift */,
+			);
+			path = MainFlow;
+			sourceTree = "<group>";
+		};
+		6CEF55072F8552EC007145CB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF55042F8552EC007145CB /* CitySuggestion.swift */,
+				6CEF55052F8552EC007145CB /* Forecast.swift */,
+				6CEF55062F8552EC007145CB /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6CEF550A2F8552EC007145CB /* FaceIDScreen */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF55082F8552EC007145CB /* FaceIDViewController.swift */,
+				6CEF55092F8552EC007145CB /* FaceIDViewModel.swift */,
+			);
+			path = FaceIDScreen;
+			sourceTree = "<group>";
+		};
+		6CEF550D2F8552EC007145CB /* LoginScreen */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF550B2F8552EC007145CB /* RegisterLoginViewController.swift */,
+				6CEF550C2F8552EC007145CB /* RegisterLoginViewModel.swift */,
+			);
+			path = LoginScreen;
+			sourceTree = "<group>";
+		};
+		6CEF55102F8552EC007145CB /* PasswordScreen */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF550E2F8552EC007145CB /* RegisterPasswordViewController.swift */,
+				6CEF550F2F8552EC007145CB /* RegisterPasswordViewModel.swift */,
+			);
+			path = PasswordScreen;
+			sourceTree = "<group>";
+		};
+		6CEF55132F8552EC007145CB /* PinCodeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF55112F8552EC007145CB /* PinCodeViewController.swift */,
+				6CEF55122F8552EC007145CB /* PinCodeViewModel.swift */,
+			);
+			path = PinCodeScreen;
+			sourceTree = "<group>";
+		};
+		6CEF55142F8552EC007145CB /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF550A2F8552EC007145CB /* FaceIDScreen */,
+				6CEF550D2F8552EC007145CB /* LoginScreen */,
+				6CEF55102F8552EC007145CB /* PasswordScreen */,
+				6CEF55132F8552EC007145CB /* PinCodeScreen */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		6CEF55172F8552EC007145CB /* RegistationFlow */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF55142F8552EC007145CB /* Screens */,
+				6CEF55152F8552EC007145CB /* RegistationCoordinator.swift */,
+				6CEF55162F8552EC007145CB /* RegistrationModuleFactory.swift */,
+			);
+			path = RegistationFlow;
+			sourceTree = "<group>";
+		};
+		6CEF55202F8552EC007145CB /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF55182F8552EC007145CB /* AppServices.swift */,
+				6CEF55192F8552EC007145CB /* AuthService.swift */,
+				6CEF551A2F8552EC007145CB /* BiomerticAuthService.swift */,
+				6CEF551B2F8552EC007145CB /* CitySearchService.swift */,
+				6CEF551C2F8552EC007145CB /* LocalSessionStore.swift */,
+				6CEF551D2F8552EC007145CB /* LocationService.swift */,
+				6CEF551E2F8552EC007145CB /* SessionService.swift */,
+				6CEF55492F8812B1007145CB /* ImageCacheService.swift */,
+				6CEF551F2F8552EC007145CB /* WeatherService.swift */,
+				6C42CDC62F982CB7002BB0C7 /* NetworkService.swift */,
+				6CE8FFD42F8936300064F84E /* mocWeather.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		6CEF55212F8552EC007145CB /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF54FC2F8552EC007145CB /* AuthFlow */,
+				6CEF55172F8552EC007145CB /* RegistationFlow */,
+				6CEF55032F8552EC007145CB /* MainFlow */,
+				6CEF55072F8552EC007145CB /* Models */,
+				6CEF55202F8552EC007145CB /* Services */,
+			);
+			path = Flows;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -404,43 +490,61 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C42CDC72F982CB7002BB0C7 /* NetworkService.swift in Sources */,
 				6C509AF72F7052820080FDBE /* AppCoordinator.swift in Sources */,
 				6C509AF82F7052820080FDBE /* AppDelegate.swift in Sources */,
-				6C509AF92F7052820080FDBE /* AppDIContainer.swift in Sources */,
 				6C509AFA2F7052820080FDBE /* SceneDelegate.swift in Sources */,
-				6C509B862F707BE30080FDBE /* User.swift in Sources */,
 				6C509AFB2F7052820080FDBE /* UILabelHelper.swift in Sources */,
-				6C509B5D2F707BAB0080FDBE /* RegisterPasswordViewController.swift in Sources */,
-				6C509B5E2F707BAB0080FDBE /* RegisterPasswordViewModel.swift in Sources */,
-				6C509B3D2F707BA00080FDBE /* FaceIDViewController.swift in Sources */,
-				6C509BA32F707C050080FDBE /* AuthService.swift in Sources */,
-				6C509BA42F707C050080FDBE /* BiomerticAuthService.swift in Sources */,
-				6C509BB22F7083750080FDBE /* AppServices.swift in Sources */,
-				6C509BA52F707C050080FDBE /* LocalSessionStore.swift in Sources */,
-				6C509BA62F707C050080FDBE /* SessionService.swift in Sources */,
-				6C509B3E2F707BA00080FDBE /* FaceIDViewModel.swift in Sources */,
-				6C509B042F7052820080FDBE /* AuthCoordinator.swift in Sources */,
-				6C509BB02F707C6B0080FDBE /* RegistationFlowDIContainer.swift in Sources */,
-				6C509B0E2F7052820080FDBE /* RegistationCoordinator.swift in Sources */,
-				6C509B0F2F7052820080FDBE /* LoginViewController.swift in Sources */,
+				6CEF55222F8552EC007145CB /* MainCoordinator.swift in Sources */,
+				6CEF55232F8552EC007145CB /* AuthCoordinator.swift in Sources */,
+				6CEF55242F8552EC007145CB /* FaceIDViewController.swift in Sources */,
+				6CEF55252F8552EC007145CB /* LocationService.swift in Sources */,
+				6CEF55262F8552EC007145CB /* MainModuleFactory.swift in Sources */,
+				6CEF55272F8552EC007145CB /* LoginPINViewModel.swift in Sources */,
+				6CE8FFD52F8936310064F84E /* mocWeather.swift in Sources */,
+				6CEF55282F8552EC007145CB /* RegistrationModuleFactory.swift in Sources */,
+				6CEF55292F8552EC007145CB /* FaceIDViewModel.swift in Sources */,
+				6CEF552A2F8552EC007145CB /* WeatherViewModel.swift in Sources */,
+				6CEF55452F855332007145CB /* ForecastDayView.swift in Sources */,
+				6CEF55462F855332007145CB /* ForecastHourView.swift in Sources */,
+				6CEF55472F855332007145CB /* Forecast24HoursView.swift in Sources */,
+				6CEF55482F855332007145CB /* WeeklyForecastView.swift in Sources */,
+				6CEF552B2F8552EC007145CB /* Forecast.swift in Sources */,
+				6CEF552C2F8552EC007145CB /* AppServices.swift in Sources */,
+				6CEF552D2F8552EC007145CB /* RegisterPasswordViewModel.swift in Sources */,
+				6CEF552E2F8552EC007145CB /* LocalSessionStore.swift in Sources */,
+				6CEF552F2F8552EC007145CB /* PinCodeViewModel.swift in Sources */,
+				6CEF55302F8552EC007145CB /* AuthModuleFactory.swift in Sources */,
+				6CEF55312F8552EC007145CB /* LoginViewModel.swift in Sources */,
+				6CEF55322F8552EC007145CB /* RegisterLoginViewModel.swift in Sources */,
+				6CEF55332F8552EC007145CB /* LoginViewController.swift in Sources */,
+				6CEF55342F8552EC007145CB /* AuthService.swift in Sources */,
+				6CEF55352F8552EC007145CB /* BiomerticAuthService.swift in Sources */,
+				6CEF55362F8552EC007145CB /* LoginPINViewController.swift in Sources */,
+				6CEF55372F8552EC007145CB /* WeatherService.swift in Sources */,
+				6CEF55382F8552EC007145CB /* RegisterPasswordViewController.swift in Sources */,
+				6CEF55392F8552EC007145CB /* WeatherViewController.swift in Sources */,
+				6CEF554A2F8812B1007145CB /* ImageCacheService.swift in Sources */,
+				6CEF553A2F8552EC007145CB /* CitySearchService.swift in Sources */,
+				6CEF553B2F8552EC007145CB /* User.swift in Sources */,
+				6CEF553C2F8552EC007145CB /* RegisterLoginViewController.swift in Sources */,
+				6CEF553D2F8552EC007145CB /* SessionService.swift in Sources */,
+				6CEF553E2F8552EC007145CB /* PinCodeViewController.swift in Sources */,
+				6CEF553F2F8552EC007145CB /* CitySuggestion.swift in Sources */,
+				6CEF55402F8552EC007145CB /* RegistationCoordinator.swift in Sources */,
+				6C42CDC52F982A87002BB0C7 /* JSONDecoderEX.swift in Sources */,
 				6CA8C59D2F718C3C00FC2151 /* FaceIDButton.swift in Sources */,
-				6C509B102F7052820080FDBE /* LoginViewModel.swift in Sources */,
-				6C509B112F7052820080FDBE /* AuthFlowDIContainer.swift in Sources */,
+				6CEF54952F844836007145CB /* CoordinatorFactory.swift in Sources */,
 				6C509B122F7052820080FDBE /* CoordinatorProtocol.swift in Sources */,
-				6C509B532F707BAA0080FDBE /* PinCodeViewController.swift in Sources */,
-				6C509B582F707BAA0080FDBE /* RegisterLoginViewController.swift in Sources */,
-				6C509B592F707BAA0080FDBE /* RegisterLoginViewModel.swift in Sources */,
-				6C509B542F707BAA0080FDBE /* PinCodeViewModel.swift in Sources */,
 				6C509B792F707BD60080FDBE /* FaceIDAlertController.swift in Sources */,
 				6C509B7A2F707BD60080FDBE /* LoginTextField.swift in Sources */,
+				6C07F6CA2F8FB4EE0056E0C8 /* searchResultsTableVC.swift in Sources */,
 				6C509B7B2F707BD60080FDBE /* PasswordChekLabel.swift in Sources */,
 				6C509B7C2F707BD60080FDBE /* PasswordTextField.swift in Sources */,
 				6C509B7D2F707BD60080FDBE /* PinDeleteButton.swift in Sources */,
 				6C509B7E2F707BD60080FDBE /* PinDotsView.swift in Sources */,
 				6C509B7F2F707BD60080FDBE /* PinKeyboardView.swift in Sources */,
 				6C509B802F707BD60080FDBE /* PinNumberButton.swift in Sources */,
-				6C509BB62F709FE90080FDBE /* LoginPINViewController.swift in Sources */,
-				6C509BB42F709FC50080FDBE /* LoginPINViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

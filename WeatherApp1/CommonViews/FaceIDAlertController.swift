@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 
+// Класс не нужен, а удалить жалко(
+
 class FaceIDAlertView: UIView {
     // MARK: - Actions
     var onPrimaryTap: (() -> Void)?

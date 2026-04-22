@@ -20,7 +20,6 @@ final class PasswordFieldView: UIView {
     private let textPlaceHolder: String
     
     // MARK: - Public API
-    
     var text: String? {
         textField.text
     }
@@ -37,8 +36,6 @@ final class PasswordFieldView: UIView {
         setupLayout()
         setupActions()
     }
-
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -47,6 +44,8 @@ final class PasswordFieldView: UIView {
 
 
 private extension PasswordFieldView {
+    
+    // MARK: - Setup UI
     
     func setupUI() {
         
@@ -70,7 +69,7 @@ private extension PasswordFieldView {
         addSubview(textField)
         addSubview(eyeButton)
     }
-    
+    // MARK: - Setup Layout
     func setupLayout() {
         textField.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview()
@@ -83,13 +82,14 @@ private extension PasswordFieldView {
             make.size.equalTo(24)
         }
     }
-    
+    // MARK: - Setup Actions
     func setupActions() {
         eyeButton.addTarget(self, action: #selector(togglePassword), for: .touchUpInside)
         textField.addTarget(self, action: #selector(textChanged), for: .editingChanged)
     }
 }
 
+// MARK: - OBJC MEthods
 private extension PasswordFieldView {
     @objc func togglePassword() {
         eyeButton.isSelected.toggle()

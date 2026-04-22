@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 struct RegisterUsernameViewState: Equatable {
     var username: String = ""
@@ -20,16 +21,10 @@ protocol RegisterUsernameInput {
     func didTapBackToAuth()
 }
 
-protocol RegisterUsernameOutput {
-    var onStateChange: ((RegisterUsernameViewState) -> Void)? { get set}
-    var onNextStep: ((String) -> Void)? { get set }
-    var onBackToAuth: (() -> Void)? { get set }
-}
 
-final class RegisterUsernameViewModel: RegisterUsernameInput, RegisterUsernameOutput {
+final class RegisterUsernameViewModel: RegisterUsernameInput {
     
     // MARK: - Outputs
-    var onStateChange: ((RegisterUsernameViewState) -> Void)?
     var onNextStep: ((String) -> Void)?
     var onBackToAuth: (() -> Void)?
     
@@ -37,9 +32,7 @@ final class RegisterUsernameViewModel: RegisterUsernameInput, RegisterUsernameOu
     private let authService: AuthServiceProtocol
     
     // MARK: - State
-    private var state = RegisterUsernameViewState() {
-        didSet { onStateChange?(state)}
-    }
+    @Published var state = RegisterUsernameViewState()
     
     // MARK: - Init
     init( authService: AuthServiceProtocol) {
@@ -64,6 +57,8 @@ final class RegisterUsernameViewModel: RegisterUsernameInput, RegisterUsernameOu
 }
 
 private extension RegisterUsernameViewModel {
+    
+    // MARK: - Validation
     func validate() {
         
         let username = state.username.trimmingCharacters(in: .whitespacesAndNewlines)

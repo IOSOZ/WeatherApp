@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import SwiftUI
+import Combine
 
 class FaceIDViewController: UIViewController {
 
@@ -33,6 +34,7 @@ class FaceIDViewController: UIViewController {
     
     // MARK: - VM
     private let viewModel: FaceIDViewModel
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Init
     init(viewModel: FaceIDViewModel) {
@@ -47,9 +49,7 @@ class FaceIDViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.title = "Регистрация"
-        
+        viewModel.viewDidLoad()
         setupUI()
         setupLayout()
         setupActions()
@@ -57,10 +57,14 @@ class FaceIDViewController: UIViewController {
     }
 }
 
-// MARK: - Extension
 private extension FaceIDViewController {
+    // MARK: - Setup UI
     func setupUI() {
+        // MARK: - Views Setup
         view.backgroundColor = .white
+        blurView.alpha = 0.96
+        blurView.isHidden = true
+        overlayView.isHidden = true
         
         // MARK: - Stacks
         switchStack.axis = .horizontal
@@ -72,7 +76,6 @@ private extension FaceIDViewController {
         authorizeStack.isUserInteractionEnabled = true
         
         // MARK: - Labels
-        
         titleLabel.text = "Подключить Face ID"
         titleLabel.font = UIFont(name: "SFPro-Semibold", size: 24)
         titleLabel.textColor = UIColor(red: 0/255, green: 26/255, blue: 52/255, alpha: 1)
@@ -91,11 +94,8 @@ private extension FaceIDViewController {
         authorizeTapLabel.isUserInteractionEnabled = true
         authorizeTapLabel.underline()
         
-        blurView.alpha = 0.96
-        blurView.isHidden = true
-    
+        // MARK: - Action Views
         forwardButton.isEnabled = true
-        forwardButton.setTitle("Зарегистрироваться", for: .normal)
         forwardButton.titleLabel?.font = UIFont(name: "SFPro-Bold", size: 16)
         forwardButton.layer.cornerRadius = 8
         forwardButton.backgroundColor = UIColor(.appBlue)
@@ -103,13 +103,12 @@ private extension FaceIDViewController {
         forwardButton.setTitleColor(UIColor(.white), for: .normal)
         
         activityIndicator.hidesWhenStopped = true
-        overlayView.isHidden = true
         
+        // MARK: - Navigation
         navigationItem.title = "Регистрация"
        
         
         // MARK: - Add Views
-        
         view.addSubview(titleLabel)
         view.addSubview(switchStack)
         view.addSubview(forwardButton)
@@ -117,8 +116,6 @@ private extension FaceIDViewController {
         view.addSubview(blurView)
         view.addSubview(overlayView)
         view.addSubview(activityIndicator)
-        
-//        overlayView.addSubview(faceIDAlert)
         
         switchStack.addArrangedSubview(faceIDLabel)
         switchStack.addArrangedSubview(switchControl)
@@ -157,16 +154,13 @@ private extension FaceIDViewController {
         overlayView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-//        
-//        faceIDAlert.snp.makeConstraints { make in
-//            make.edges.equalToSuperview()
-//        }
         
         activityIndicator.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
     }
     
+    // MARK: - Setup Actions
     func setupActions() {
         switchControl.addTarget(self, action: #selector(didSwitch(_:)), for: .valueChanged)
         
@@ -175,22 +169,22 @@ private extension FaceIDViewController {
         let authTap = UITapGestureRecognizer(target: self, action: #selector(didTapBackToAuth))
         authorizeTapLabel.addGestureRecognizer(authTap)
         
-//        faceIDAlert.onPrimaryTap = { [weak self] in
-//            self?.viewModel.didTapPrimaryPromptAction()
-//        }
-//        
-//        faceIDAlert.onSecondaryTap = { [weak self] in
-//            self?.viewModel.didTapSecondaryPromptAction()
-//        }
     }
     
+    // MARK: - Bind ViewModel
     func bindViewModel() {
-        viewModel.onStateChange = { [weak self] state in
-            self?.render(state)
-        }
+        viewModel.$state.receive(on: DispatchQueue.main)
+            .sink { [weak self] state in
+                self?.render(state)
+            }
+            .store(in: &cancellables)
     }
     
+    // MARK: - Render
     func render(_ state: FaceIDViewState) {
+        forwardButton.setTitle(state.nextButtonTitle, for: .normal)
+        authorizeStack.isHidden = state.backToAuthLabelIsHidden
+        
         switch state.mode {
         case .initial(let isEnabled):
             switchControl.setOn(isEnabled, animated: true)
@@ -198,11 +192,9 @@ private extension FaceIDViewController {
             titleLabel.isHidden = false
             switchStack.isHidden = false
             forwardButton.isHidden = false
-            authorizeStack.isHidden = false
 
             blurView.isHidden = true
             overlayView.isHidden = true
-//            faceIDAlert.isHidden = true
 
             activityIndicator.stopAnimating()
             activityIndicator.isHidden = true
@@ -211,42 +203,23 @@ private extension FaceIDViewController {
             titleLabel.isHidden = false
             switchStack.isHidden = false
             forwardButton.isHidden = false
-            authorizeStack.isHidden = false
 
             blurView.isHidden = false
-//            overlayView.isHidden = false
-//            faceIDAlert.isHidden = false
 
             activityIndicator.stopAnimating()
             activityIndicator.isHidden = true
-
-//            faceIDAlert.configure(
-//                title: #"Face ID для “Liberty”"#,
-//                message: "Расположите камеру под правильным углом",
-//                primaryButtonTitle: "Продолжить",
-//                secondaryButtonTitle: nil
-//            )
 
         case .authError:
             titleLabel.isHidden = false
             switchStack.isHidden = false
             forwardButton.isHidden = false
-            authorizeStack.isHidden = false
 
             blurView.isHidden = false
             overlayView.isHidden = false
-//            faceIDAlert.isHidden = false
 
             activityIndicator.stopAnimating()
             activityIndicator.isHidden = true
-
-//            faceIDAlert.configure(
-//                title: "Лицо не распознано",
-//                message: "Повторите или отмените",
-//                primaryButtonTitle: "Повторить Face ID",
-//                secondaryButtonTitle: "Отменить"
-//            )
-
+            
         case .loading:
             view.subviews.forEach { $0.isHidden = true}
             activityIndicator.isHidden = false
@@ -254,6 +227,7 @@ private extension FaceIDViewController {
         }
     }
     
+    // MARK: - OBJC Methods
     @objc func didTapForward() {
         viewModel.didTapNext()
     }

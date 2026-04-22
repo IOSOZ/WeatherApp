@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import SwiftUI
+import Combine
 
 class RegisterPasswordViewController: UIViewController {
 
@@ -38,6 +39,7 @@ class RegisterPasswordViewController: UIViewController {
     
     // MARK: - VM
     private let viewModel: RegisterPasswordViewModel
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Init
     init(viewModel: RegisterPasswordViewModel) {
@@ -56,8 +58,7 @@ class RegisterPasswordViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationItem.title = "Регистрация"
+        
         setupUI()
         setupLayout()
         setupActions()
@@ -66,16 +67,20 @@ class RegisterPasswordViewController: UIViewController {
     }
 }
 
-// MARK: - Extension
 private extension RegisterPasswordViewController {
+    // MARK: - Setup UI
     func setupUI() {
         
+        // MARK: - Views Setup
         view.backgroundColor = .white
         
         scrollView.isScrollEnabled = false
         scrollView.keyboardDismissMode = .interactive
         
-        // MARK: - Stacks
+        // MARK: - Navigation
+        navigationItem.title = "Регистрация"
+        
+        // MARK: - Stacks Setup
         passwordCheckStack.axis = .vertical
         passwordCheckStack.spacing = 8
         passwordCheckStack.isHidden = true
@@ -89,7 +94,7 @@ private extension RegisterPasswordViewController {
         fieldsStack.spacing = 8
 
         
-        // MARK: - Labels
+        // MARK: - Labels Setup
         titleLabel.text = "Придумайте пароль"
         titleLabel.font = UIFont(name: "SFPro-Semibold", size: 24)
         titleLabel.textColor = UIColor(red: 0/255, green: 26/255, blue: 52/255, alpha: 1)
@@ -114,7 +119,6 @@ private extension RegisterPasswordViewController {
         forwardButton.setTitleColor(UIColor(.white), for: .normal)
         
         // MARK: -  Add Views
-        
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
@@ -185,6 +189,7 @@ private extension RegisterPasswordViewController {
         }
     }
     
+    // MARK: - Setup Actions
     func setupActions() {
         firstPasswordTF.onTextChanged = { [weak self] text in
             self?.viewModel.didChangeFirstPassword(text)
@@ -200,12 +205,16 @@ private extension RegisterPasswordViewController {
         authorizeTapLabel.addGestureRecognizer(authTap)
     }
     
+    // MARK: - Bind ViewModel
     func bindViewModel() {
-        viewModel.onStateChange = { [weak self] state in
-            self?.render(state)
-        }
+        viewModel.$state.receive(on: DispatchQueue.main)
+            .sink { [weak self] state in
+                self?.render(state)
+            }
+            .store(in: &cancellables)
     }
     
+    // MARK: - Render
     func render(_ state: RegisterPasswordViewState) {
         forwardButton.isEnabled = state.isNextStepEnabled
         forwardButton.backgroundColor = state.isNextStepEnabled ? UIColor(.appBlue) : UIColor(.inactiveButton)
@@ -241,8 +250,10 @@ private extension RegisterPasswordViewController {
         UIView.animate(withDuration: 0.25) {
             self.passwordCheckStack.alpha = shouldShowChecks ? 1 : 0
             self.view.layoutIfNeeded()
-        }    }
+        }
+    }
     
+    // MARK: - OBJC Methods
     @objc func didTapForward() {
         viewModel.didTapNextStep()
     }
@@ -250,16 +261,9 @@ private extension RegisterPasswordViewController {
     @objc func didTapBackToAuth() {
         viewModel.didTapBackToAuth()
     }
-}
-
-private extension RegisterPasswordViewController {
-    func setupKeyboardHandling() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillChangeFrame(_:)),
-            name: UIResponder.keyboardWillChangeFrameNotification,
-            object: nil
-        )
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     @objc func keyboardWillChangeFrame(_ note: Notification) {
@@ -278,14 +282,31 @@ private extension RegisterPasswordViewController {
         buttonBottomConstraint?.update(offset: buttonOffset)
         
         scrollView.isScrollEnabled = overlap > 0
-//        scrollView.contentInset.bottom = overlap
-//        scrollView.verticalScrollIndicatorInsets.bottom = overlap
         
         let options = UIView.AnimationOptions(rawValue: curveRaw << 16)
         UIView.animate(withDuration: duration, delay: 0, options: options) {
             self.view.layoutIfNeeded()
         }
     }
+}
+
+
+private extension RegisterPasswordViewController {
+    // MARK: - Keyboard
+    func setupKeyboardHandling() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillChangeFrame(_:)),
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil
+        )
+    }
+    
+    
 }
 
 //#Preview {

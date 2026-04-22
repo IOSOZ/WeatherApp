@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 class LoginPINViewController: UIViewController {
 
@@ -24,6 +25,7 @@ class LoginPINViewController: UIViewController {
     
     // MARK: - VM
     private let viewModel: LoginPINViewModel
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Init
     init(viewModel: LoginPINViewModel) {
@@ -46,13 +48,16 @@ class LoginPINViewController: UIViewController {
     }
 }
 
-// MARK: - Extension
-
 private extension LoginPINViewController {
+    // MARK: - Setup UI
     func setupUI() {
-        
+        // MARK: - Views Setup
         view.backgroundColor = .white
-        // Stacks
+        blurView.alpha = 0.96
+        blurView.isHidden = false
+        
+        
+        // MARK: - Stacks Setup
         titleStack.axis = .vertical
         titleStack.spacing = 24
         titleStack.alignment = .center
@@ -62,17 +67,15 @@ private extension LoginPINViewController {
         pinStack.alignment = .center
         pinStack.isUserInteractionEnabled = true
         
-        // Logo
+        // MARK: - Logo Setup
         logoImageView.contentMode = .scaleAspectFit
         logoImageView.image = UIImage(resource: .logo)
         
-        blurView.alpha = 0.96
-        blurView.isHidden = false
-        
+        // MARK: - Labels Setup
         titleLabel.font = UIFont(name: "SFPro-Regular", size: 24)
         titleLabel.textColor = .black
         titleLabel.textAlignment = .center
-        titleLabel.text = "Face ID или PIN-код"
+        titleLabel.text = viewModel.isFaceIDEnabled ? "Face ID или PIN-код" : "Введите PIN-код"
         
         errorLabel.font = UIFont(name: "SFPro-Regular", size: 12)
         errorLabel.textColor = .red
@@ -101,6 +104,7 @@ private extension LoginPINViewController {
         view.addSubview(pinStack)
     }
     
+    // MARK: - Setup Layout
     func setupLayout() {
         blurView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -129,6 +133,7 @@ private extension LoginPINViewController {
         }
     }
     
+    // MARK: - Setup Actions
     func setupActions() {
         keyboardView.onDigitTap = { [weak self] digit in
             self?.viewModel.didTapNumberButton(digit)
@@ -147,37 +152,54 @@ private extension LoginPINViewController {
         forgotPIN.addGestureRecognizer(forgotPINTap)
     }
     
+    // MARK: - Bind ViewModel
     func bindViewModel() {
-        viewModel.onStateChange = { [weak self] state in
-            self?.render(state)
+        viewModel.$state.receive(on: DispatchQueue.main)
+            .sink { [weak self] state in
+                self?.render(state)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.showAlert.receive(on: DispatchQueue.main)
+            .sink { [weak self] state in
+                self?.showAlert(state)
+            }
+            .store(in: &cancellables)
         }
-        viewModel.onShowAlert = { [weak self] state in
-            self?.showAlert(state)
-        }
-    }
     
+    // MARK: - Render
     func render(_ state: LoginPINCodeViewState) {
-        pinDotView.configure(filledCount: state.enteredDigits)
+        
+        if state.errorMessage != nil {
+            pinDotView.showIncorrectAnimation()
+            errorLabel.text = state.errorMessage
+        } else {
+            pinDotView.configure(filledCount: state.enteredDigits)
+            
+        }
+        
         errorLabel.isHidden = state.errorMessage == nil
-        errorLabel.text = state.errorMessage
         keyboardView.apply(enteredSymbols: state.enteredDigits)
+        
     }
     
+    // MARK: - Show Alert
     func showAlert(_ state: LoginPINCodeViewState) {
         let alert = UIAlertController(
             title: state.alertTitle,
             message: "Пожалуйства введите логин и пароль",
             preferredStyle: .alert)
         
-        let okButton = UIAlertAction(title: "Понятно", style: .default) { [unowned self] _ in
-            self.blurView.isHidden = true
-            self.viewModel.didTapAlertButton()
+        let okButton = UIAlertAction(title: "Понятно", style: .default) { [weak self] _ in
+            self?.blurView.isHidden = true
+            self?.viewModel.didTapAlertButton()
         }
         alert.addAction(okButton)
         self.blurView.isHidden = false
         self.present(alert, animated: true, completion: nil)
     }
     
+    // MARK: - OBJC Methods
     @objc func didTapForgotPIN() {
         viewModel.didTapForgotPIN()
     }

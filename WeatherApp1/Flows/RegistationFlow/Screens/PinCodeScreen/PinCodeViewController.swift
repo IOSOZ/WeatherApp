@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 class PinCodeViewController: UIViewController {
 
@@ -19,6 +20,7 @@ class PinCodeViewController: UIViewController {
     
     // MARK: - VM
     private let viewModel: PinCodeViewModel
+    private var cancellabels = Set<AnyCancellable>()
     
     // MARK: - Init
     init(viewModel: PinCodeViewModel) {
@@ -41,18 +43,19 @@ class PinCodeViewController: UIViewController {
     }
 }
 
-// MARK: - Extension
 private extension PinCodeViewController {
-    
+    // MARK: - Setup UI
     func setupUI() {
+        // MARK: - Views Setup
         view.backgroundColor = .white
-        
         navigationItem.title = "Регистрация"
         
+        // MARK: - Stacks Setup
         contentStack.axis = .vertical
         contentStack.spacing = 24
         contentStack.alignment = .center
         
+        // MARK: - Labels Setup
         titleLabel.font = UIFont(name: "SFPro-Regular", size: 24)
         titleLabel.textColor = .black
         titleLabel.textAlignment = .center
@@ -63,6 +66,7 @@ private extension PinCodeViewController {
         errorLabel.textColor = .red
         errorLabel.isHidden = true
         
+        // MARK: - Add Views
         view.addSubview(contentStack)
         view.addSubview(errorLabel)
         view.addSubview(keyboardView)
@@ -71,6 +75,7 @@ private extension PinCodeViewController {
         contentStack.addArrangedSubview(pinDotView)
     }
     
+    // MARK: - Setup Layout
     func setupLayout() {
         contentStack.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(123)
@@ -90,6 +95,7 @@ private extension PinCodeViewController {
         }
     }
     
+    // MARK: - Setup Actions
     func setupActions() {
         keyboardView.onDigitTap = { [weak self] digit in
             self?.viewModel.didTapNumberButton(digit)
@@ -99,20 +105,23 @@ private extension PinCodeViewController {
             self?.viewModel.didTapClearLastNumber()
         }
     }
-    
+    // MARK: - Bind ViewModel
     func bindViewModel() {
-        viewModel.onStateChange = { [weak self] state in
-            self?.render(state)
-        }
+        viewModel.$state.receive(on: DispatchQueue.main)
+            .sink { [weak self] state in
+                self?.render(state)
+            }.store(in: &cancellabels)
     }
+    // MARK: - Render
     func render(_ state: PinCodeViewState) {
-        pinDotView.configure(filledCount: state.enteredDigits)
+        if state.errorMessage != nil {
+            pinDotView.showIncorrectAnimation()
+            errorLabel.text = state.errorMessage
+        } else {
+            pinDotView.configure(filledCount: state.enteredDigits)
+        }
+        
         titleLabel.text = state.title
-        errorLabel.text = state.errorMessage
         errorLabel.isHidden = state.errorMessage == nil
     }
 }
-//
-//#Preview {
-//    PinCodeViewController(viewModel: PinCodeViewModel())
-//}

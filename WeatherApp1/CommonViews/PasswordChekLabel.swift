@@ -11,10 +11,12 @@ import SnapKit
 
 final class PasswordCheckLabel: UIView {
     
+    // MARK: - UI
     private let iconImageView = UIImageView()
     private let titleLabel = UILabel()
     private let stackView = UIStackView()
     
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -25,6 +27,7 @@ final class PasswordCheckLabel: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Configure (Public)
     func configure(text: String, isSatisfied: Bool) {
         titleLabel.text = text
         titleLabel.textColor = isSatisfied ? .systemGreen : .systemRed
@@ -35,6 +38,7 @@ final class PasswordCheckLabel: UIView {
 
 private extension PasswordCheckLabel {
 
+    // MARK: - Setup UI
     func setupUI() {
         stackView.axis = .horizontal
         stackView.spacing = 8
@@ -48,6 +52,7 @@ private extension PasswordCheckLabel {
         stackView.addArrangedSubview(titleLabel)
     }
 
+    // MARK: - Setup Layout
     func setupLayout() {
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
