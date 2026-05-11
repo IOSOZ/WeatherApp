@@ -1,15 +1,18 @@
 //
-//  MainFlowDIContainer.swift
+//  WeatherModuleFactory.swift
 //  WeatherApp
 //
-//  Created by Олег Зуев on 30.03.2026.
+//  Created by Олег Зуев on 07.05.2026.
 //
+
+import Foundation
+
 
 import Foundation
 import UIKit
 
 
-final class MainModuleFactory {
+final class WeatherModuleFactory {
     var weatherService: WeatherServiceProtocol
     var locationService: LocationServiceProtocol
     var citySearchService: CitySearchServiceProtocol

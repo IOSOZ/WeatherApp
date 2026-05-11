@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol CoordinatorFactory {
+protocol AppCoordinatorFactory {
     func makeAuthCoordinator() -> Coordinator
     func makeRegistrationCoordinator() -> Coordinator
     func makeMainCoordinator() -> Coordinator
