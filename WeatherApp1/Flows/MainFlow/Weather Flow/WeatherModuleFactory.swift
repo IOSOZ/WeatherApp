@@ -30,7 +30,8 @@ final class WeatherModuleFactory {
     }
     
     func makeWeatherViewController(
-        onBackToAuth: @escaping () -> Void
+        onBackToAuth: @escaping () -> Void,
+        onSetting: @escaping () -> Void
     )  -> UIViewController {
         let viewModel = WeatherViewModel(
             weatherService: weatherService,
@@ -38,7 +39,9 @@ final class WeatherModuleFactory {
             citySearchService: citySearchService,
             localSessionStore: localSessionStore
         )
+        
         viewModel.onBackToAuth = onBackToAuth
+        viewModel.onSettings = onSetting
         
         let viewController = WeatherViewController(viewModel: viewModel)
         return viewController

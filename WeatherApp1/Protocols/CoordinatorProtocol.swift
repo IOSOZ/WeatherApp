@@ -21,10 +21,19 @@ protocol Coordinator: AnyObject {
 extension Coordinator {
     func addChild(_ coordinator: Coordinator) {
         childCoordinators.append(coordinator)
+
     }
     
     func removeChild(_ coordinator: Coordinator) {
         childCoordinators.removeAll { $0 === coordinator }
+    }
+    
+    
+    func clearAndStopAllChildCoordinators() {
+        for coordinator in self.childCoordinators {
+            coordinator.onFinish?()
+        }
+        childCoordinators.removeAll()
     }
 }
 

@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-protocol AuthCoordinatorFactory {
-    func makeRegistrationCoordinator()
-    func makeMainCoordinator()
+protocol AuthCoordinatorOutput: AnyObject {
+    func requestRegistrationFlow()
+    func requestTabBarFlow()
 }
 
 final class AuthCoordinator: Coordinator {
@@ -20,7 +20,7 @@ final class AuthCoordinator: Coordinator {
     
     var onFinish: (() -> Void)?
     
-    private let factory: AuthCoordinatorFactory
+    private weak var output: AuthCoordinatorOutput?
     private let moduleFactory = AuthModuleFactory(
         authService: AppServices.shared.authService,
         localSessionService: AppServices.shared.localSessionStore,
@@ -36,10 +36,10 @@ final class AuthCoordinator: Coordinator {
     // MARK: - Init
     init(navController: UINavigationController,
          localSessionStore: LocalSessionStoreProtocol = AppServices.shared.localSessionStore,
-         factory: AuthCoordinatorFactory) {
+         output: AuthCoordinatorOutput) {
         self.navController = navController
         self.localSessionStore = localSessionStore
-        self.factory = factory
+        self.output = output
     }
     
     // MARK: - Start Method
@@ -57,11 +57,11 @@ private extension AuthCoordinator {
     func showLoginScreen() {
         let vc = moduleFactory.makeLoginViewController(
             onLoginSuccess: { [weak self] in
-                self?.factory.makeRegistrationCoordinator()
+                self?.output?.requestRegistrationFlow()
                 self?.onFinish?()
             },
             onRegister: { [weak self] in
-                self?.factory.makeRegistrationCoordinator()
+                self?.output?.requestRegistrationFlow()
                 self?.onFinish?()
             }
         )
@@ -71,11 +71,12 @@ private extension AuthCoordinator {
     func showPinCodeScreen() {
         let vc = moduleFactory.makeLoginPINCodeViewController(
             onMainFlow: { [weak self] in
-                self?.factory.makeMainCoordinator()
+                self?.output?.requestTabBarFlow()
                 
             }, onAuthScreen: { [weak self] in
                 self?.showLoginScreen()
-            })
+            }
+        )
         
         navController.setViewControllers([vc], animated: true)
     }

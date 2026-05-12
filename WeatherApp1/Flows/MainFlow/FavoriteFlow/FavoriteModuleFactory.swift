@@ -6,3 +6,12 @@
 //
 
 import Foundation
+import UIKit
+
+final class FavoriteModuleFactory {
+    func makeFavoriteViewController() -> UIViewController {
+        let viewModel = FavoriteViewModel()
+        let viewController = FavoriteViewController(viewModel: viewModel)
+        return viewController
+    }
+}

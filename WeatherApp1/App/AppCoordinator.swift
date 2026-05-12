@@ -8,19 +8,34 @@
 import Foundation
 import UIKit
 
+
+//enum AppFlow {
+//    case auth
+//    case registration
+//    case main
+//}
+//
+//protocol AppFlowOutput: AnyObject {
+//    func requestAppFlow(_ flow: AppFlow, from coordinator: Coordinator)
+//}
+
 final class AppCoordinator: Coordinator {
 
     var onFinish: (() -> Void)?
     var childCoordinators: [Coordinator] = []
     
-    // MARK: - Outputs
+    // MARK: - Navigation
     private let window: UIWindow
     private let navController: UINavigationController
+    
+    // MARK: - Factory
+    private let factory: AppCoordinatorFactoryProtocol
     
     // MARK: - Init
     init( window: UIWindow) {
         self.window = window
         self.navController = UINavigationController()
+        self.factory = AppCoordinatorFactory()
     }
     
     // MARK: - Start Method
@@ -28,54 +43,85 @@ final class AppCoordinator: Coordinator {
         window.rootViewController = navController
         window.makeKeyAndVisible()
         
-#warning("Тут сбрасываю юзердефолтс")
+#warning("Тут сбрасываю инофрмацию о пользователе на устройстве")
 //        AppServices.shared.authService.logout()
 //        AppServices.shared.localSessionStore.clearAll()
-       makeAuthCoordinator()
+        
+#warning("для полноценной работы заменить строку ниже showAuthFlow()")
+       showTabBarFlow()
     }
 }
-  
-// MARK: - CoordinatorFactory
-extension AppCoordinator: AuthCoordinatorFactory, RegistrationCoordinatorFactory, MainCoordinatorFactory {
-    func makeAuthCoordinator() {
-        let coordinator = AuthCoordinator(navController: navController, factory: self)
-        
-        coordinator.onFinish = {[weak self, weak coordinator] in
-            guard let self, let coordinator else { return }
-            self.removeChild(coordinator)
-        }
-        
-        addChild(coordinator)
-        coordinator.start()
+
+
+// MARK: - Output Implementation
+extension AppCoordinator: AuthCoordinatorOutput, RegistrationCoordinatorOutput, TabBarCoordinatorOutput {
+    func requestAuthFlow() {
+        showAuthFlow()
     }
     
-    func makeRegistrationCoordinator() {
-        let coordinator = RegistrationCoordinator(
+    func requestRegistrationFlow() {
+        showRegistrationFlow()
+    }
+    
+    func requestTabBarFlow() {
+        showTabBarFlow()
+    }
+    
+}
+
+// MARK: - Create and Start Flow
+private extension AppCoordinator {
+    func showAuthFlow() {
+        window.rootViewController = navController
+
+        let coordinator = factory.makeAuthCoordinator(
             navController: navController,
-            factory: self,
-            localSessionStore: AppServices.shared.localSessionStore,
-            authService: AppServices.shared.authService
+            output: self
         )
-        
-        coordinator.onFinish = {[weak self, weak coordinator] in
-            guard let self, let coordinator else { return }
-            self.removeChild(coordinator)
-        }
-        
-        addChild(coordinator)
-        coordinator.start()
-    }
-    
-    func makeMainCoordinator() {
-        let coordinator = MainCoordinator(navController: navController, factory: self)
+
         coordinator.onFinish = { [weak self, weak coordinator] in
             guard let self, let coordinator else { return }
             self.removeChild(coordinator)
         }
-        
+
         addChild(coordinator)
-        
+        coordinator.start()
+    }
+
+    func showRegistrationFlow() {
+        window.rootViewController = navController
+
+        let coordinator = factory.makeRegistrationCoordinator(
+            navController: navController,
+            output: self
+        )
+
+        coordinator.onFinish = { [weak self, weak coordinator] in
+            guard let self, let coordinator else { return }
+            self.removeChild(coordinator)
+        }
+
+        addChild(coordinator)
+        coordinator.start()
+    }
+
+    func showTabBarFlow() {
+        let tabBarController = UITabBarController()
+        window.rootViewController = tabBarController
+
+        let coordinator = factory.makeTabBarCoordinator(
+            tabBarController: tabBarController,
+            output: self,
+            factory: TabBarCoordinatorFactory()
+        )
+
+        coordinator.onFinish = { [weak self, weak coordinator] in
+            guard let self, let coordinator else { return }
+            coordinator.clearAndStopAllChildCoordinators()
+            self.removeChild(coordinator)
+        }
+
+        addChild(coordinator)
         coordinator.start()
     }
 }
-

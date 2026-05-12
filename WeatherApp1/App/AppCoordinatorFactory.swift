@@ -6,9 +6,61 @@
 //
 
 import Foundation
+import UIKit
 
-protocol AppCoordinatorFactory {
-    func makeAuthCoordinator() -> Coordinator
-    func makeRegistrationCoordinator() -> Coordinator
-    func makeMainCoordinator() -> Coordinator
+protocol AppCoordinatorFactoryProtocol {
+    
+    func makeAuthCoordinator(
+        navController: UINavigationController,
+        output: AuthCoordinatorOutput
+    ) -> AuthCoordinator
+    
+    func makeRegistrationCoordinator(
+        navController: UINavigationController,
+        output: RegistrationCoordinatorOutput
+    ) -> RegistrationCoordinator
+    
+    func makeTabBarCoordinator(
+        tabBarController: UITabBarController,
+        output: TabBarCoordinatorOutput,
+        factory: TabBarCoordinatorFactoryProtocol
+    ) -> TabBarCoordinator
+}
+
+
+struct AppCoordinatorFactory: AppCoordinatorFactoryProtocol {
+    
+    func makeAuthCoordinator(
+        navController: UINavigationController,
+        output: AuthCoordinatorOutput
+    ) -> AuthCoordinator {
+        return AuthCoordinator(
+            navController: navController,
+            output: output
+        )
+    }
+    
+    func makeRegistrationCoordinator(
+        navController: UINavigationController,
+        output: RegistrationCoordinatorOutput
+    ) -> RegistrationCoordinator {
+        RegistrationCoordinator(
+            navController: navController,
+            output: output,
+            localSessionStore: AppServices.shared.localSessionStore,
+            authService: AppServices.shared.authService
+        )
+    }
+    
+    func makeTabBarCoordinator(
+        tabBarController: UITabBarController,
+        output: TabBarCoordinatorOutput,
+        factory: TabBarCoordinatorFactoryProtocol
+    ) -> TabBarCoordinator {
+        TabBarCoordinator(
+            tabBarController: tabBarController,
+            output: output,
+            factory: factory
+        )
+    }
 }

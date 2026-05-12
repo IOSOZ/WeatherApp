@@ -8,6 +8,9 @@
 import Foundation
 import UIKit
 
+protocol WeatherCoordinatorOutput: AnyObject {
+    func requestAuthCoordinator()
+}
 
 final class WeatherCoordinator: Coordinator {
     
@@ -15,19 +18,24 @@ final class WeatherCoordinator: Coordinator {
     var childCoordinators: [any Coordinator] = []
     
     var onFinish: (() -> Void)?
-    private let factory: WeatherCoordinatorFactory
+    
+    private weak var output: WeatherCoordinatorOutput?
+    
+    private let factory: WeatherCoordinatorFactoryProtocol
     private let moduleFactory = WeatherModuleFactory(
         weatherService: AppServices.shared.weatherService,
         locationService: AppServices.shared.locationService,
         citySearchService: AppServices.shared.citySearchService,
         localSessionStore: AppServices.shared.localSessionStore)
     
-    // MARK: - NavController
-    let tabBar: UITabBarController
+    // MARK: - NavBar
+    let navBar: UINavigationController
     
-    init(factory: WeatherCoordinatorFactory, tabBar: UITabBarController) {
+    // MARK: - Intin
+    init(navBar: UINavigationController, output: WeatherCoordinatorOutput, factory: WeatherCoordinatorFactoryProtocol, ) {
         self.factory = factory
-        self.tabBar = tabBar
+        self.navBar = navBar
+        self.output = output
     }
     
     // MARK: - Start Method
@@ -36,13 +44,43 @@ final class WeatherCoordinator: Coordinator {
     }
 }
 
-// MARK: - Setup Logic
-private extension WeatherCoordinator {
-    func showWeatherScreen() {
-        let vc = moduleFactory.makeWeatherViewController {[weak self] in
-            self?.factory.makeAuthCoordinator()
-        }
-        
-        tabBar.setViewControllers([vc], animated: false)
+// MARK: - Output Implementation
+extension WeatherCoordinator: SettingsCoordinatorOutput {
+    func requestAuthFlow() {
+        self.output?.requestAuthCoordinator()
     }
 }
+
+// MARK: - Create and Start Module
+private extension WeatherCoordinator {
+    func showWeatherScreen() {
+        let vc = moduleFactory.makeWeatherViewController { [weak self] in
+            self?.output?.requestAuthCoordinator()
+            self?.onFinish?()
+        } onSetting: { [weak self] in
+            #warning("Тут по идее нельзя винишировать флоу Weather")
+            self?.showSettingFlow()
+        }
+        
+        navBar.setViewControllers([vc], animated: false)
+    }
+}
+
+
+// TODO
+// MARK: - Create and Start Flow
+private extension WeatherCoordinator {
+    func showSettingFlow() {        
+        let coordinator = SettingsCoordinator(output: self, navController: navBar)
+        
+        coordinator.onFinish = { [weak self, weak coordinator] in
+            guard let self, let coordinator else { return }
+            self.removeChild(coordinator)
+        }
+        
+        addChild(coordinator)
+        coordinator.start()
+        
+    }
+}
+

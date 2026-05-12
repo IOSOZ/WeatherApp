@@ -17,9 +17,9 @@ enum RegistrationError: Error {
     case invalidResponse
 }
 
-protocol RegistrationCoordinatorFactory {
-    func makeAuthCoordinator()
-    func makeMainCoordinator()
+protocol RegistrationCoordinatorOutput: AnyObject {
+    func requestAuthFlow()
+    func requestTabBarFlow()
 }
 
 final class RegistrationCoordinator: Coordinator {
@@ -33,7 +33,7 @@ final class RegistrationCoordinator: Coordinator {
     
     var onFinish: (() -> Void)?
     
-    private let factory: RegistrationCoordinatorFactory
+    private weak var output: RegistrationCoordinatorOutput?
     private let moduleFactory = RegistrationModuleFactory(
         authService: AppServices.shared.authService,
         biomerticAuthService: AppServices.shared.biometricAuthService,
@@ -48,11 +48,11 @@ final class RegistrationCoordinator: Coordinator {
     
     // MARK: - Init
     init(navController: UINavigationController,
-         factory: RegistrationCoordinatorFactory,
+         output: RegistrationCoordinatorOutput,
          localSessionStore: LocalSessionStoreProtocol,
          authService: AuthServiceProtocol) {
         self.navController = navController
-        self.factory = factory
+        self.output = output
         self.localSessionStore = localSessionStore
         self.authService = authService
     }
@@ -79,7 +79,7 @@ private extension RegistrationCoordinator {
             self.showPasswordStep()
             
         } onBackToAuth: { [weak self] in
-            self?.factory.makeAuthCoordinator()
+            self?.output?.requestAuthFlow()
             self?.onFinish?()
         }
         navController.setViewControllers([loginVC], animated: true)
@@ -91,7 +91,7 @@ private extension RegistrationCoordinator {
             self.draft.password = password
             self.showPinStep()
         } onBackToAuth: { [weak self] in
-            self?.factory.makeAuthCoordinator()
+            self?.output?.requestAuthFlow()
             self?.onFinish?()
         }
         navController.pushViewController(passwordVC, animated: true)
@@ -124,7 +124,7 @@ private extension RegistrationCoordinator {
             }
             
         } onBackToAuth: { [weak self] in
-            self?.factory.makeAuthCoordinator()
+            self?.output?.requestAuthFlow()
             self?.onFinish?()
         }
 
@@ -159,7 +159,7 @@ private extension RegistrationCoordinator {
                 localSessionStore.savePin(pin)
                 localSessionStore.setBiometricEnabled(biometricIsEnabled)
                 onFinish?()
-                factory.makeMainCoordinator()
+                output?.requestTabBarFlow()
             case .failure(let error):
                 print("Registration error:", error)
             }
@@ -178,7 +178,7 @@ private extension RegistrationCoordinator {
         localSessionStore.savePin(pin)
         localSessionStore.setBiometricEnabled(biometricIsEnabled)
         onFinish?()
-        factory.makeMainCoordinator()
+        output?.requestTabBarFlow()
     }
     
     // MARK: - Navigation

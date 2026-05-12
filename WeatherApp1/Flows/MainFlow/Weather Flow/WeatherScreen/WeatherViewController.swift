@@ -20,6 +20,7 @@ class WeatherViewController: UIViewController {
     private let resultsTableView = UITableView()
     
     private let logOutButton = UIButton()
+    private let settingsButton = UIButton()
     
     private let cityLabel = UILabel()
     private let weatherIcon = UIImageView()
@@ -51,6 +52,7 @@ class WeatherViewController: UIViewController {
     
     // MARK: - Private Properties
     private var snapshot: [CitySuggestion] = []
+    private var isSearchResultsVisible = false
     
     // MARK: - Init
     init(viewModel: WeatherViewModel) {
@@ -75,6 +77,12 @@ class WeatherViewController: UIViewController {
         bindViewModel()
         setupKeyBoard()
         viewModel.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 }
 
@@ -101,10 +109,16 @@ private extension WeatherViewController {
         searchBar.searchTextField.layer.cornerRadius = 12
         searchBar.searchTextField.layer.masksToBounds = true
         
+        settingsButton.backgroundColor = UIColor(white: 1, alpha: 0.2)
+        settingsButton.tintColor = .white
+        settingsButton.setImage(UIImage(systemName: "gear"), for: .normal)
+        settingsButton.layer.cornerRadius = 12
+        
         logOutButton.backgroundColor = UIColor(white: 1, alpha: 0.2)
         logOutButton.tintColor = .white
         logOutButton.setImage(UIImage(systemName: "rectangle.portrait.and.arrow.right"), for: .normal)
         logOutButton.layer.cornerRadius = 12
+        
         
         // MARK: - ResultsTableView Setup
         resultsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -188,6 +202,7 @@ private extension WeatherViewController {
         currentWeatherMainStack.spacing = 12
         
         // MARK: - Add Views
+        searchViewStack.addArrangedSubview(settingsButton)
         searchViewStack.addArrangedSubview(searchBar)
         searchViewStack.addArrangedSubview(logOutButton)
         
@@ -238,6 +253,9 @@ private extension WeatherViewController {
         }
         
         logOutButton.snp.makeConstraints { make in
+            make.size.equalTo(44)
+        }
+        settingsButton.snp.makeConstraints { make in
             make.size.equalTo(44)
         }
         
@@ -314,9 +332,14 @@ private extension WeatherViewController {
         viewModel.didTapLogout()
     }
     
+    @objc func didTapSetting() {
+        viewModel.didTapSettings()
+    }
     func setupActions() {
         logOutButton.addTarget(self, action: #selector(logOut), for: .touchUpInside)
+        settingsButton.addTarget(self, action: #selector(didTapSetting), for: .touchUpInside)
     }
+    
 }
 
 private extension WeatherViewController {
@@ -390,22 +413,42 @@ extension WeatherViewController: UISearchBarDelegate {
     }
     
     func updateSearchResultsVisibility(isVisible: Bool) {
+    
+        guard isSearchResultsVisible != isVisible else { return }
+        
+        isSearchResultsVisible = isVisible
+        
         if isVisible {
             UIView.animate(withDuration: 0.2) {
                 self.logOutButton.transform = CGAffineTransform(translationX: 52, y: 0)
                 self.logOutButton.alpha = 0
+                
+                self.settingsButton.transform = CGAffineTransform(translationX: -52, y: 0)
+                self.settingsButton.alpha = 0
+                
             } completion: { _ in
                 self.logOutButton.isHidden = true
                 self.logOutButton.transform = .identity
+                
+                self.settingsButton.isHidden = true
+                self.settingsButton.transform = .identity
             }
         } else {
             logOutButton.isHidden = false
             logOutButton.transform = CGAffineTransform(translationX: 52, y: 0)
             logOutButton.alpha = 0
+        
+            settingsButton.isHidden = false
+            settingsButton.transform = CGAffineTransform(translationX: -52, y: 0)
+            settingsButton.alpha = 0
+            
             
             UIView.animate(withDuration: 0.2) {
                 self.logOutButton.transform = .identity
                 self.logOutButton.alpha = 1
+                
+                self.settingsButton.transform = .identity
+                self.settingsButton.alpha = 1
             }
         }
         

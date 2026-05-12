@@ -27,6 +27,7 @@ final class WeatherViewModel: WeatherViewModelInput {
     
     // MARK: - Outputs
     var onBackToAuth: (() -> Void)?
+    var onSettings: (() -> Void)?
     
     // MARK: - DI
     private let weatherService: WeatherServiceProtocol
@@ -84,6 +85,10 @@ final class WeatherViewModel: WeatherViewModelInput {
     func didTapLogout() {
         localSessionStore.clearSession()
         onBackToAuth?()
+    }
+    
+    func didTapSettings() {
+        onSettings?()
     }
 }
 

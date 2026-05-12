@@ -27,17 +27,28 @@
 		6C509B942F707BF10080FDBE /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C509B902F707BF10080FDBE /* SF-Pro.ttf */; };
 		6C509BAE2F707C0F0080FDBE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C509BAC2F707C0F0080FDBE /* LaunchScreen.storyboard */; };
 		6CA8C59D2F718C3C00FC2151 /* FaceIDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA8C59C2F718C3C00FC2151 /* FaceIDButton.swift */; };
+		6CAD3E1E2FACBC9300127D08 /* WatherCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAD3E1D2FACBC9300127D08 /* WatherCoordinator.swift */; };
+		6CAD3E202FACBCD700127D08 /* WeatherModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAD3E1F2FACBCD700127D08 /* WeatherModuleFactory.swift */; };
+		6CAD3E252FACBDCA00127D08 /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAD3E242FACBDCA00127D08 /* SettingsCoordinator.swift */; };
+		6CAD3E272FACBE7500127D08 /* SettingsModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAD3E262FACBE7500127D08 /* SettingsModuleFactory.swift */; };
+		6CAD3E2D2FACF4A700127D08 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAD3E2C2FACF4A700127D08 /* SettingsViewController.swift */; };
+		6CAD3E2F2FACF58F00127D08 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAD3E2E2FACF58F00127D08 /* SettingsViewModel.swift */; };
+		6CAD3E312FAD12ED00127D08 /* FavoriteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAD3E302FAD12ED00127D08 /* FavoriteCoordinator.swift */; };
+		6CAD3E332FAD130100127D08 /* FavoriteModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAD3E322FAD130100127D08 /* FavoriteModuleFactory.swift */; };
+		6CAD3E362FAD137600127D08 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAD3E352FAD137600127D08 /* FavoriteViewController.swift */; };
+		6CAD3E382FAD138400127D08 /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAD3E372FAD138400127D08 /* FavoriteViewModel.swift */; };
+		6CAD3E3C2FB2950E00127D08 /* TabBarCoordinatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAD3E3B2FB2950E00127D08 /* TabBarCoordinatorFactory.swift */; };
+		6CAD3E3E2FB299D500127D08 /* WeatherCoordinatorFctory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAD3E3D2FB299D500127D08 /* WeatherCoordinatorFctory.swift */; };
 		6CE8FFD52F8936310064F84E /* mocWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE8FFD42F8936300064F84E /* mocWeather.swift */; };
 		6CEBFDB52F5880980003249D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6CEBFDB42F5880980003249D /* SnapKit */; };
 		6CEF546D2F732B57007145CB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF546C2F732B57007145CB /* GoogleService-Info.plist */; };
 		6CEF54702F7331DE007145CB /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6CEF546F2F7331DE007145CB /* FirebaseCore */; };
 		6CEF54722F7331DE007145CB /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 6CEF54712F7331DE007145CB /* FirebaseFirestore */; };
-		6CEF54952F844836007145CB /* CoordinatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF54942F844836007145CB /* CoordinatorFactory.swift */; };
-		6CEF55222F8552EC007145CB /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55012F8552EC007145CB /* MainCoordinator.swift */; };
+		6CEF54952F844836007145CB /* AppCoordinatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF54942F844836007145CB /* AppCoordinatorFactory.swift */; };
+		6CEF55222F8552EC007145CB /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55012F8552EC007145CB /* TabBarCoordinator.swift */; };
 		6CEF55232F8552EC007145CB /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF54FA2F8552EC007145CB /* AuthCoordinator.swift */; };
 		6CEF55242F8552EC007145CB /* FaceIDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55082F8552EC007145CB /* FaceIDViewController.swift */; };
 		6CEF55252F8552EC007145CB /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF551D2F8552EC007145CB /* LocationService.swift */; };
-		6CEF55262F8552EC007145CB /* MainModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55022F8552EC007145CB /* MainModuleFactory.swift */; };
 		6CEF55272F8552EC007145CB /* LoginPINViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF54F42F8552EC007145CB /* LoginPINViewModel.swift */; };
 		6CEF55282F8552EC007145CB /* RegistrationModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55162F8552EC007145CB /* RegistrationModuleFactory.swift */; };
 		6CEF55292F8552EC007145CB /* FaceIDViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF55092F8552EC007145CB /* FaceIDViewModel.swift */; };
@@ -93,10 +104,22 @@
 		6C509B902F707BF10080FDBE /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
 		6C509BAB2F707C0F0080FDBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6CA8C59C2F718C3C00FC2151 /* FaceIDButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDButton.swift; sourceTree = "<group>"; };
+		6CAD3E1D2FACBC9300127D08 /* WatherCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatherCoordinator.swift; sourceTree = "<group>"; };
+		6CAD3E1F2FACBCD700127D08 /* WeatherModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModuleFactory.swift; sourceTree = "<group>"; };
+		6CAD3E242FACBDCA00127D08 /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
+		6CAD3E262FACBE7500127D08 /* SettingsModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModuleFactory.swift; sourceTree = "<group>"; };
+		6CAD3E2C2FACF4A700127D08 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		6CAD3E2E2FACF58F00127D08 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		6CAD3E302FAD12ED00127D08 /* FavoriteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCoordinator.swift; sourceTree = "<group>"; };
+		6CAD3E322FAD130100127D08 /* FavoriteModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteModuleFactory.swift; sourceTree = "<group>"; };
+		6CAD3E352FAD137600127D08 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		6CAD3E372FAD138400127D08 /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
+		6CAD3E3B2FB2950E00127D08 /* TabBarCoordinatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinatorFactory.swift; sourceTree = "<group>"; };
+		6CAD3E3D2FB299D500127D08 /* WeatherCoordinatorFctory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCoordinatorFctory.swift; sourceTree = "<group>"; };
 		6CE8FFD42F8936300064F84E /* mocWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mocWeather.swift; sourceTree = "<group>"; };
 		6CEBFD702F55AADC0003249D /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CEF546C2F732B57007145CB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		6CEF54942F844836007145CB /* CoordinatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorFactory.swift; sourceTree = "<group>"; };
+		6CEF54942F844836007145CB /* AppCoordinatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinatorFactory.swift; sourceTree = "<group>"; };
 		6CEF54F32F8552EC007145CB /* LoginPINViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPINViewController.swift; sourceTree = "<group>"; };
 		6CEF54F42F8552EC007145CB /* LoginPINViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPINViewModel.swift; sourceTree = "<group>"; };
 		6CEF54F62F8552EC007145CB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -105,8 +128,7 @@
 		6CEF54FB2F8552EC007145CB /* AuthModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModuleFactory.swift; sourceTree = "<group>"; };
 		6CEF54FD2F8552EC007145CB /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		6CEF54FE2F8552EC007145CB /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
-		6CEF55012F8552EC007145CB /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
-		6CEF55022F8552EC007145CB /* MainModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModuleFactory.swift; sourceTree = "<group>"; };
+		6CEF55012F8552EC007145CB /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		6CEF55042F8552EC007145CB /* CitySuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySuggestion.swift; sourceTree = "<group>"; };
 		6CEF55052F8552EC007145CB /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		6CEF55062F8552EC007145CB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -176,7 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				6C509ABE2F7052820080FDBE /* AppCoordinator.swift */,
-				6CEF54942F844836007145CB /* CoordinatorFactory.swift */,
+				6CEF54942F844836007145CB /* AppCoordinatorFactory.swift */,
 				6C509ABF2F7052820080FDBE /* AppDelegate.swift */,
 				6C509AC12F7052820080FDBE /* SceneDelegate.swift */,
 			);
@@ -229,6 +251,55 @@
 				6C509BAC2F707C0F0080FDBE /* LaunchScreen.storyboard */,
 			);
 			path = StoryBoards;
+			sourceTree = "<group>";
+		};
+		6CAD3E1C2FACBC5200127D08 /* Weather Flow */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF54FF2F8552EC007145CB /* WeatherScreen */,
+				6CAD3E1D2FACBC9300127D08 /* WatherCoordinator.swift */,
+				6CAD3E3D2FB299D500127D08 /* WeatherCoordinatorFctory.swift */,
+				6CAD3E1F2FACBCD700127D08 /* WeatherModuleFactory.swift */,
+			);
+			path = "Weather Flow";
+			sourceTree = "<group>";
+		};
+		6CAD3E232FACBDA200127D08 /* SettingsFlow */ = {
+			isa = PBXGroup;
+			children = (
+				6CAD3E292FACF41D00127D08 /* SettingsSreens */,
+				6CAD3E242FACBDCA00127D08 /* SettingsCoordinator.swift */,
+				6CAD3E262FACBE7500127D08 /* SettingsModuleFactory.swift */,
+			);
+			path = SettingsFlow;
+			sourceTree = "<group>";
+		};
+		6CAD3E282FACF25C00127D08 /* FavoriteFlow */ = {
+			isa = PBXGroup;
+			children = (
+				6CAD3E342FAD135E00127D08 /* FavoriteScreen */,
+				6CAD3E302FAD12ED00127D08 /* FavoriteCoordinator.swift */,
+				6CAD3E322FAD130100127D08 /* FavoriteModuleFactory.swift */,
+			);
+			path = FavoriteFlow;
+			sourceTree = "<group>";
+		};
+		6CAD3E292FACF41D00127D08 /* SettingsSreens */ = {
+			isa = PBXGroup;
+			children = (
+				6CAD3E2C2FACF4A700127D08 /* SettingsViewController.swift */,
+				6CAD3E2E2FACF58F00127D08 /* SettingsViewModel.swift */,
+			);
+			path = SettingsSreens;
+			sourceTree = "<group>";
+		};
+		6CAD3E342FAD135E00127D08 /* FavoriteScreen */ = {
+			isa = PBXGroup;
+			children = (
+				6CAD3E352FAD137600127D08 /* FavoriteViewController.swift */,
+				6CAD3E372FAD138400127D08 /* FavoriteViewModel.swift */,
+			);
+			path = FavoriteScreen;
 			sourceTree = "<group>";
 		};
 		6CEBFD672F55AADC0003249D = {
@@ -293,20 +364,14 @@
 			path = WeatherScreen;
 			sourceTree = "<group>";
 		};
-		6CEF55002F8552EC007145CB /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				6CEF54FF2F8552EC007145CB /* WeatherScreen */,
-			);
-			path = Screens;
-			sourceTree = "<group>";
-		};
 		6CEF55032F8552EC007145CB /* MainFlow */ = {
 			isa = PBXGroup;
 			children = (
-				6CEF55002F8552EC007145CB /* Screens */,
-				6CEF55012F8552EC007145CB /* MainCoordinator.swift */,
-				6CEF55022F8552EC007145CB /* MainModuleFactory.swift */,
+				6CAD3E1C2FACBC5200127D08 /* Weather Flow */,
+				6CAD3E282FACF25C00127D08 /* FavoriteFlow */,
+				6CAD3E232FACBDA200127D08 /* SettingsFlow */,
+				6CEF55012F8552EC007145CB /* TabBarCoordinator.swift */,
+				6CAD3E3B2FB2950E00127D08 /* TabBarCoordinatorFactory.swift */,
 			);
 			path = MainFlow;
 			sourceTree = "<group>";
@@ -495,12 +560,16 @@
 				6C509AF82F7052820080FDBE /* AppDelegate.swift in Sources */,
 				6C509AFA2F7052820080FDBE /* SceneDelegate.swift in Sources */,
 				6C509AFB2F7052820080FDBE /* UILabelHelper.swift in Sources */,
-				6CEF55222F8552EC007145CB /* MainCoordinator.swift in Sources */,
+				6CEF55222F8552EC007145CB /* TabBarCoordinator.swift in Sources */,
+				6CAD3E272FACBE7500127D08 /* SettingsModuleFactory.swift in Sources */,
+				6CAD3E252FACBDCA00127D08 /* SettingsCoordinator.swift in Sources */,
 				6CEF55232F8552EC007145CB /* AuthCoordinator.swift in Sources */,
 				6CEF55242F8552EC007145CB /* FaceIDViewController.swift in Sources */,
 				6CEF55252F8552EC007145CB /* LocationService.swift in Sources */,
-				6CEF55262F8552EC007145CB /* MainModuleFactory.swift in Sources */,
+				6CAD3E312FAD12ED00127D08 /* FavoriteCoordinator.swift in Sources */,
 				6CEF55272F8552EC007145CB /* LoginPINViewModel.swift in Sources */,
+				6CAD3E2D2FACF4A700127D08 /* SettingsViewController.swift in Sources */,
+				6CAD3E3C2FB2950E00127D08 /* TabBarCoordinatorFactory.swift in Sources */,
 				6CE8FFD52F8936310064F84E /* mocWeather.swift in Sources */,
 				6CEF55282F8552EC007145CB /* RegistrationModuleFactory.swift in Sources */,
 				6CEF55292F8552EC007145CB /* FaceIDViewModel.swift in Sources */,
@@ -515,18 +584,23 @@
 				6CEF552E2F8552EC007145CB /* LocalSessionStore.swift in Sources */,
 				6CEF552F2F8552EC007145CB /* PinCodeViewModel.swift in Sources */,
 				6CEF55302F8552EC007145CB /* AuthModuleFactory.swift in Sources */,
+				6CAD3E1E2FACBC9300127D08 /* WatherCoordinator.swift in Sources */,
 				6CEF55312F8552EC007145CB /* LoginViewModel.swift in Sources */,
 				6CEF55322F8552EC007145CB /* RegisterLoginViewModel.swift in Sources */,
+				6CAD3E362FAD137600127D08 /* FavoriteViewController.swift in Sources */,
 				6CEF55332F8552EC007145CB /* LoginViewController.swift in Sources */,
+				6CAD3E3E2FB299D500127D08 /* WeatherCoordinatorFctory.swift in Sources */,
 				6CEF55342F8552EC007145CB /* AuthService.swift in Sources */,
 				6CEF55352F8552EC007145CB /* BiomerticAuthService.swift in Sources */,
 				6CEF55362F8552EC007145CB /* LoginPINViewController.swift in Sources */,
 				6CEF55372F8552EC007145CB /* WeatherService.swift in Sources */,
+				6CAD3E2F2FACF58F00127D08 /* SettingsViewModel.swift in Sources */,
 				6CEF55382F8552EC007145CB /* RegisterPasswordViewController.swift in Sources */,
 				6CEF55392F8552EC007145CB /* WeatherViewController.swift in Sources */,
 				6CEF554A2F8812B1007145CB /* ImageCacheService.swift in Sources */,
 				6CEF553A2F8552EC007145CB /* CitySearchService.swift in Sources */,
 				6CEF553B2F8552EC007145CB /* User.swift in Sources */,
+				6CAD3E332FAD130100127D08 /* FavoriteModuleFactory.swift in Sources */,
 				6CEF553C2F8552EC007145CB /* RegisterLoginViewController.swift in Sources */,
 				6CEF553D2F8552EC007145CB /* SessionService.swift in Sources */,
 				6CEF553E2F8552EC007145CB /* PinCodeViewController.swift in Sources */,
@@ -534,16 +608,18 @@
 				6CEF55402F8552EC007145CB /* RegistationCoordinator.swift in Sources */,
 				6C42CDC52F982A87002BB0C7 /* JSONDecoderEX.swift in Sources */,
 				6CA8C59D2F718C3C00FC2151 /* FaceIDButton.swift in Sources */,
-				6CEF54952F844836007145CB /* CoordinatorFactory.swift in Sources */,
+				6CEF54952F844836007145CB /* AppCoordinatorFactory.swift in Sources */,
 				6C509B122F7052820080FDBE /* CoordinatorProtocol.swift in Sources */,
 				6C509B792F707BD60080FDBE /* FaceIDAlertController.swift in Sources */,
 				6C509B7A2F707BD60080FDBE /* LoginTextField.swift in Sources */,
 				6C07F6CA2F8FB4EE0056E0C8 /* searchResultsTableVC.swift in Sources */,
+				6CAD3E202FACBCD700127D08 /* WeatherModuleFactory.swift in Sources */,
 				6C509B7B2F707BD60080FDBE /* PasswordChekLabel.swift in Sources */,
 				6C509B7C2F707BD60080FDBE /* PasswordTextField.swift in Sources */,
 				6C509B7D2F707BD60080FDBE /* PinDeleteButton.swift in Sources */,
 				6C509B7E2F707BD60080FDBE /* PinDotsView.swift in Sources */,
 				6C509B7F2F707BD60080FDBE /* PinKeyboardView.swift in Sources */,
+				6CAD3E382FAD138400127D08 /* FavoriteViewModel.swift in Sources */,
 				6C509B802F707BD60080FDBE /* PinNumberButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
