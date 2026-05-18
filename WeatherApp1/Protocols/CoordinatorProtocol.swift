@@ -15,6 +15,7 @@ protocol Coordinator: AnyObject {
     func start()
     var childCoordinators: [Coordinator] { get set }
     var onFinish: (() -> Void)? { get }
+//  var container: UIViewController { get }
 }
 
 

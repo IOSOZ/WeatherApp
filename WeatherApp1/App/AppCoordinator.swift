@@ -72,7 +72,6 @@ extension AppCoordinator: AuthCoordinatorOutput, RegistrationCoordinatorOutput, 
 // MARK: - Create and Start Flow
 private extension AppCoordinator {
     func showAuthFlow() {
-        window.rootViewController = navController
 
         let coordinator = factory.makeAuthCoordinator(
             navController: navController,
@@ -89,7 +88,6 @@ private extension AppCoordinator {
     }
 
     func showRegistrationFlow() {
-        window.rootViewController = navController
 
         let coordinator = factory.makeRegistrationCoordinator(
             navController: navController,
@@ -107,7 +105,9 @@ private extension AppCoordinator {
 
     func showTabBarFlow() {
         let tabBarController = UITabBarController()
-        window.rootViewController = tabBarController
+        
+        navController.isNavigationBarHidden = true
+        navController.setViewControllers([tabBarController], animated: true)
 
         let coordinator = factory.makeTabBarCoordinator(
             tabBarController: tabBarController,

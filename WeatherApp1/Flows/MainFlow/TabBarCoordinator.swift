@@ -111,7 +111,7 @@ private extension TabBarCoordinator {
 
     func makeWeatherCoordinator()  {
         let navBar = UINavigationController()
-        let coordinator = WeatherCoordinator(navBar: navBar, output: self, factory: WeatherCoordinatorFactory())
+        let coordinator = factory.makeWeatherCoordinator(navController: navBar, output: self, factory: WeatherCoordinatorFactory())
         
         coordinator.onFinish = { [weak self, weak coordinator] in
             guard let self, let coordinator else { return}

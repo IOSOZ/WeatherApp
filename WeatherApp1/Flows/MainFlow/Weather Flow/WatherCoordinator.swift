@@ -66,12 +66,10 @@ private extension WeatherCoordinator {
     }
 }
 
-
-// TODO
 // MARK: - Create and Start Flow
 private extension WeatherCoordinator {
     func showSettingFlow() {        
-        let coordinator = SettingsCoordinator(output: self, navController: navBar)
+        let coordinator = factory.makeSettingsCoordinator(navController: navBar, output: self)
         
         coordinator.onFinish = { [weak self, weak coordinator] in
             guard let self, let coordinator else { return }
@@ -83,4 +81,3 @@ private extension WeatherCoordinator {
         
     }
 }
-
